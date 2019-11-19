@@ -1,0 +1,120 @@
+<resources>
+    <string name="app_name">Impilo</string>
+    <string name="title_auth">Authentication</string>
+
+    /* LOGIN */
+    <string name="login">LOGIN</string>
+    <string name="password">Password</string>
+    <string name="e_mail" translatable="false">E-mail</string>
+    <string name="or_you_can">or you can</string>
+    <string name="create_an_account">CREATE AN ACCOUNT</string>
+    <string name="forget_your_password">Forget your password?</string>
+    <string name="field_required">The field is required</string>
+    <string name="register_information">NEW ACCOUNT</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="full_name">Full name</string>
+    <string name="next">NEXT</string>
+    <string name="sign_in_with_google">Sign in with google</string>
+    <string name="invalid_email_format">Incorrect email address</string>
+    <string name="password_length_error">Password to short</string>
+    <string name="invalid_value">Incorrect value</string>
+
+    /* REGISTRATION */
+    <string name="register_description">Hello ! Creating an account requires some basic information</string>
+    <string name="back">BACK</string>
+    <string name="male">MALE</string>
+    <string name="female">FEMALE</string>
+    <string name="ectomorph">Ectomorph</string>
+    <string name="mesomorph">Mesomorph</string>
+    <string name="endomorph">Endomorph</string>
+    <string name="ecto_mesomorph">Ecto-Mesomorph</string>
+    <string name="meso_ectomorph">Meso-Ectomorph</string>
+    <string name="endo_mesomorph">Endo-Mesomorph</string>
+    <string name="meso_endomorph">Meso-Endomorph</string>
+    <string name="basic_information">BASIC INFORMATION</string>
+    <string name="lifestyle_descript">Select your lifestyle and goal.</string>
+    <string name="lifestyle">LIFESTYLE</string>
+    <string name="workout_style">WORKOUT STYLE</string>
+    <string name="workout_style_descript">Choose the style, amount and duration of workouts.</string>
+    <string name="sedentary">Sedentary</string>
+    <string name="light_activity">Light Activity</string>
+    <string name="active">Active</string>
+    <string name="very_active">Very Active</string>
+    <string name="sedentary_descript">A person working in an office on a computer. Little movement during the day.</string>
+    <string name="light_activity_descript">A person who spends a significant part of the day on their feet. Moves mainly on foot.</string>
+    <string name="active_descript">Physically working person e.g. waitress, courier, housekeeper</string>
+    <string name="very_active_descript">A hard-working person e.g. a construction worker, paver</string>
+    <string name="light_workout">Light</string>
+    <string name="light_workout_descript">Light weights. Easy breathing.</string>
+    <string name="moderate_workout">Moderate</string>
+    <string name="moderate_workout_descript">Intense trainings. Elevated hearth rate.</string>
+    <string name="heavy_workout">Heavy</string>
+    <string name="heavy_workout_descript">Heavy weights. Heavy breathing.</string>
+    <string name="loss">Loss</string>
+    <string name="loss_title">Fat loss</string>
+    <string name="maintain">Maintain</string>
+    <string name="maintain_title">Maintain</string>
+    <string name="bulking">Bulking</string>
+    <string name="bulking_title">Bulking</string>
+    <string name="register">REGISTER</string>
+    <string name="basic_info_description">This information will allow us to calculate your daily calories and macronutrients needs. More measurements of individual body parts can be added in the profile settings.</string>
+    <string name="somatotype_subtitle1">Somatotype is a human body shape and physique type. Choose your somatotype. Types can be combined</string>
+    <string name="somatotype">SOMATOTYPE</string>
+
+    <string-array name="firstConfigTitles">
+        <item>@string/register_information</item>
+        <item>@string/basic_information</item>
+        <item>@string/somatotype</item>
+        <item>@string/workout_style</item>
+        <item>@string/lifestyle</item>
+    </string-array>
+
+    <string-array name="firstConfigDescriptions">
+        <item>@string/register_description</item>
+        <item>@string/basic_info_description</item>
+        <item>@string/somatotype_subtitle1</item>
+        <item>@string/workout_style_descript</item>
+        <item>@string/lifestyle_descript</item>
+    </string-array>
+
+    <string-array name="lifestyleTitles">
+        <item>@string/sedentary</item>
+        <item>@string/light_activity</item>
+        <item>@string/active</item>
+        <item>@string/very_active</item>
+    </string-array>
+
+    <string-array name="lifestyleDescriptions">
+        <item>@string/sedentary_descript</item>
+        <item>@string/light_activity_descript</item>
+        <item>@string/active_descript</item>
+        <item>@string/very_active_descript</item>
+    </string-array>
+
+    <string-array name="workoutTitles">
+        <item>@string/light_workout</item>
+        <item>@string/moderate_workout</item>
+        <item>@string/heavy_workout</item>
+    </string-array>
+
+    <string-array name="workoutDescriptions">
+        <item>@string/light_workout_descript</item>
+        <item>@string/moderate_workout_descript</item>
+        <item>@string/heavy_workout_descript</item>
+    </string-array>
+
+    <string-array name="goalTitles">
+        <item>@string/loss_title</item>
+        <item>@string/maintain_title</item>
+        <item>@string/bulking_title</item>
+    </string-array>
+
+    /* OTHERS */
+    <string name="back_online">Back online</string>
+    <string name="no_connection">No connection</string>
+    <string name="no_internet_connection">No internet Connection</string>
+    <string name="check_your_connection_and_try_agan">Check your connection and try again</string>
+    <string name="reload">Reload</string>
+    <string name="failed_signing_in">Invalid e-mail or password</string>
+    <string name="success_login">Logged In Successful</string>
+</resources>
