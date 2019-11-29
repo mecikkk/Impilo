@@ -50,6 +50,8 @@ dependencies {
     /* OTHERS */
     api 'com.airbnb.android:lottie:2.5.0'
     api 'me.relex:circleindicator:2.1.4'
+    api 'com.polyak:icon-switch:1.0.0'
+    api 'me.rishabhkhanna:CustomToggle:1.0.0'
 
     /* TESTS */
     testImplementation 'junit:junit:4.12'

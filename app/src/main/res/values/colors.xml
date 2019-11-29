@@ -6,4 +6,6 @@
     <color name="loginBackground">#1d1727</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">#fff</color>
     <color name="textColor">#000000</color>
+    <color name="genderSwitchBg">#414141</color>
+    <color name="genderSwitchThumbLeft">#820a32</color>
 </resources>

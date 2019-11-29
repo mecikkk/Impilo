@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newaccount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:background="@color/loginBackground"
+    tools:context=".registration.configuration.BasicInformationFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/second_config_fields_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/height_input_layout"
+            style="@style/LightTextInputLayoutStyle.LayoutStyle"
+            android:alpha="1"
+            android:hint="@string/height"
+            app:hintTextColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/height_textfield"
+                style="@style/lightEditTextStyle"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/weight_input_layout"
+            style="@style/LightTextInputLayoutStyle.LayoutStyle"
+            android:alpha="1"
+            android:hint="@string/weight"
+            app:hintTextColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/height_input_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/weight_textfield"
+                style="@style/lightEditTextStyle"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/waist_input_layout"
+            style="@style/LightTextInputLayoutStyle.LayoutStyle"
+            android:alpha="1"
+            android:hint="@string/waist"
+            app:hintTextColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/weight_input_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/waist_textfield"
+                style="@style/lightEditTextStyle"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/birth_date_input_layout2"
+            style="@style/LightTextInputLayoutStyle.LayoutStyle"
+            android:layout_width="match_parent"
+            android:hint="@string/date_of_birth"
+            android:visibility="gone"
+            android:textColorHint="#ddd"
+            app:hintTextColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/waist_input_layout"
+            app:startIconDrawable="@drawable/ic_cake"
+            app:startIconTint="#fff">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/birth_date_textfield2"
+                android:inputType="date"
+                android:focusable="false"
+                style="@style/lightEditTextStyle" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/gender_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/birth_date_input_layout2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.polyak.iconswitch.IconSwitch
+                android:id="@+id/gender_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:isw_background_color="#fff"
+                app:isw_thumb_color_left="@color/genderSwitchThumbLeft"
+                app:isw_thumb_color_right="@color/colorAccent"
+                app:isw_inactive_tint_icon_left="@color/genderSwitchThumbLeft"
+                app:isw_inactive_tint_icon_right="@color/colorAccent"
+                app:isw_icon_left="@drawable/ic_gender_male"
+                app:isw_icon_right="@drawable/ic_gender_female"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+            <TextView
+                android:id="@+id/gender_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginStart="16dp"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/montserrat_semi_bold_italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/gender_switch"
+                app:layout_constraintTop_toTopOf="@id/gender_switch"
+                android:text="@string/male" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

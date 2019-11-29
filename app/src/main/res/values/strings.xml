@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Impilo</string>
-    <string name="title_auth">Authentication</string>
+    <string name="title_auth" translatable="false">Authentication</string>
 
     /* LOGIN */
-    <string name="login">LOGIN</string>
+    <string name="login">SIGN IN</string>
     <string name="password">Password</string>
     <string name="e_mail" translatable="false">E-mail</string>
     <string name="or_you_can">or you can</string>
@@ -15,7 +15,7 @@
     <string name="full_name">Full name</string>
     <string name="next">NEXT</string>
     <string name="sign_in_with_google">Sign in with google</string>
-    <string name="invalid_email_format">Incorrect email address</string>
+    <string name="invalid_email_format">Incorrect e-mail address</string>
     <string name="password_length_error">Password to short</string>
     <string name="invalid_value">Incorrect value</string>
 
@@ -60,6 +60,15 @@
     <string name="basic_info_description">This information will allow us to calculate your daily calories and macronutrients needs. More measurements of individual body parts can be added in the profile settings.</string>
     <string name="somatotype_subtitle1">Somatotype is a human body shape and physique type. Choose your somatotype. Types can be combined</string>
     <string name="somatotype">SOMATOTYPE</string>
+    <string name="height">Height (cm)</string>
+    <string name="weight">Weight (kg)</string>
+    <string name="waist">Waist (cm)</string>
+    <string name="style">Style</string>
+    <string name="workouts_per_week">Number of workouts per week :</string>
+    <string name="workout_time">Workout time (min)</string>
+    <string name="minutes">Minutes</string>
+    <string name="goal">Goal</string>
+    <string name="optional">Optional</string>
 
     <string-array name="firstConfigTitles">
         <item>@string/register_information</item>
@@ -112,9 +121,9 @@
     /* OTHERS */
     <string name="back_online">Back online</string>
     <string name="no_connection">No connection</string>
-    <string name="no_internet_connection">No internet Connection</string>
+    <string name="no_internet_connection">No internet connection</string>
     <string name="check_your_connection_and_try_agan">Check your connection and try again</string>
-    <string name="reload">Reload</string>
     <string name="failed_signing_in">Invalid e-mail or password</string>
     <string name="success_login">Logged In Successful</string>
+    <string name="finish">FINISH</string>
 </resources>

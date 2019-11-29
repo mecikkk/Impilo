@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newaccount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:background="@color/loginBackground"
+    tools:context=".registration.configuration.LifestyleFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fourth_config_fields_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@id/fourth_config_fields_layout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/lifestyle_title_textview"
+            style="@style/SmallTitleItalicStyle"
+            app:layout_constraintBottom_toTopOf="@id/workout_description_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/light_activity" />
+
+        <TextView
+            android:id="@+id/lifestyle_description_textview"
+            style="@style/DescriptionTextStyle"
+            app:layout_constraintBottom_toTopOf="@id/light_toggle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lifestyle_title_textview"
+            tools:text="@string/light_activity_descript" />
+
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/sedentary_toggle"
+            style="@style/ToggleButtonStyle2"
+            android:textOff="@string/sedentary"
+            android:textOn="@string/sedentary"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@id/light_toggle"
+            app:layout_constraintEnd_toStartOf="@id/light_toggle"
+            app:layout_constraintTop_toTopOf="@id/light_toggle"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/light_toggle"
+            style="@style/ToggleButtonStyle2"
+            android:checked="true"
+            android:textOff="@string/light_activity"
+            android:textOn="@string/light_activity"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lifestyle_description_textview"
+            app:layout_constraintBottom_toTopOf="@id/very_active_toggle"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/active_toggle"
+            style="@style/ToggleButtonStyle2"
+            android:textOff="@string/active"
+            android:textOn="@string/active"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@id/light_toggle"
+            app:layout_constraintStart_toEndOf="@id/light_toggle"
+            app:layout_constraintTop_toTopOf="@id/light_toggle"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/very_active_toggle"
+            style="@style/ToggleButtonStyle2"
+            android:textOff="@string/very_active"
+            android:textOn="@string/very_active"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/light_toggle"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fourth_config_fields_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fourth_config_fields_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <TextView
+            android:id="@+id/goal_textview"
+            style="@style/SmallTitleItalicStyle"
+            app:layout_constraintBottom_toTopOf="@id/goal_description_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/goal" />
+
+        <TextView
+            android:id="@+id/goal_description_textview"
+            style="@style/DescriptionTextStyle"
+            app:layout_constraintBottom_toTopOf="@id/maintain_toggle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/goal_textview"
+            android:text="@string/maintain_title" />
+
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/loss_toggle"
+            style="@style/ToggleButtonStyle2"
+            android:textOff="@string/loss"
+            android:textOn="@string/loss"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@id/maintain_toggle"
+            app:layout_constraintEnd_toStartOf="@id/maintain_toggle"
+            app:layout_constraintTop_toTopOf="@id/maintain_toggle"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/maintain_toggle"
+            style="@style/ToggleButtonStyle2"
+            android:checked="true"
+            android:textOff="@string/maintain"
+            android:textOn="@string/maintain"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/goal_description_textview"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/bulking_toggle"
+            style="@style/ToggleButtonStyle2"
+            android:textOff="@string/bulking"
+            android:textOn="@string/bulking"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@id/maintain_toggle"
+            app:layout_constraintStart_toEndOf="@id/maintain_toggle"
+            app:layout_constraintTop_toTopOf="@id/maintain_toggle"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,9 @@
     </dist:module>
 
     <application tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".registration.Registration"></activity>
+        <activity
+            android:name=".registration.Registration"
+            android:theme="@style/AppTheme.TransparentBars" />
         <activity
             android:name=".login.Login"
             android:theme="@style/AppTheme.TransparentBars" />

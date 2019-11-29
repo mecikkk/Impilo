@@ -79,4 +79,31 @@
         <item name="android:textAppearanceButton">@android:style/TextAppearance.Material.Button
         </item>
     </style>
+
+    <style name="SmallTitleItalicStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/montserrat_semi_bold_italic</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="DescriptionTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#ddd</item>
+    </style>
+
+    <style name="ToggleButtonStyle2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textSize">10sp</item>
+    </style>
 </resources>

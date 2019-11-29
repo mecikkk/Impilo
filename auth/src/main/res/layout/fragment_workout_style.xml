@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newaccount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:background="@color/loginBackground"
+    tools:context=".registration.configuration.WorkoutStyleFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/workout_type_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@id/training_days_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/workout_textview"
+            style="@style/SmallTitleItalicStyle"
+            app:layout_constraintBottom_toTopOf="@id/workout_description_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/style" />
+
+        <TextView
+            android:id="@+id/workout_description_textview"
+            style="@style/DescriptionTextStyle"
+            app:layout_constraintBottom_toTopOf="@id/light_toggle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/workout_textview"
+            tools:text="@string/moderate_workout_descript" />
+
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/light_toggle"
+            style="@style/ToggleButtonStyle2"
+            android:textOff="@string/light_workout"
+            android:textOn="@string/light_workout"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@id/moderate_toggle"
+            app:layout_constraintEnd_toStartOf="@id/moderate_toggle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/moderate_toggle"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/moderate_toggle"
+            style="@style/ToggleButtonStyle2"
+            android:checked="true"
+            android:textOff="@string/moderate_workout"
+            android:textOn="@string/moderate_workout"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/workout_description_textview"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/heavy_toggle"
+            style="@style/ToggleButtonStyle2"
+            android:textOff="@string/heavy_workout"
+            android:textOn="@string/heavy_workout"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@id/moderate_toggle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/moderate_toggle"
+            app:layout_constraintTop_toTopOf="@id/moderate_toggle"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/training_days_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/workout_type_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/time_layout">
+
+        <TextView
+            android:id="@+id/numb_of_trainings"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="@string/workouts_per_week"
+            android:textColor="#ddd"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/moderate_toggle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/days_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/time_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/numb_of_trainings" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/time_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/training_days_layout">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/training_time_textlayout"
+            style="@style/LightTextInputLayoutStyle"
+            app:startIconDrawable="@drawable/ic_timer"
+            app:startIconTint="@android:color/white"
+            android:layout_width="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/workout_time"
+            android:textColorHint="#ddd"
+            app:hintTextColor="#fff">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/training_time_textfield"
+                style="@style/lightEditTextStyle"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

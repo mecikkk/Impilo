@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newaccount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    tools:background="@color/loginBackground"
+    tools:context=".registration.configuration.SomatotypeFragment">
+
+    <ImageSwitcher
+        android:id="@+id/somatotype_image_switcher"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:layout_weight="2.5" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/second_config_fields_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1">
+
+
+        <TextView
+            android:id="@+id/somatotype_textview"
+            style="@style/SmallTitleItalicStyle"
+            app:layout_constraintBottom_toTopOf="@id/mesomorph_toggle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/ectomorph" />
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/mesomorph_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:textSize="10sp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:checked="true"
+            android:textOff="@string/mesomorph"
+            android:textOn="@string/mesomorph"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/endomorph_toggle"
+            app:layout_constraintStart_toEndOf="@id/ectomorph_toggle"
+            app:layout_constraintTop_toBottomOf="@id/somatotype_textview"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/endomorph_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:textSize="10sp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:textOff="@string/endomorph"
+            android:textOn="@string/endomorph"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mesomorph_toggle"
+            app:layout_constraintTop_toBottomOf="@id/somatotype_textview"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+        <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+            android:id="@+id/ectomorph_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:textSize="10sp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:textOff="@string/ectomorph"
+            android:textOn="@string/ectomorph"
+            app:checkedColor="@android:color/white"
+            app:checkedTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/mesomorph_toggle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/somatotype_textview"
+            app:radius="10dp"
+            app:uncheckedColor="@android:color/white"
+            app:uncheckedTextColor="@android:color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

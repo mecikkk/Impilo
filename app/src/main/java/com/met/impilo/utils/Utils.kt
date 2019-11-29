@@ -1,7 +1,5 @@
 package com.met.impilo.utils
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.text.TextUtils
 import android.util.Patterns
 import com.google.android.material.textfield.TextInputEditText
@@ -27,6 +25,16 @@ object Utils {
         }
         return null
     }
+
+    fun toInt(e: TextInputEditText?) =
+        if (!TextUtils.isEmpty(e?.text.toString()))
+            e?.text.toString().toInt()
+        else 0
+
+    fun toFloat(e: TextInputEditText?) =
+        if (!TextUtils.isEmpty(e?.text.toString()))
+            e?.text.toString().toFloat()
+        else 0.0f
 
     fun isEmailValid(email: String, l: TextInputLayout, errorText: String): Boolean {
         return when (Patterns.EMAIL_ADDRESS.matcher(email.trim().replace("\\s+", "")).matches()) {
@@ -67,6 +75,16 @@ object Utils {
                 l.isErrorEnabled = false
                 false
             }
+        }
+    }
+
+    fun isRangeCorrect(e: TextInputEditText?, l: TextInputLayout, start: Float, end: Float, errorText: String?): Boolean {
+        return if (e?.text.toString().toFloat() < start || e?.text.toString().toFloat() > end) {
+            ViewUtils.showEditTextError(l, errorText)
+            false
+        } else {
+            l.isErrorEnabled = false
+            true
         }
     }
 

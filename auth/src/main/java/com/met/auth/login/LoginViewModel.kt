@@ -1,27 +1,43 @@
 package com.met.auth.login
 
-import android.net.ConnectivityManager
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FirebaseAuth
 import com.met.impilo.repository.FirebaseAuthRepository
+import com.met.impilo.repository.FirebaseDataRepository
 import com.met.impilo.utils.Utils
-import io.grpc.okhttp.internal.Util
+
 
 class LoginViewModel : ViewModel() {
 
     private val firebaseAuthRepository = FirebaseAuthRepository()
-    var signInSuccessful = MutableLiveData<Boolean>()
-    var isConnectedToInternet = MutableLiveData<Boolean>()
+    private val firestore = FirebaseDataRepository()
+    var signInWithEmailSuccess = MutableLiveData<Boolean>()
+    var signInWithGoogleSuccess = MutableLiveData<Boolean>()
+    var isGoogleAccountConfigured = MutableLiveData<Boolean>()
 
-    fun signInWithEmail(email : String, pass : String){
+    fun signInWithEmail(email: String, pass: String) {
         firebaseAuthRepository.signInWithEmail(Utils.cutWhitespaces(email), Utils.cutWhitespaces(pass)) {
-            signInSuccessful.value = it
+            signInWithEmailSuccess.value = it
         }
     }
 
-    fun checkInternetConnection(connectivityManager: ConnectivityManager){
+    fun signInWithGoogle(account: GoogleSignInAccount) {
+        firebaseAuthRepository.signUpWithGoogle(account) { success ->
+            signInWithGoogleSuccess.value = success
 
+            if (success) {
+                firestore.isConfigurationFinished {
+                    isGoogleAccountConfigured.value = it
+                }
+            }
+        }
     }
 
+    fun isAccountConfigured(success : (Boolean) -> Unit){
+        firestore.isConfigurationFinished {
+            success(it!!)
+        }
+    }
 }

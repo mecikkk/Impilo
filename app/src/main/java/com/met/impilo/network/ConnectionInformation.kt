@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -17,14 +17,29 @@ class ConnectionInformation : ViewModel() {
 
     var isConnected = MutableLiveData<Boolean>()
 
+    @Suppress("DEPRECATION")
     fun connectionReceiver(connectivityManager: ConnectivityManager) : BroadcastReceiver {
         Log.e(TAG,"Checking connection")
 
         return object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                val networkInfo : NetworkInfo? = connectivityManager.activeNetworkInfo
-                isConnected.value = networkInfo?.isConnectedOrConnecting ?: false
-                Log.e(TAG,"is connected : " + networkInfo?.isConnectedOrConnecting)
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    Log.e(TAG,"Android version >= M")
+                    if(connectivityManager.activeNetwork != null) {
+                        val nc = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                        isConnected.value = nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                                nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                                nc.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+
+                    } else
+                        isConnected.value = false
+                } else {
+                    Log.e(TAG,"Android version < M")
+                    val networkInfo = connectivityManager.activeNetworkInfo
+                    isConnected.value = networkInfo?.isConnectedOrConnecting ?: false
+                }
+
             }
         }
     }
