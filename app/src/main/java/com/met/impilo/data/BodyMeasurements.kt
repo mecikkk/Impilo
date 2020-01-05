@@ -2,18 +2,18 @@ package com.met.impilo.data
 
 import java.util.*
 
-class BodyMeasurements {
-    var uid: String? = null
-    var height = 0
-    var weight = 0f
-    var waist = 0f
-    var hips = 0f
-    var chest = 0f
-    var thigh = 0f
-    var calves = 0f
-    var bicep = 0f
-    var forearm = 0f
-    var shoulders = 0f
-    var neck = 0f
-    var measurementDate: Date? = null
-}
+data class BodyMeasurements(
+    var uid: String = "",
+    var height : Int = 0,
+    var weight : Float = 0f,
+    var waist : Float = 0f,
+    var hips : Float = 0f,
+    var chest : Float = 0f,
+    var thigh : Float = 0f,
+    var calves : Float = 0f,
+    var bicep : Float = 0f,
+    var forearm : Float = 0f,
+    var shoulders : Float = 0f,
+    var neck : Float = 0f,
+    var measurementDate: Date = Date()
+)

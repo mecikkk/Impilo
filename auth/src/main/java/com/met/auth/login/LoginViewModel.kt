@@ -1,11 +1,15 @@
 package com.met.auth.login
 
+import android.content.SharedPreferences
+import android.text.TextUtils
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.firebase.auth.FirebaseAuth
+import com.met.impilo.data.meals.UserMealSet
 import com.met.impilo.repository.FirebaseAuthRepository
 import com.met.impilo.repository.FirebaseDataRepository
+import com.met.impilo.utils.Constants
 import com.met.impilo.utils.Utils
 
 
@@ -28,16 +32,16 @@ class LoginViewModel : ViewModel() {
             signInWithGoogleSuccess.value = success
 
             if (success) {
-                firestore.isConfigurationFinished {
-                    isGoogleAccountConfigured.value = it
+                firestore.hasUserCompletedConfiguration { success ->
+                    isGoogleAccountConfigured.value = success
                 }
             }
         }
     }
 
-    fun isAccountConfigured(success : (Boolean) -> Unit){
-        firestore.isConfigurationFinished {
-            success(it!!)
+    fun isAccountConfigured(success: (Boolean) -> Unit) {
+        firestore.hasUserCompletedConfiguration { completed ->
+            success(completed!!)
         }
     }
 }

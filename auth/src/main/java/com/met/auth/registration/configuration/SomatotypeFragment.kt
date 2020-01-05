@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import com.met.auth.R
 import com.met.auth.registration.Registration
 import com.met.impilo.data.Gender
@@ -109,7 +110,7 @@ class SomatotypeFragment : BaseFragment(), Registration.OnPageChangeListener {
             toggle.setTextColor(colorStateList)
         } else {
             val colorStateList = ColorStateList(arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf(-android.R.attr.state_checked)),
-                intArrayOf(resources.getColor(com.met.impilo.R.color.colorAccent), Color.WHITE))
+                intArrayOf(ContextCompat.getColor(context!!, com.met.impilo.R.color.colorAccent), Color.WHITE))
             toggle.setTextColor(colorStateList)
         }
     }

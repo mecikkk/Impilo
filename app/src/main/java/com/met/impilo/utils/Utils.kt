@@ -17,10 +17,23 @@ object Utils {
         return format.format(date)
     }
 
-    @Throws(ParseException::class)
     fun stringToDate(date: String): Date? {
         if (!TextUtils.isEmpty(date)) {
             val format = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+            return format.parse(date)
+        }
+        return null
+    }
+
+    fun dateToId(date : Date): String {
+        val myFormat = "ddMMMyyyy"
+        val format = SimpleDateFormat(myFormat, Locale.getDefault())
+        return format.format(date)
+    }
+
+    fun IdToDate(date: String) : Date? {
+        if (!TextUtils.isEmpty(date)) {
+            val format = SimpleDateFormat("ddMMMyyyy", Locale.getDefault())
             return format.parse(date)
         }
         return null

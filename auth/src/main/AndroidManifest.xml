@@ -17,7 +17,13 @@
         <dist:fusing dist:include="true" />
     </dist:module>
 
-    <application tools:ignore="GoogleAppIndexingWarning">
+    <application tools:ignore="GoogleAppIndexingWarning"
+        android:icon="@mipmap/ic_launcher2"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round2"
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon,android:theme,android:roundIcon"
+        >
         <activity
             android:name=".registration.Registration"
             android:theme="@style/AppTheme.TransparentBars" />

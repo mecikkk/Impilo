@@ -1,5 +1,6 @@
 package com.met.auth.login
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -70,8 +71,10 @@ class Login : AppCompatActivity() {
             if (firebaseAuth.currentUser != null) {
                 vModel.isAccountConfigured {
                     if (!it) {
+                        Log.e(TAG, "Start only configuration...")
                         startRegistrationActivity(true)
                     } else {
+                        setResult(Activity.RESULT_OK)
                         finish()
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                     }
@@ -87,6 +90,7 @@ class Login : AppCompatActivity() {
      * false - Uruchamia pełną rejestrację wraz z konfiguracją
      */
     private fun startRegistrationActivity(showOnlyConfiguration: Boolean) {
+        Log.e(TAG, "Starting registrationnn")
         val intent = Intent(applicationContext, Registration::class.java)
         intent.putExtra(Constants.ONLY_CONFIGURATION, showOnlyConfiguration)
         startActivity(intent)
@@ -121,9 +125,16 @@ class Login : AppCompatActivity() {
         val isGoogleAccountConfiguredObserver = Observer<Boolean> {
             Log.e(TAG, "isGoogleAccountConfigured : $it")
             loadingDialog.hide()
-            if (!it) {
-                startRegistrationActivity(true)
-            } else ViewUtils.createSnackbar(bg, bg.resources.getString(com.met.impilo.R.string.success_login)).show()
+            if(it) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }else {
+                Log.e(TAG, "Google account not configured.")
+
+            }
+//            if (!it) {
+//                startRegistrationActivity(true)
+//            } else ViewUtils.createSnackbar(bg, bg.resources.getString(com.met.impilo.R.string.success_login)).show()
         }
 
         connectionInformation.isConnected.observe(this, connectionObserver)
@@ -277,6 +288,11 @@ class Login : AppCompatActivity() {
         networkDialog.dismiss()
         loadingDialog.dismiss()
         firebaseAuth.removeAuthStateListener(authListener)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        setResult(Activity.RESULT_CANCELED)
     }
 
     /**

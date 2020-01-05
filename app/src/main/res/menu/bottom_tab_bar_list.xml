@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home"
+        android:checked="true"
+        android:iconTint="@color/colorAccent"/>
+
+    <item
+        android:id="@+id/diet"
+        android:icon="@drawable/ic_diet"
+        android:title="@string/diet"
+        android:checked="true"
+        android:iconTint="@color/colorAccent"/>
+
+    <item
+        android:id="@+id/trainings"
+        android:icon="@drawable/ic_dumbbell"
+        android:title="@string/trainings"
+        android:checked="true"
+        android:iconTint="@color/colorAccent"/>
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_person"
+        android:title="@string/profile"
+        android:checked="true"
+        android:iconTint="@color/colorAccent"/>
+
+</menu>

@@ -1,25 +1,32 @@
 package com.met.auth.registration
 
+import android.app.Activity
 import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.met.auth.R
 import com.met.auth.registration.configuration.*
 import com.met.impilo.data.*
+import com.met.impilo.data.meals.UserMealSet
 import com.met.impilo.utils.Constants
 import com.met.impilo.utils.ViewUtils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registration.*
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
 
 
 class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
@@ -97,8 +104,8 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
                     4 -> {
                         next_step.apply {
                             this.text = resources.getText(com.met.impilo.R.string.finish)
-                            this.strokeColor = ColorStateList.valueOf(resources.getColor(com.met.impilo.R.color.colorAccent))
-                            this.backgroundTintList = ColorStateList.valueOf(resources.getColor(com.met.impilo.R.color.colorAccent))
+                            this.strokeColor = ColorStateList.valueOf(ContextCompat.getColor(context, com.met.impilo.R.color.colorAccent))
+                            this.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context,com.met.impilo.R.color.colorAccent))
                         }
                     }
                 }
@@ -114,8 +121,10 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
     private fun initOnClickListeners() {
         next_step.setOnClickListener {
             if (onPageChangeListener.onNextPageClick()) {
-                if (registration_view_pager.currentItem != 4) registration_view_pager.currentItem = registration_view_pager.currentItem + 1
-                else loadingDialog.show()
+                if (registration_view_pager.currentItem != 4)
+                    registration_view_pager.currentItem = registration_view_pager.currentItem + 1
+                else
+                    loadingDialog.show()
             }
             ViewUtils.hideKeyboard(it)
         }
@@ -126,19 +135,25 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
         }
     }
 
+    private fun closeApp(){
+        finish()
+        return
+    }
+
     /**
      * Inicjacja obserwatorów
      */
     private fun initObservers() {
         val registrationSuccessObserver = Observer<Boolean> {
             if (it) {
+                Log.e(TAG, "Registration success. Finishing activity...")
                 loadingDialog.hide()
-                finish()
+                closeApp()
+
             } else ViewUtils.createSnackbar(bg, "Registration failed").show()
         }
-
-
         viewModel.getRegistrationSuccess().observe(this, registrationSuccessObserver)
+
     }
 
 
@@ -228,7 +243,26 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
     }
 
     override fun lifestyle(lifestyle: Lifestyle, goal: Goal) {
+        viewModel.sendDefaultUserMealSet(generateDefaultUserMealSet())
         viewModel.sendLifestyle(lifestyle, goal)
+    }
+
+    private fun generateDefaultUserMealSet() : UserMealSet{
+
+        val mealSet = listOf(resources.getString(com.met.impilo.R.string.breakfast), resources.getString(com.met.impilo.R.string.brunch), resources.getString(com.met.impilo.R.string.lunch),
+            resources.getString(com.met.impilo.R.string.supper), resources.getString(com.met.impilo.R.string.dinner))
+
+        val mealsString = TextUtils.join(";", mealSet)
+        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(Constants.REF_USER_MEAL_SET, mealsString)
+        editor.apply()
+
+        val userMealSet = UserMealSet()
+        userMealSet.mealsSet = mealSet
+        userMealSet.mealsQuantity = 5
+
+        return userMealSet
     }
 
 

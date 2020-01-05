@@ -70,6 +70,7 @@
     <string name="goal">Goal</string>
     <string name="optional">Optional</string>
 
+
     <string-array name="firstConfigTitles">
         <item>@string/register_information</item>
         <item>@string/basic_information</item>
@@ -126,4 +127,43 @@
     <string name="failed_signing_in">Invalid e-mail or password</string>
     <string name="success_login">Logged In Successful</string>
     <string name="finish">FINISH</string>
+    <string name="home">Home</string>
+    <string name="diet">Diet</string>
+    <string name="trainings">Trainings</string>
+    <string name="profile">Profile</string>
+    <string name="title_diet">Diet</string>
+
+    /* DIET */
+    <string name="carbohydrates">Carbohydrates</string>
+    <string name="proteins">Proteins</string>
+    <string name="fats">Fats</string>
+    <string name="summary">Summary</string>
+    <string name="energy">Energy</string>
+    <string name="sugars">Sugars</string>
+    <string name="energyLetter">E</string>
+    <string name="carbohydratesLetter">C</string>
+    <string name="proteinsLetter">P</string>
+    <string name="fatsLetter">F</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="brunch">Brunch</string>
+    <string name="lunch">Lunch</string>
+    <string name="supper">Supper</string>
+    <string name="dinner">Dinner</string>
+    <string name="today">Today</string>
+    <string name="quick_product_add">Quick product add</string>
+    <string name="energyKJ">Energy (kJ)</string>
+    <string name="energyKcal">Energy (kcal)</string>
+    <string name="kcal" translatable="false">kcal</string>
+    <string name="gram_unit" translatable="false">g</string>
+    <string name="_100_gram" translatable="false">100g</string>
+    <string name="saturated_fatty_acids">Saturated Fat</string>
+    <string name="unsaturated_fatty_acids">Trans Fat</string>
+    <string name="fiber">Fiber</string>
+    <string name="salt">Salt</string>
+    <string name="serving_size">Serving size</string>
+    <string name="nutrient">Nutrient</string>
+    <string name="portion">Portion</string>
+    <string name="camera_perm_granted">Camera permission granted</string>
+    <string name="camera_perm_denied">Camera permission denied</string>
+    <string name="product_not_found">Product not found</string>
 </resources>

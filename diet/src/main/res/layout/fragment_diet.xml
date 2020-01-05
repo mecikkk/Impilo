@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DietFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/summary_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/kcal_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/montserrat_semi_bold_italic"
+            android:text="@string/energy"
+            android:textAllCaps="true"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/kcal_progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.skydoves.progressview.ProgressView
+            android:id="@+id/kcal_progress"
+            android:layout_width="0dp"
+            android:layout_height="17dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/proteins_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:progressView_autoAnimate="true"
+            app:progressView_colorBackground="@color/listGroupItemBg"
+            app:progressView_colorGradientEnd="@color/genderSwitchThumbLeft"
+            app:progressView_colorGradientStart="@color/colorAccent"
+            app:progressView_labelColorInner="@color/white"
+            app:progressView_labelColorOuter="@color/textColor"
+            app:progressView_labelSize="12sp"
+            app:progressView_labelSpace="10dp"
+            app:progressView_labelTypeface="bold"
+            app:progressView_max="100"
+            app:progressView_min="0"
+            app:progressView_radius="12dp" />
+
+        <com.skydoves.progressview.ProgressView
+            android:id="@+id/carbohydrates_progress"
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/proteins_progress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:progressView_autoAnimate="true"
+            app:progressView_colorBackground="@color/listGroupItemBg"
+            app:progressView_colorProgress="@color/colorAccent"
+            app:progressView_labelColorInner="@color/white"
+            app:progressView_labelColorOuter="@color/textColor"
+            app:progressView_labelSpace="5dp"
+            app:progressView_labelSize="10sp"
+            app:progressView_labelTypeface="normal"
+            app:progressView_max="100"
+            app:progressView_min="0"
+            app:progressView_padding="0dp"
+            app:progressView_radius="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/montserrat_semi_bold_italic"
+            android:text="@string/carbohydrates"
+            android:textAllCaps="true"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/carbohydrates_progress"
+            app:layout_constraintEnd_toEndOf="@id/carbohydrates_progress"
+            app:layout_constraintStart_toStartOf="@id/carbohydrates_progress" />
+
+        <com.skydoves.progressview.ProgressView
+            android:id="@+id/proteins_progress"
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/fats_progress"
+            app:layout_constraintStart_toEndOf="@id/carbohydrates_progress"
+            app:progressView_autoAnimate="true"
+            app:progressView_colorBackground="@color/listGroupItemBg"
+            app:progressView_colorProgress="@color/proteinsColor"
+            app:progressView_labelColorInner="@color/white"
+            app:progressView_labelColorOuter="@color/textColor"
+            app:progressView_labelSpace="5dp"
+            app:progressView_labelSize="10sp"
+            app:progressView_labelTypeface="normal"
+            app:progressView_max="100"
+            app:progressView_min="0"
+            app:progressView_padding="0dp"
+            app:progressView_radius="12dp" />
+
+        <TextView
+            android:id="@+id/proteins_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/montserrat_semi_bold_italic"
+            android:text="@string/proteins"
+            android:textAllCaps="true"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@id/proteins_progress"
+            app:layout_constraintEnd_toEndOf="@id/proteins_progress"
+            app:layout_constraintStart_toStartOf="@id/proteins_progress" />
+
+        <com.skydoves.progressview.ProgressView
+            android:id="@+id/fats_progress"
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/proteins_progress"
+            app:progressView_autoAnimate="true"
+            app:progressView_colorBackground="@color/listGroupItemBg"
+            app:progressView_colorProgress="@color/fatsColor"
+            app:progressView_labelColorInner="@color/black"
+            app:progressView_labelColorOuter="@color/textColor"
+            app:progressView_labelSpace="5dp"
+            app:progressView_labelSize="10sp"
+            app:progressView_labelTypeface="normal"
+            app:progressView_max="100"
+            app:progressView_min="0"
+            app:progressView_padding="0dp"
+            app:progressView_progress="0"
+            app:progressView_radius="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/montserrat_semi_bold_italic"
+            android:text="@string/fats"
+            android:textAllCaps="true"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@id/fats_progress"
+            app:layout_constraintEnd_toEndOf="@id/fats_progress"
+            app:layout_constraintStart_toStartOf="@id/fats_progress" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.baoyz.expandablelistview.SwipeMenuExpandableListView
+        android:id="@+id/meals_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:childIndicator="@null"
+        android:groupIndicator="@null"
+        android:scrollbars="none"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/summary_info_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

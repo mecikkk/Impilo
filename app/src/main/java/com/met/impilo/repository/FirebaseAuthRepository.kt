@@ -44,12 +44,12 @@ class FirebaseAuthRepository {
     fun signUpWithGoogle(acct: GoogleSignInAccount, signInSuccess: (Boolean) -> Unit) {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task: Task<AuthResult?> ->
-            if (task.isSuccessful) { // Sign in success, update UI with the signed-in user's information
+            if (task.isSuccessful) { // Sign in success
                 val user = firebaseAuth.currentUser
                 Log.d(TAG, "signInWithCredential: success")
                 Log.d(TAG, "Google User : " + user!!.uid + " " + user.displayName + " " + user.email)
                 signInSuccess(true)
-            } else { // If sign in fails, display a message to the user.
+            } else { // Sign in fails
                 Log.w(TAG, "signInWithCredential:failure", task.exception)
                 signInSuccess(false)
             }
@@ -58,7 +58,8 @@ class FirebaseAuthRepository {
 
     private fun sentDataToDatabase(uid : String, name: String?, birthDate: Date){
         val data = PersonalData(uid = uid, fullName = name, birthDate = birthDate, registrationDate = Date())
-        firebaseDataRepository.pushData(Constants.REF_PERSONAL_DATA, data) {
+
+        firebaseDataRepository.addPersonalData(data) {
             if(it)
                 Log.i(TAG, "Data added successful")
             else

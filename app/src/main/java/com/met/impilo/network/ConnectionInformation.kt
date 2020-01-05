@@ -22,6 +22,7 @@ class ConnectionInformation : ViewModel() {
         Log.e(TAG,"Checking connection")
 
         return object : BroadcastReceiver() {
+            @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
             override fun onReceive(context: Context?, intent: Intent?) {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
