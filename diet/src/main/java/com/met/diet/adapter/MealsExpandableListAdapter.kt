@@ -55,6 +55,10 @@ class MealsExpandableListAdapter(private val context : Context, var meals : List
             serving.text = StringBuilder("${product.servingSize.roundToInt()} x ${product.servingName}")
 
 
+        name.setOnClickListener {
+            callback.onProductClick(groupPosition, childPosition)
+        }
+
         return ContentViewWrapper(convertView, reUseable)
     }
 
@@ -129,4 +133,5 @@ class MealsExpandableListAdapter(private val context : Context, var meals : List
 interface OnMealClickListener {
     fun onMealClick(groupPosition: Int)
     fun onAddProductClick(groupPosition: Int, mealName : String)
+    fun onProductClick(groupPosition: Int, productPosition : Int)
 }

@@ -11,34 +11,6 @@ import java.util.*
 
 object Utils {
 
-    fun dateToString(date: Date): String {
-        val myFormat = "dd MMM yyyy"
-        val format = SimpleDateFormat(myFormat, Locale.getDefault())
-        return format.format(date)
-    }
-
-    fun stringToDate(date: String): Date? {
-        if (!TextUtils.isEmpty(date)) {
-            val format = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-            return format.parse(date)
-        }
-        return null
-    }
-
-    fun dateToId(date : Date): String {
-        val myFormat = "ddMMMyyyy"
-        val format = SimpleDateFormat(myFormat, Locale.getDefault())
-        return format.format(date)
-    }
-
-    fun IdToDate(date: String) : Date? {
-        if (!TextUtils.isEmpty(date)) {
-            val format = SimpleDateFormat("ddMMMyyyy", Locale.getDefault())
-            return format.parse(date)
-        }
-        return null
-    }
-
     fun toInt(e: TextInputEditText?) =
         if (!TextUtils.isEmpty(e?.text.toString()))
             e?.text.toString().toInt()

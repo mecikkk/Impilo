@@ -61,8 +61,6 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
 
         viewPagerListener()
 
-//        TODO(" przypomnienie hasla potrzebne ? ")
-
         initOnClickListeners()
 
         initObservers()
@@ -150,7 +148,7 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
                 loadingDialog.hide()
                 closeApp()
 
-            } else ViewUtils.createSnackbar(bg, "Registration failed").show()
+            } else ViewUtils.createSnackbar(new_account_bg, "Registration failed").show()
         }
         viewModel.getRegistrationSuccess().observe(this, registrationSuccessObserver)
 

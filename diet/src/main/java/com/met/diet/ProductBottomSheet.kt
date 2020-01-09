@@ -42,9 +42,11 @@ class ProductBottomSheet(val isLightMode: Boolean) : BottomSheetDialogFragment()
 
     lateinit var onAddProductListener : OnAddProductListener
     private lateinit var behavior: BottomSheetBehavior<View>
+    private lateinit var bottomSheetView : View
     private lateinit var detailsAdapter: ProductDetailsAdapter
-    private var servingType = ServingType.PORTION
-    private var servingSize = 1f
+    var servingType = ServingType.PORTION
+    var servingSize = 1f
+    var shouldBeExpanded = false
 
     private var offset: Float = 670f
     private var isAnyChipChecked = false
@@ -54,48 +56,48 @@ class ProductBottomSheet(val isLightMode: Boolean) : BottomSheetDialogFragment()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheet: BottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
 
-        val view = View.inflate(context, R.layout.fragment_product_bottom_sheet, null)
+        bottomSheetView = View.inflate(context, R.layout.fragment_product_bottom_sheet, null)
 
-        bottomSheet.setContentView(view)
-        behavior = BottomSheetBehavior.from(view.parent as View)
+        bottomSheet.setContentView(bottomSheetView)
+        behavior = BottomSheetBehavior.from(bottomSheetView.parent as View)
 
         behavior.peekHeight = (((Resources.getSystem().displayMetrics.heightPixels) / 2.5).toInt())
 
-        view.minimumHeight = ((Resources.getSystem().displayMetrics.heightPixels) / 3)
-        view.layoutParams.height = (Resources.getSystem().displayMetrics.heightPixels)
+        bottomSheetView.minimumHeight = ((Resources.getSystem().displayMetrics.heightPixels) / 3)
+        bottomSheetView.layoutParams.height = (Resources.getSystem().displayMetrics.heightPixels)
 
-        view.bottom_sheet_content.translationY = -offset
+        bottomSheetView.bottom_sheet_content.translationY = -offset
 
 
-        view.serving_size_input_edit_text.isEnabled = false
-        view.serving_type_spinner.isEnabled = false
+        bottomSheetView.serving_size_input_edit_text.isEnabled = false
+        bottomSheetView.serving_type_spinner.isEnabled = false
 
-        view.product_title.text = product.name
+        bottomSheetView.product_title.text = product.name
 
-        view.serving_type_spinner.onItemSelectedListener = getSpinnerListener(view)
-        view.serving_size_input_edit_text.addTextChangedListener(getServingSizeWatcher(view))
+        bottomSheetView.serving_type_spinner.onItemSelectedListener = getSpinnerListener(bottomSheetView)
+        bottomSheetView.serving_size_input_edit_text.addTextChangedListener(getServingSizeWatcher(bottomSheetView))
 
         val servingTypeAdapter = ArrayAdapter<String>(context!!, android.R.layout.simple_spinner_dropdown_item, listOf(product.servingName, "GRAM"))
-        view.serving_type_spinner.adapter = servingTypeAdapter
+        bottomSheetView.serving_type_spinner.adapter = servingTypeAdapter
 
         behavior.addBottomSheetCallback(getBottomSheetBehavior())
 
-        view.cancel_action.setOnClickListener {
+        bottomSheetView.cancel_action.setOnClickListener {
             if (behavior.state == BottomSheetBehavior.STATE_COLLAPSED) behavior.state = BottomSheetBehavior.STATE_EXPANDED
             else behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
-        view.add_product_action.setOnClickListener {
+        bottomSheetView.add_product_action.setOnClickListener {
             val calculatedProduct = product
             calculatedProduct.nutrients = product.getCaluclatedNutrients(servingSize, servingType)
 
             onAddProductListener.onAddProduct(calculatedProduct, servingSize, servingType)
         }
 
-        loadPhoto(view)
-        initProductDetailsBottomSheet(view)
-        initChipGroup(view)
-        updateNutrientsInfo(view)
+        loadPhoto(bottomSheetView)
+        initProductDetailsBottomSheet(bottomSheetView)
+        initChipGroup(bottomSheetView)
+        updateNutrientsInfo(bottomSheetView)
 
         return bottomSheet
     }
@@ -163,21 +165,25 @@ class ProductBottomSheet(val isLightMode: Boolean) : BottomSheetDialogFragment()
         }
 
         override fun onSlide(view: View, v: Float) {
-            setAlpha(view.product_photo, v)
-            setAlpha(view.app_bar_background, v)
-            setAlpha(view.quick_info_layout, 1 - v)
-            setAlpha(view.details_header_layout, v)
-            setAlpha(view.product_details_recycler_view, v)
-            setAlpha(view.divider1, v)
-            setAlpha(view.serving_size_text_input_layout, v)
-            setAlpha(view.serving_type_spinner, v)
-            setTranslationY(view.bottom_sheet_content, v)
-            view.cancel_action.rotation = v * 180
-            if (isLightMode && v > 0.0f) {
-                view.product_title.setTextColor(Color.rgb((255 * v).toInt(), (255 * v).toInt(), (255 * v).toInt()))
-                view.cancel_action.imageTintList = ColorStateList.valueOf(Color.rgb((255 * v).toInt(), (255 * v).toInt(), (255 * v).toInt()))
-                view.add_product_action.imageTintList = ColorStateList.valueOf(Color.rgb((255 * v).toInt(), (255 * v).toInt(), (255 * v).toInt()))
-            }
+            slide(v)
+        }
+    }
+
+    private fun slide( v: Float) {
+        setAlpha(bottomSheetView.product_photo, v)
+        setAlpha(bottomSheetView.app_bar_background, v)
+        setAlpha(bottomSheetView.quick_info_layout, 1 - v)
+        setAlpha(bottomSheetView.details_header_layout, v)
+        setAlpha(bottomSheetView.product_details_recycler_view, v)
+        setAlpha(bottomSheetView.divider1, v)
+        setAlpha(bottomSheetView.serving_size_text_input_layout, v)
+        setAlpha(bottomSheetView.serving_type_spinner, v)
+        setTranslationY(bottomSheetView.bottom_sheet_content, v)
+        bottomSheetView.cancel_action.rotation = v * 180
+        if (isLightMode && v > 0.0f) {
+            bottomSheetView.product_title.setTextColor(Color.rgb((255 * v).toInt(), (255 * v).toInt(), (255 * v).toInt()))
+            bottomSheetView.cancel_action.imageTintList = ColorStateList.valueOf(Color.rgb((255 * v).toInt(), (255 * v).toInt(), (255 * v).toInt()))
+            bottomSheetView.add_product_action.imageTintList = ColorStateList.valueOf(Color.rgb((255 * v).toInt(), (255 * v).toInt(), (255 * v).toInt()))
         }
     }
 
@@ -295,7 +301,14 @@ class ProductBottomSheet(val isLightMode: Boolean) : BottomSheetDialogFragment()
 
     override fun onStart() {
         super.onStart()
-        behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        if(shouldBeExpanded) {
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            bottomSheetView.serving_size_input_edit_text.isEnabled = true
+            bottomSheetView.serving_type_spinner.isEnabled = true
+            bottomSheetView.serving_size_input_edit_text.setText(servingSize.toInt().toString())
+            slide(1f)
+        } else
+            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     private fun setAlpha(view: View, alpha: Float) {

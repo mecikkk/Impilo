@@ -5,24 +5,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.met.impilo.data.Demand
 import com.met.impilo.data.meals.MealsSummary
-import com.met.impilo.repository.FirebaseDataRepository
-import com.met.impilo.utils.Utils
+import com.met.impilo.repository.DemandRepository
+import com.met.impilo.repository.MealsRepository
+import com.met.impilo.utils.toId
 import java.util.*
 
 class HomeFragmentViewModel : ViewModel() {
 
-    private val repository = FirebaseDataRepository.newInstance()
+    private val demandRepository = DemandRepository.newInstance()
+    private val mealsRepository = MealsRepository.newInstance()
+
     var demand : MutableLiveData<Demand> = MutableLiveData()
     var mealsSummary : MutableLiveData<MealsSummary> = MutableLiveData()
 
     fun getMyDemand(){
-        repository.getDemand {
+        demandRepository.getDemand {
             demand.value = it
         }
     }
 
     fun getMyMealsSummary(){
-        repository.getMealsSummary(Utils.dateToId(Date())){
+        mealsRepository.getMealsSummary(Date().toId()){
             mealsSummary.value = it
         }
     }

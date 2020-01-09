@@ -6,36 +6,32 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.met.impilo.data.PersonalData
-import com.met.impilo.utils.Constants
-import java.util.*
 
+class AuthRepository : FirebaseRepository() {
 
-class FirebaseAuthRepository {
+    override val TAG = javaClass.simpleName
 
-    private val TAG: String = javaClass.simpleName
+    companion object {
+        fun newInstance() = AuthRepository()
+    }
+
     private val firebaseAuth = FirebaseAuth.getInstance()
-    private val firebaseDataRepository = FirebaseDataRepository()
 
-    // Wykorzystanie funkcji rezszerzającej do zwrocenia wartosci (w Javie parametrem bylby interfejs)
+    // Wykorzystanie typu funkcyjnego (signInSuccess) - (w Javie parametrem bylby interfejs)
     fun signInWithEmail(email: String, pass: String, signInSuccess: (Boolean) -> Unit) {
-        firebaseAuth.signInWithEmailAndPassword(email, pass)
-            .addOnCompleteListener {
-                signInSuccess(true)
-            }
-            .addOnFailureListener {
+        firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
+            signInSuccess(true)
+        }.addOnFailureListener {
                 signInSuccess(false)
             }
     }
 
-    fun signUpWithEmail(email : String, pass: String, name: String?, birthDate : Date, signUpSuccess : (Boolean) -> Unit){
-        firebaseAuth.createUserWithEmailAndPassword(email, pass)
-            .addOnSuccessListener {
-                Log.i(TAG, "Account created. UID : " + it.user!!.uid)
-                sentDataToDatabase(it.user!!.uid, name, birthDate)
-                signUpSuccess(true)
-            }
-            .addOnFailureListener{
+    fun signUpWithEmail(email: String, pass: String, signUpSuccess: (Boolean) -> Unit) {
+        firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnSuccessListener {
+            Log.i(TAG, "Account created. UID : " + it.user!!.uid)
+            //sendDataToDatabase(it.user!!.uid, name, birthDate)
+            signUpSuccess(true)
+        }.addOnFailureListener {
                 Log.e(TAG, "Account creating failure. Caused by :" + it.cause + " | " + it.message)
                 signUpSuccess(false)
             }
@@ -56,14 +52,4 @@ class FirebaseAuthRepository {
         }
     }
 
-    private fun sentDataToDatabase(uid : String, name: String?, birthDate: Date){
-        val data = PersonalData(uid = uid, fullName = name, birthDate = birthDate, registrationDate = Date())
-
-        firebaseDataRepository.addPersonalData(data) {
-            if(it)
-                Log.i(TAG, "Data added successful")
-            else
-                Log.e(TAG, "Data adding error")
-        }
-    }
 }

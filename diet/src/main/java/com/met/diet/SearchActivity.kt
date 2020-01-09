@@ -19,6 +19,7 @@ import com.met.impilo.data.food.ServingType
 import com.met.impilo.utils.Constants
 import com.met.impilo.utils.ViewUtils
 import kotlinx.android.synthetic.main.activity_search.*
+import java.util.*
 
 
 class SearchActivity : AppCompatActivity(), SearchActivityAdapter.OnProductClickListener, ProductBottomSheet.OnAddProductListener {
@@ -29,6 +30,7 @@ class SearchActivity : AppCompatActivity(), SearchActivityAdapter.OnProductClick
     private var isLightMode = false
     private var selectedMeal = -1
     private var mealName = ""
+    private var selectedDate = Date()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,10 +68,10 @@ class SearchActivity : AppCompatActivity(), SearchActivityAdapter.OnProductClick
                 val materialBarcodeScanner =
                     MaterialBarcodeScannerBuilder().withActivity(this@SearchActivity)
                         .withEnableAutoFocus(true)
-                        .withBleepEnabled(true)
+                        .withBleepEnabled(false)
                         .withBackfacingCamera()
                         .withCenterTracker(R.drawable.barcode_tracker, R.drawable.barcode_tracker_detected)
-                        .withText(getString(R.string.scanning)).withResultListener { barcode ->
+                        .withText(getString(com.met.impilo.R.string.scanning)).withResultListener { barcode ->
                             Log.e(TAG, "Scanned ${barcode.rawValue}")
                             viewModel.getProductByBarcode(barcode.rawValue) {
                                 Log.e(TAG, "Response from firebase ")
@@ -135,11 +137,13 @@ class SearchActivity : AppCompatActivity(), SearchActivityAdapter.OnProductClick
         productSheet?.show(supportFragmentManager, productSheet?.tag)
         productSheet?.product = foodProduct
         productSheet?.onAddProductListener = this@SearchActivity
+
+
     }
 
     override fun onAddProduct(foodProduct: FoodProduct, servingSize : Float, servingType: ServingType) {
         productSheet?.dismiss()
-        viewModel.addProductToMeal(foodProduct, servingSize, servingType, selectedMeal, mealName){
+        viewModel.addProductToMeal(selectedDate, foodProduct, servingSize, servingType, selectedMeal, mealName){
             if(it) {
                 ViewUtils.createSnackbar(search_activity_content, "Product added to meal").show()
                 finish()

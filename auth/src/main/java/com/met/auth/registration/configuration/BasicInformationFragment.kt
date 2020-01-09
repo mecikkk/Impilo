@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import com.met.auth.R
 import com.met.auth.registration.Registration
 import com.met.impilo.data.Gender
-import com.met.impilo.utils.Utils
-import com.met.impilo.utils.ViewUtils
+import com.met.impilo.utils.*
 import com.polyak.iconswitch.IconSwitch
 import kotlinx.android.synthetic.main.basic_information_fragment.*
+import java.util.*
 
 
 class BasicInformationFragment : BaseFragment(), Registration.OnPageChangeListener{
@@ -44,9 +44,11 @@ class BasicInformationFragment : BaseFragment(), Registration.OnPageChangeListen
             }
         }
 
-        birth_date_textfield2.setOnClickListener {
-            ViewUtils.hideKeyboard(it)
-            val dialog = ViewUtils.getDatePicker(view, birth_date_textfield2)
+        birth_date_textfield2.setOnClickListener { clicked_view ->
+            ViewUtils.hideKeyboard(clicked_view)
+            val dialog = ViewUtils.getDatePicker(view, true, Date()) {
+                birth_date_textfield2.setText(it.toStringDate())
+            }
             dialog.show()
             dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE)
             dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE)
@@ -89,7 +91,7 @@ class BasicInformationFragment : BaseFragment(), Registration.OnPageChangeListen
         if(validate()){
 
             if(onlyConfiguration)
-                callback.basicInformation(Utils.toInt(height_textfield), Utils.toFloat(weight_textfield), Utils.toFloat(waist_textfield), gender, Utils.stringToDate(birth_date_textfield2.text.toString()))
+                callback.basicInformation(Utils.toInt(height_textfield), Utils.toFloat(weight_textfield), Utils.toFloat(waist_textfield), gender, birth_date_textfield2.text.toString().stringToDate())
             else
                 callback.basicInformation(Utils.toInt(height_textfield), Utils.toFloat(weight_textfield), Utils.toFloat(waist_textfield), gender)
 

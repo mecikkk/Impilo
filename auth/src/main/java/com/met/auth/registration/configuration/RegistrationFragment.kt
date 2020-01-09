@@ -13,7 +13,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.met.auth.R
 import com.met.impilo.utils.Utils
 import com.met.impilo.utils.ViewUtils
+import com.met.impilo.utils.stringToDate
+import com.met.impilo.utils.toStringDate
 import kotlinx.android.synthetic.main.registration_fragment.*
+import java.util.*
 
 
 class RegistrationFragment : BaseFragment() {
@@ -45,14 +48,16 @@ class RegistrationFragment : BaseFragment() {
                     email_textfield.text.toString(),
                     password_textfield.text.toString(),
                     display_name_textfield.text.toString(),
-                    Utils.stringToDate(birth_date_textfield.text.toString())!!
+                    birth_date_textfield.text.toString().stringToDate()!!
                 )
             }
         }
 
-        birth_date_textfield.setOnClickListener {
-            ViewUtils.hideKeyboard(it)
-            val dialog = ViewUtils.getDatePicker(view, birth_date_textfield)
+        birth_date_textfield.setOnClickListener { clicked_view ->
+            ViewUtils.hideKeyboard(clicked_view)
+            val dialog = ViewUtils.getDatePicker(view, true, Date()) {
+                birth_date_textfield.setText(it.toStringDate())
+            }
             dialog.show()
             dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE)
             dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE)

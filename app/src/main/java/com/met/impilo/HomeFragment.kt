@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(HomeFragmentViewModel::class.java)
 
-        MarkMuscles.set(context!!, R.drawable.muscles_woman_back, muscle_map, MusclesSet.FOREARM_BACK)
+        MarkMuscles.set(context!!, R.drawable.muscles_man_front, muscle_map, MusclesSet.FOREARM_FRONT)
 
         viewModel.getMyDemand()
 

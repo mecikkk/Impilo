@@ -166,4 +166,14 @@
     <string name="camera_perm_granted">Camera permission granted</string>
     <string name="camera_perm_denied">Camera permission denied</string>
     <string name="product_not_found">Product not found</string>
+    <string name="product_delete_success">Product deleted successful</string>
+    <string name="scanning">Scanning...</string>
+    <string name="product_delete_error">Error while product deleting</string>
+    <string name="want_delete_product">Do you want to delete this product ?</string>
+    <string name="delete_product">Delete product</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="product_update_success">Product update successful</string>
+    <string name="product_update_error">Product update error</string>
+    <string name="title_workout">Workout</string>
 </resources>

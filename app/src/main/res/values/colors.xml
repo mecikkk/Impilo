@@ -19,6 +19,7 @@
     <color name="listGroupItemBg">#eee</color>
     <color name="menuIconGradientStart">#eee</color>
     <color name="menuIconGradientEnd">#fafafa</color>
+    <color name="positiveGreen">#27cf75</color>
 
     <array name="circularProgressBarGradient">
         <item>@color/colorAccent</item>

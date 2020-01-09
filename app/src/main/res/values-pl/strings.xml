@@ -102,4 +102,16 @@
     <string name="serving_size">Wielkość porcji</string>
     <string name="nutrient">Składnik odżywczy</string>
     <string name="portion">Porcja</string>
+    <string name="camera_perm_denied">Odmówiono dostępu do aparatu</string>
+    <string name="camera_perm_granted">Uzyskano dostęp do aparatu</string>
+    <string name="delete_product">Usuwanie produktu</string>
+    <string name="no">Nie</string>
+    <string name="product_delete_error">Błąd podczas usuwania produktu</string>
+    <string name="product_delete_success">Produkt został usunięty</string>
+    <string name="product_not_found">Nie znaleziono produktu</string>
+    <string name="scanning">Skanowanie...</string>
+    <string name="want_delete_product">Czy chcesz usunąć ten produkt ?</string>
+    <string name="yes">Tak</string>
+    <string name="product_update_error">Błąd podczas edycji produktu</string>
+    <string name="product_update_success">Produkt został zaktualizowany</string>
 </resources>

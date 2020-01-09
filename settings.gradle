@@ -1,2 +1,2 @@
-include ':app', ':auth', ':diet'
+include ':app', ':auth', ':diet', ':workout'
 rootProject.name='Impilo'

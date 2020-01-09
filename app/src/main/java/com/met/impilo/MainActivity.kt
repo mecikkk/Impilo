@@ -12,6 +12,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.transition.Fade
 import com.fxn.OnBubbleClickListener
 import com.google.firebase.auth.FirebaseAuth
 import com.met.impilo.utils.Constants
@@ -28,9 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        setSupportActionBar(toolbar)
-        supportActionBar?.setShowHideAnimationEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         init()
 
         initWhenLoggedIn()
@@ -50,19 +49,21 @@ class MainActivity : AppCompatActivity() {
                     Log.e(TAG, "Clicked : $id")
                     when (id) {
                         R.id.home -> {
-                            action_bar_title.text = resources.getText(R.string.app_name)
-
                             val fragment = HomeFragment()
-                            //fragment.enterTransition = Fade()
-                            //fragment.exitTransition = Fade()
+                            fragment.enterTransition = Fade()
+                            fragment.exitTransition = Fade()
                             fragmentManager.beginTransaction().replace(R.id.framelayout, fragment).commit()
                         }
                         R.id.diet -> {
-                            action_bar_title.text = resources.getText(R.string.today)
-
                             val fragment: Fragment = Class.forName("com.met.diet.DietFragment").newInstance() as Fragment
-                            //fragment.enterTransition = Fade()
-                            //fragment.exitTransition = Fade()
+                            fragment.enterTransition = Fade()
+                            fragment.exitTransition = Fade()
+                            fragmentManager.beginTransaction().replace(R.id.framelayout, fragment).commit()
+                        }
+                        R.id.trainings -> {
+                            val fragment: Fragment = Class.forName("com.met.workout.WorkoutsFragment").newInstance() as Fragment
+                            fragment.enterTransition = Fade()
+                            fragment.exitTransition = Fade()
                             fragmentManager.beginTransaction().replace(R.id.framelayout, fragment).commit()
                         }
                     }
