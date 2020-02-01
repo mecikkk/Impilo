@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.met.impilo.data.Demand
+import com.met.impilo.data.Gender
 import com.met.impilo.data.meals.MealsSummary
 import com.met.impilo.repository.DemandRepository
 import com.met.impilo.repository.MealsRepository
@@ -14,6 +15,7 @@ class HomeFragmentViewModel : ViewModel() {
 
     private val demandRepository = DemandRepository.newInstance()
     private val mealsRepository = MealsRepository.newInstance()
+    var gender = MutableLiveData<Gender>()
 
     var demand : MutableLiveData<Demand> = MutableLiveData()
     var mealsSummary : MutableLiveData<MealsSummary> = MutableLiveData()
@@ -30,6 +32,13 @@ class HomeFragmentViewModel : ViewModel() {
         }
     }
 
+    fun getMyGender(){
+        mealsRepository.getPersonalData {
+            gender.value = it?.gender
+        }
+    }
+
     fun getDemand() : LiveData<Demand> = demand
     fun getMealsSummary() : LiveData<MealsSummary> = mealsSummary
+    fun getGender() : LiveData<Gender> = gender
 }

@@ -167,7 +167,7 @@
     <string name="camera_perm_denied">Camera permission denied</string>
     <string name="product_not_found">Product not found</string>
     <string name="product_delete_success">Product deleted successful</string>
-    <string name="scanning">Scanning...</string>
+    <string name="scanning">Scanning…</string>
     <string name="product_delete_error">Error while product deleting</string>
     <string name="want_delete_product">Do you want to delete this product ?</string>
     <string name="delete_product">Delete product</string>
@@ -175,5 +175,163 @@
     <string name="no">No</string>
     <string name="product_update_success">Product update successful</string>
     <string name="product_update_error">Product update error</string>
+    <string name="search_product">Search product</string>
+    <string name="enter_product_name">Enter product name</string>
+
+
+    /* WORKOUT */
     <string name="title_workout">Workout</string>
+    <string name="low_body_fat">Low</string>
+    <string name="normal_body_fat">Normal</string>
+    <string name="increased_body_fat">Increased</string>
+    <string name="high_body_fat">Obesity</string>
+    <string name="have_own_plan">I have my own workout plan</string>
+    <string name="generate_plan">Generate a workout plan</string>
+    <string name="body_rating">Body rating</string>
+    <string name="body_fat_level">Body fat level</string>
+    <string name="fat_loss_proposition">Your body fat level is little too high. We recommend changing the goal to reduction.</string>
+    <string name="fat_loss_need">Your body fat level is too high. You should reduce body fat, before bulking muscle mass up</string>
+    <string name="bulking_up_proposition">You have low body fat. You can start bulking muscle mass up.</string>
+    <string name="bulking_ok">You have normal body fat. You can now start building muscle mass up !</string>
+    <string name="maintain_proposition">You have normal body fat. You can change your goal to maintain weight.</string>
+    <string name="fat_lose_ok">Your body fat is elevated or too high. This is a good moment to start losing weight !</string>
+    <string name="maintain_ok">You have a good level of body fat. Stick to diets and workouts to maintain your body fat levels.</string>
+    <string name="change_goal">Change goal</string>
+    <string name="configure_the_training_section">Configure the training section</string>
+    <string name="change_goal_message">"Change the goal to : "</string>
+    <string name="change_goal_succes">Goal changed successful</string>
+    <string name="change_goal_error">Failed to change goal</string>
+    <string name="weekly">Weekly</string>
+    <string name="biweekly">Biweekly</string>
+    <string name="choose_your_training_system">Choose your training system</string>
+    <string name="create_a_plan">Create a plan</string>
+    <string name="weekA">Week A</string>
+    <string name="weekB">Week B</string>
+    <string name="set">Set</string>
+    <string name="reps">Reps</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="exercises">exercises</string>
+    <string name="one_exercise">exercise</string>
+    <string name="two_four_exercises_for_pl">exercises</string>
+    <string name="rest_day">Rest day</string>
+    /* muscles names*/
+    <string name="chest">Chest</string>
+    <string name="pec_major">Pec Major</string>
+    <string name="pec_minor">Pec Minor</string>
+    <string name="serratus_anterior">Serratus Anterior</string>
+
+    <string name="forearms">Forearms</string>
+
+    <string name="back_muscles">Back</string>
+    <string name="lats">Lats</string>
+    <string name="trapezius">Traps</string>
+    <string name="teres_major">Teres Major</string>
+    <string name="teres_minor">Teres Minor</string>
+    <string name="eractor_spinae">Eractor Spinae</string>
+
+    <string name="triceps" translatable="false">Triceps</string>
+    <string name="biceps" translatable="false">Biceps</string>
+
+    <string name="shoulders">Shoulders</string>
+    <string name="deltoid_anterior">Deltoid Anterior</string>
+    <string name="deltoid_middle">Deltoid Middle</string>
+    <string name="deltoid_posterior">Deltoid Posterior</string>
+
+    <string name="legs">Legs</string>
+    <string name="glutes">Glutes</string>
+    <string name="quadriceps">Quadriceps</string>
+    <string name="biceps_femoris">Biceps Femoris</string>
+    <string name="adductor_magnus">Adductor Magnus</string>
+    <string name="adductor_longus">Adductor Longus</string>
+    <string name="semitendinosus">Semitendinosus</string>
+    <string name="tensor_fasciae_latae">Tensor Fasciae Latae</string>
+    <string name="calves">Calves</string>
+
+    <string name="abs">ABS</string>
+    <string name="abdominals">Abdominals</string>
+    <string name="external_oblique">External Oblique</string>
+
+    <string name="endurance">Endurance</string>
+
+    <string name="choose_muscle_set">Choose muscle set</string>
+    <string name="all_body">All body</string>
+    <string name="thighs">Thighs</string>
+    <string name="main_muscles">Main muscles</string>
+    <string name="support_muscles">Support muscles</string>
+    <string name="where_you_can_do_exercises">Where to do ?</string>
+    <string name="burning_calories">Burning calories</string>
+
+    <string name="no_place_exercise">The exercise can be done anywhere</string>
+    <string name="home_exercise">Exercise does not require specialized equipment. You can do it at home.</string>
+    <string name="home_with_eq_exercise">You may need the right equipment to do the exercise</string>
+    <string name="gym_exercise">Exercise requires specialized equipment, which is often available only in gyms</string>
+    <string name="number_of_reps">Repeats</string>
+    <string name="number_of_sets">Number of sets : </string>
+    <string name="exercise_weight_kg">Weight (kg)</string>
+    <string name="exercise_weight">Weight : </string>
+    <string name="time_min">Time (min)</string>
+    <string name="time">Time</string>
+    <string name="distance_km">Distance (km)</string>
+    <string name="distance">Distance</string>
+    <string name="different_weights">Different weights</string>
+    <string name="one_weight">One weight</string>
+    <string name="enter_number_of_repetitions">Enter number of repetitions</string>
+    <string name="enter_the_duration_of_the_exercise_and_the_distance_covered">Enter the duration of the exercise and the distance covered</string>
+    <string name="enter_exercise_duration">Enter the duration of exercise</string>
+    <string name="enter_your_recent_results">Determine your recent results</string>
+    <string name="delete_exercise">Delete exercise</string>
+    <string name="want_delete_exercise">Do you want to delete exercise :</string>
+    <string name="exercise_delete_success">Exercise deleted</string>
+    <string name="today_is_day_of_rest">Day of rest</string>
+    <string name="rest_day_description1">Rest days are just as important as exercise.</string>
+    <string name="rest_day_description2">Taking regular breaks allows your body to recover and repair. It\'s a critical part of progress, regardless of your fitness level or sport. Otherwise, skipping rest days can lead to overtraining or burnout</string>
+    <string name="previous_exercise_results">Previous exercise results</string>
+    <string name="repetition_range">Repetition range : </string>
+    <string name="start">start</string>
+
+    <string-array name="muscleSets">
+        <item>@string/abs</item>
+        <item>@string/back_muscles</item>
+        <item>@string/biceps</item>
+        <item>@string/chest</item>
+        <item>@string/endurance</item>
+        <item>@string/forearms</item>
+        <item>@string/legs</item>
+        <item>@string/shoulders</item>
+        <item>@string/triceps</item>
+    </string-array>
+
+    <string-array name="muscles">
+        <item>@string/pec_major</item>
+        <item>@string/pec_minor</item>
+        <item>@string/serratus_anterior</item>
+        <item>@string/forearms</item>
+        <item>@string/lats</item>
+        <item>@string/teres_major</item>
+        <item>@string/teres_minor</item>
+        <item>@string/triceps</item>
+        <item>@string/biceps</item>
+    </string-array>
+
+    <string-array name="weeks">
+        <item>@string/weekA</item>
+        <item>@string/weekB</item>
+    </string-array>
+
+    <string-array name="weekDays">
+        <item>@string/monday</item>
+        <item>@string/tuesday</item>
+        <item>@string/wednesday</item>
+        <item>@string/thursday</item>
+        <item>@string/friday</item>
+        <item>@string/saturday</item>
+        <item>@string/sunday</item>
+    </string-array>
+
 </resources>

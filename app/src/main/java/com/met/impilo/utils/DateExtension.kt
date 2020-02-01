@@ -43,3 +43,8 @@ fun String.stringToDate() : Date? {
     val format = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
     return format.parse(this)
 }
+
+fun String.stringFromIntToDate() : Date? {
+    val format = SimpleDateFormat("yyyy MM dd", Locale.getDefault())
+    return format.parse(this)
+}

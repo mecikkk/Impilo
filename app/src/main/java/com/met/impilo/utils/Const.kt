@@ -1,6 +1,23 @@
 package com.met.impilo.utils
 
-object Constants {
+object Const {
+
+    const val REF_TRAINING_DAY = "trainingDay"
+    const val MY_OWN_PLAN_CREATOR_REQUEST = 222
+    const val REF_TRAINING_PLAN_INFO = "trainingPlanInfo"
+    const val REF_WEEK_A = "weekA"
+    const val REF_WEEK_B = "weekB"
+    const val REF_MONDAY = "monday"
+    const val REF_TUESDAY = "tuesday"
+    const val REF_WEDNESDAY = "wednesday"
+    const val REF_THURSDAY = "thursday"
+    const val REF_FRIDAY = "friday"
+    const val REF_SATURDAY = "saturday"
+    const val REF_SUNDAY = "sunday"
+    const val REF_ALL_TRAININGS = "allTrainings"
+    const val ADD_EXERCISE_RESULT = 320
+    const val REF_GYM_EXERCISES = "gym_exercises"
+    const val REF_EXERCISES = "exercises"
 
     const val REF_PRODUCTS = "products"
     const val REF_PERSONAL_DATA = "personalData"
@@ -14,6 +31,16 @@ object Constants {
     const val REF_USER_MEAL_SET = "mealSetInfo"
     const val RC_GOOGLE_SIGN_IN = 1
     const val ONLY_CONFIGURATION = "onlyConfiguration"
+
+    const val REF_EXERCISE_TRICEPS = "triceps"
+    const val REF_EXERCISE_SHOULDERS = "shoulders"
+    const val REF_EXERCISE_LEGS = "legs"
+    const val REF_EXERCISE_FOREARM = "forearm"
+    const val REF_EXERCISE_ENDURANCE = "endurance"
+    const val REF_EXERCISE_CHEST = "chest"
+    const val REF_EXERCISE_BICEPS = "biceps"
+    const val REF_EXERCISE_BACK = "back"
+    const val REF_EXERCISE_ABS = "abs"
 
     const val LOGIN_REQUEST = 103
     const val CAMERA_REQUEST = 102
@@ -42,8 +69,8 @@ object Constants {
     const val TRICEPS_LATERAL_RIGHT = "triceps_lateral_head_right"
     const val TRICEPS_MEDIAL_LEFT = "triceps_medial_head_left"
     const val TRICEPS_MEDIAL_RIGHT = "triceps_medial_head_right"
-    const val CHEST_LEFT = "chest_left"
-    const val CHEST_RIGHT = "chest_right"
+    const val PECTORALIS_MAJOR_LEFT = "pectoralis_major_left"
+    const val PECTORALIS_MAJOR_RIGHT = "pectoralis_major_right"
     const val BICEPS_LONG_LEFT = "biceps_long_head_left"
     const val BICEPS_LONG_RIGHT = "biceps_long_head_right"
     const val BICEPS_SHORT_LEFT = "biceps_short_head_left"
@@ -62,9 +89,14 @@ object Constants {
     const val FOREARM_FLEXOR_RIGHT = "forearm_flexor_carpi_radialis_right"
     const val LATISSIMUS_DORSI_LEFT = "latissimus_dorsi_left"
     const val LATISSIMUS_DORSI_RIGHT = "latissimus_dorsi_right"
-    const val SERRATUS_ANTERIOR_X8 = "serratus_anterior"
-    const val EXTERNAL_OBLIQUE_LEFT = "external_oblique_left"
-    const val EXTERNAL_OBLIQUE_RIGHT = "external_oblique_right"
+    const val EXTERNAL_OBLIQUE_LEFT1 = "external_oblique_left1"
+    const val EXTERNAL_OBLIQUE_LEFT2 = "external_oblique_left2"
+    const val EXTERNAL_OBLIQUE_LEFT3 = "external_oblique_left3"
+    const val EXTERNAL_OBLIQUE_LEFT4 = "external_oblique_left4"
+    const val EXTERNAL_OBLIQUE_RIGHT1 = "external_oblique_right1"
+    const val EXTERNAL_OBLIQUE_RIGHT2 = "external_oblique_right2"
+    const val EXTERNAL_OBLIQUE_RIGHT3 = "external_oblique_right3"
+    const val EXTERNAL_OBLIQUE_RIGHT4 = "external_oblique_right4"
     const val ABS_X8 = "abs"
     const val THIGHS = "thighs"
     const val CALVES = "calves"

@@ -1,9 +1,7 @@
 package com.met.auth.registration
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -20,13 +18,11 @@ import com.met.auth.R
 import com.met.auth.registration.configuration.*
 import com.met.impilo.data.*
 import com.met.impilo.data.meals.UserMealSet
-import com.met.impilo.utils.Constants
+import com.met.impilo.utils.Const
 import com.met.impilo.utils.ViewUtils
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registration.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashSet
 
 
 class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
@@ -46,7 +42,7 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-        showOnlyConfiguration = intent.getBooleanExtra(Constants.ONLY_CONFIGURATION, false)
+        showOnlyConfiguration = intent.getBooleanExtra(Const.ONLY_CONFIGURATION, false)
 
         viewModel = ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
 
@@ -253,7 +249,7 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
         val mealsString = TextUtils.join(";", mealSet)
         val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putString(Constants.REF_USER_MEAL_SET, mealsString)
+        editor.putString(Const.REF_USER_MEAL_SET, mealsString)
         editor.apply()
 
         val userMealSet = UserMealSet()

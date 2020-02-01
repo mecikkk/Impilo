@@ -3,7 +3,7 @@ package com.met.impilo.repository
 import android.util.Log
 import com.met.impilo.data.*
 import com.met.impilo.data.meals.MealsSummary
-import com.met.impilo.utils.Constants
+import com.met.impilo.utils.Const
 import com.met.impilo.utils.toId
 import java.util.*
 
@@ -15,11 +15,12 @@ class DemandRepository : FirebaseRepository() {
     private var demand = Demand()
 
     companion object {
+        @JvmStatic
         fun newInstance() = DemandRepository()
     }
 
     fun setOrUpdateDemand(personalData: PersonalData, bodyMeasurements: BodyMeasurements, success: (Boolean) -> Unit) {
-        Log.e(TAG, "BodyMeasurement : $bodyMeasurements")
+        Log.i(TAG, "BodyMeasurement : $bodyMeasurements")
         this.bodyMeasurements = bodyMeasurements
 
         getDemand {
@@ -30,9 +31,9 @@ class DemandRepository : FirebaseRepository() {
         demand.calories = getCaloricDemand()
         calculateMacronutrientsDemand()
 
-        firestore.collection(Constants.REF_USER_DATA).document(uid).collection(Constants.REF_DEMAND_COLLECTION).document(Constants.REF_DEMAND).set(demand).addOnSuccessListener {
+        firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_DEMAND_COLLECTION).document(Const.REF_DEMAND).set(demand).addOnSuccessListener {
             success(true)
-            Log.e(TAG, "Demand added correctly")
+            Log.i(TAG, "Demand added correctly")
         }.addOnFailureListener {
             success(false)
             Log.e(TAG, "Demand adding error : " + it.cause + " | " + it.message)
@@ -42,21 +43,26 @@ class DemandRepository : FirebaseRepository() {
     fun getDemandInPercentages(date: Date, calculatedDemand: (Demand) -> Unit) {
         var mealsSummary: MealsSummary
 
-        getMealsSummary(date.toId()) {
-            mealsSummary = it ?: MealsSummary()
-            calculatedDemand(calculateDemandToPercentages(mealsSummary))
+        getMealsSummary(date.toId()) { summary ->
+            mealsSummary = summary ?: MealsSummary()
+            getDemand {
+                demand = it
+                calculatedDemand(calculateDemandToPercentages(mealsSummary))
+            }
         }
-
     }
 
     private fun calculateDemandToPercentages(mealsSummary: MealsSummary): Demand {
-        Log.e(TAG, "MyDemand : $demand")
-        Log.e(TAG, "MealSummary : $mealsSummary")
+
+        Log.i(TAG, "MyDemand : $demand")
+        Log.i(TAG, "MealSummary : $mealsSummary")
 
         val caloriesPercent = ((mealsSummary.kcalSum.toFloat() / demand.calories.toFloat()) * 100).toInt()
         val carboPercent = (mealsSummary.carbohydratesSum / demand.carbohydares) * 100
         val proteinsPercent = (mealsSummary.proteinsSum / demand.proteins) * 100
         val fatsPercent = (mealsSummary.fatsSum / demand.fats) * 100
+
+        Log.i(TAG, "Calculated demand in percent : $caloriesPercent | $carboPercent | $proteinsPercent | $fatsPercent")
 
         return Demand(caloriesPercent, carboPercent.toInt(), proteinsPercent.toInt(), fatsPercent.toInt())
     }
@@ -87,7 +93,7 @@ class DemandRepository : FirebaseRepository() {
 
         return when (personalData.gender) {
             Gender.MALE -> {
-                Log.e(TAG, "BMR = (9.99 * ${bodyMeasurements.weight}) + (6.25 * ${bodyMeasurements.height}) - (4.92 * ($actualYear - $birthYear)) + 5)")
+                //Log.e(TAG, "BMR = (9.99 * ${bodyMeasurements.weight}) + (6.25 * ${bodyMeasurements.height}) - (4.92 * ($actualYear - $birthYear)) + 5)")
                 ((9.99f * bodyMeasurements.weight) + (6.25f * bodyMeasurements.height) - (4.92f * (actualYear - birthYear)) + 5)
             }
             Gender.FEMALE -> {

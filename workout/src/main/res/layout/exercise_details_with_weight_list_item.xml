@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/set_num_text_view"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="1."
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/weight_input_text_layout"
+        app:layout_constraintEnd_toStartOf="@id/weight_input_text_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/weight_input_text_layout" />
+
+    <TextView
+        android:id="@+id/weight_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="123 kg"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toStartOf="@id/multipication_text_view"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintBottom_toBottomOf="@id/reps_spinner"
+        app:layout_constraintStart_toEndOf="@id/set_num_text_view"
+        app:layout_constraintTop_toTopOf="@id/reps_spinner" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/weight_input_text_layout"
+        style="@style/DayNightTextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:hintTextColor="@color/textColor"
+        app:layout_constraintEnd_toStartOf="@id/multipication_text_view"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@id/set_num_text_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:startIconDrawable="@drawable/ic_kettlebell"
+        app:startIconTint="@color/textColor">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/weight_input_edit_text"
+            style="@style/DayNightEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/exercise_weight_kg"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/multipication_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="×"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/weight_input_text_layout"
+        app:layout_constraintEnd_toStartOf="@id/reps_spinner"
+        app:layout_constraintStart_toEndOf="@id/weight_input_text_layout"
+        app:layout_constraintTop_toTopOf="@id/weight_input_text_layout" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/reps_spinner"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/spinner_selector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/multipication_text_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.met.auth.registration
+package com.met.impilo.adapter
 
 import android.content.Context
 import android.util.AttributeSet

@@ -44,7 +44,7 @@
             android:text="@string/register_description" />
 
 
-        <com.met.auth.registration.NoSwipeableViewPager
+        <com.met.impilo.adapter.NoSwipeableViewPager
             android:id="@+id/registration_view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

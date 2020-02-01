@@ -20,6 +20,14 @@
     <color name="menuIconGradientStart">#eee</color>
     <color name="menuIconGradientEnd">#fafafa</color>
     <color name="positiveGreen">#27cf75</color>
+    <color name="moderateLevel">#b0d42f</color>
+    <color name="defaultBgColor">@android:color/background_light</color>
+    <color name="supportMusclesColor">#bfb008</color>
+
+    <color name="roundedCornersBgColor">#eee</color>
+
+    <color name="mti_bg_lbl_date_selected_color">@color/colorAccent</color>
+    <color name="mti_ring_lbl_date_color">@color/colorAccent</color>
 
     <array name="circularProgressBarGradient">
         <item>@color/colorAccent</item>

@@ -9,4 +9,7 @@
     <color name="listGroupItemBg">#414141</color>
     <color name="menuIconGradientStart">#191919</color>
     <color name="menuIconGradientEnd">#1f1f1f</color>
+    <color name="roundedCornersBgColor">#212121</color>
+
+    <color name="defaultBgColor">#191919</color>
 </resources>

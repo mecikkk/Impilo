@@ -3,8 +3,9 @@ package com.met.impilo.repository
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.met.impilo.data.Gender
+import com.met.impilo.data.Goal
 import com.met.impilo.data.PersonalData
-import com.met.impilo.utils.Constants
+import com.met.impilo.utils.Const
 import java.util.*
 
 class PersonalDataRepository : FirebaseRepository() {
@@ -16,12 +17,22 @@ class PersonalDataRepository : FirebaseRepository() {
     }
 
     fun setOrUpdatePersonalData(personalData: PersonalData, success: (Boolean) -> Unit) {
-        firestore.collection(Constants.REF_USER_DATA).document(personalData.uid).set(personalData).addOnSuccessListener {
+        firestore.collection(Const.REF_USER_DATA).document(personalData.uid).set(personalData).addOnSuccessListener {
             success(true)
-            Log.e(TAG, "PersonalData added correctly")
+            Log.i(TAG, "PersonalData added correctly")
         }.addOnFailureListener {
             success(false)
             Log.e(TAG, "PersonalData adding error : " + it.cause + " | " + it.message)
+        }
+    }
+
+    fun updateGoal(goal: Goal, success: (Boolean) -> Unit){
+        firestore.collection(Const.REF_USER_DATA).document(uid).update("goal", goal).addOnSuccessListener {
+            success(true)
+            Log.i(TAG, "Goal updated correctly")
+        }.addOnFailureListener {
+            success(false)
+            Log.e(TAG, "Goal update error : " + it.cause + " | " + it.message)
         }
     }
 
@@ -44,7 +55,7 @@ class PersonalDataRepository : FirebaseRepository() {
     }
 
     fun hasUserCompletedConfiguration(completed: (Boolean?) -> Unit) {
-        firestore.collection(Constants.REF_USER_DATA).document(FirebaseAuth.getInstance().uid!!).get().addOnSuccessListener {
+        firestore.collection(Const.REF_USER_DATA).document(FirebaseAuth.getInstance().uid!!).get().addOnSuccessListener {
             if (it != null) completed(it.toObject(PersonalData::class.java)?.baseConfigurationCompleted ?: false)
             else completed(false)
         }.addOnFailureListener { completed(false) }
@@ -52,7 +63,7 @@ class PersonalDataRepository : FirebaseRepository() {
 
     fun setConfigurationCompleted(success: (Boolean) -> Unit) {
 
-        firestore.collection(Constants.REF_USER_DATA).document(FirebaseAuth.getInstance().uid!!).update("baseConfigurationCompleted", true).addOnSuccessListener {
+        firestore.collection(Const.REF_USER_DATA).document(FirebaseAuth.getInstance().uid!!).update("baseConfigurationCompleted", true).addOnSuccessListener {
             Log.i(TAG, "ConfigurationFinished  = true")
             success(true)
         }.addOnFailureListener {

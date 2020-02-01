@@ -2,7 +2,7 @@ package com.met.impilo.repository
 
 import android.util.Log
 import com.met.impilo.data.food.FoodProduct
-import com.met.impilo.utils.Constants
+import com.met.impilo.utils.Const
 
 class FoodProductsRepository : FirebaseRepository() {
 
@@ -14,14 +14,14 @@ class FoodProductsRepository : FirebaseRepository() {
 
     fun findProductByName(query: String, result: (List<FoodProduct>) -> Unit) {
         val products = mutableListOf<FoodProduct>()
-        firestore.collection(Constants.REF_PRODUCTS).whereGreaterThanOrEqualTo("name", query.capitalize()).whereLessThanOrEqualTo("name", "${query.capitalize()}\uf8ff").get()
+        firestore.collection(Const.REF_PRODUCTS).whereGreaterThanOrEqualTo("name", query.capitalize()).whereLessThanOrEqualTo("name", "${query.capitalize()}\uf8ff").get()
             .addOnSuccessListener { all ->
                 all.forEach {
                     val p = it.toObject(FoodProduct::class.java)
                     p.id = it.id
                     products.add(p)
                     //list.add(ProductSearchItem(it.id, it.getString("name")!!, it.getString("producer")!!))
-                    Log.e(TAG, "Substring : $query | FOUND : ${it.getString("name")}")
+                    Log.i(TAG, "Substring : $query | FOUND : ${it.getString("name")}")
                 }
                 result(products)
             }.addOnFailureListener {
@@ -30,7 +30,7 @@ class FoodProductsRepository : FirebaseRepository() {
     }
 
     fun getProductById(productId: String, product: (FoodProduct) -> Unit) {
-        firestore.collection(Constants.REF_PRODUCTS).document(productId).get().addOnSuccessListener {
+        firestore.collection(Const.REF_PRODUCTS).document(productId).get().addOnSuccessListener {
             product(it.toObject(FoodProduct::class.java)!!)
         }.addOnFailureListener {
             Log.e(TAG, "Getting Product error : " + it.cause + " | " + it.message)
@@ -38,7 +38,7 @@ class FoodProductsRepository : FirebaseRepository() {
     }
 
     fun getProductByBarcode(barcode: String, product: (FoodProduct?) -> Unit) {
-        firestore.collection(Constants.REF_PRODUCTS).whereEqualTo("barcode", barcode).get().addOnSuccessListener { all ->
+        firestore.collection(Const.REF_PRODUCTS).whereEqualTo("barcode", barcode).get().addOnSuccessListener { all ->
 
             if (!all.isEmpty) all.forEach {
                 product(it.toObject(FoodProduct::class.java))

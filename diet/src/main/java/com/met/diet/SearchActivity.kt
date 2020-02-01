@@ -16,7 +16,7 @@ import com.github.pappin.mbs.MaterialBarcodeScannerBuilder
 import com.met.diet.adapter.SearchActivityAdapter
 import com.met.impilo.data.food.FoodProduct
 import com.met.impilo.data.food.ServingType
-import com.met.impilo.utils.Constants
+import com.met.impilo.utils.Const
 import com.met.impilo.utils.ViewUtils
 import kotlinx.android.synthetic.main.activity_search.*
 import java.util.*
@@ -36,8 +36,8 @@ class SearchActivity : AppCompatActivity(), SearchActivityAdapter.OnProductClick
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        selectedMeal = intent.getIntExtra(Constants.MEAL_ID_REQUEST, -1)
-        mealName = intent.getStringExtra(Constants.MEAL_NAME_REQUEST) ?: ""
+        selectedMeal = intent.getIntExtra(Const.MEAL_ID_REQUEST, -1)
+        mealName = intent.getStringExtra(Const.MEAL_NAME_REQUEST) ?: ""
 
         viewModel = ViewModelProviders.of(this).get(SearchActivityViewModel::class.java)
 
@@ -63,7 +63,7 @@ class SearchActivity : AppCompatActivity(), SearchActivityAdapter.OnProductClick
 
         scan_barcode_action.setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), Constants.CAMERA_REQUEST)
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), Const.CAMERA_REQUEST)
             } else {
                 val materialBarcodeScanner =
                     MaterialBarcodeScannerBuilder().withActivity(this@SearchActivity)
@@ -121,7 +121,7 @@ class SearchActivity : AppCompatActivity(), SearchActivityAdapter.OnProductClick
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == Constants.CAMERA_REQUEST) {
+        if (requestCode == Const.CAMERA_REQUEST) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 ViewUtils.createSnackbar(search_activity_content, getString(com.met.impilo.R.string.camera_perm_granted)).show()
             } else {

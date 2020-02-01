@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.met.auth.R
 import com.met.auth.registration.Registration
 import com.met.impilo.network.ConnectionInformation
-import com.met.impilo.utils.Constants
+import com.met.impilo.utils.Const
 import com.met.impilo.utils.ScreenUtils
 import com.met.impilo.utils.Utils
 import com.met.impilo.utils.ViewUtils
@@ -92,7 +92,7 @@ class Login : AppCompatActivity() {
     private fun startRegistrationActivity(showOnlyConfiguration: Boolean) {
         Log.e(TAG, "Starting registrationnn")
         val intent = Intent(applicationContext, Registration::class.java)
-        intent.putExtra(Constants.ONLY_CONFIGURATION, showOnlyConfiguration)
+        intent.putExtra(Const.ONLY_CONFIGURATION, showOnlyConfiguration)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
@@ -178,7 +178,7 @@ class Login : AppCompatActivity() {
      */
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient?.signInIntent
-        startActivityForResult(signInIntent, Constants.RC_GOOGLE_SIGN_IN)
+        startActivityForResult(signInIntent, Const.RC_GOOGLE_SIGN_IN)
 
     }
 
@@ -301,7 +301,7 @@ class Login : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == Constants.RC_GOOGLE_SIGN_IN) {
+        if (requestCode == Const.RC_GOOGLE_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase

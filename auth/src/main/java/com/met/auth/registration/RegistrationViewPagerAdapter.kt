@@ -14,6 +14,5 @@ class RegistrationViewPagerAdapter(fm : FragmentManager, private val fragments :
         return fragments.size
     }
 
-
 }
 

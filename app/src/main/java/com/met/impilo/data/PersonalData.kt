@@ -1,5 +1,6 @@
 package com.met.impilo.data
 
+import com.met.impilo.utils.getIntYear
 import java.util.*
 
 data class PersonalData(
@@ -15,4 +16,8 @@ data class PersonalData(
     var goal: Goal? = null,
     var baseConfigurationCompleted: Boolean = false,
     val registrationDate: Date? = null
-)
+) {
+
+    fun getAge() : Int = (Date().getIntYear().minus(birthDate?.getIntYear()!!))
+
+}

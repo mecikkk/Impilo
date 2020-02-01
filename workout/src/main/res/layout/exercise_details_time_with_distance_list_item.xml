@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/set_num_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/enter_the_duration_of_the_exercise_and_the_distance_covered" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/weight_input_text_layout"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_margin="16dp"
+        style="@style/DayNightTextInputLayoutStyle"
+        app:startIconDrawable="@drawable/ic_clock"
+        app:startIconTint="@color/textColor"
+        app:hintTextColor="@color/textColor"
+        app:layout_constraintTop_toBottomOf="@id/set_num_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/multipication_text_view">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/time_input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            style="@style/DayNightEditTextStyle"
+            android:hint="@string/time_min"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/multipication_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_margin="4dp"
+        app:layout_constraintEnd_toStartOf="@id/distance_input_text_layout"
+        app:layout_constraintTop_toTopOf="@id/weight_input_text_layout"
+        app:layout_constraintBottom_toBottomOf="@id/weight_input_text_layout"
+        app:layout_constraintStart_toEndOf="@id/weight_input_text_layout"
+        android:text=":" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/distance_input_text_layout"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_margin="16dp"
+        style="@style/DayNightTextInputLayoutStyle"
+        app:startIconDrawable="@drawable/ic_distance"
+        app:startIconTint="@color/textColor"
+        app:hintTextColor="@color/textColor"
+        app:layout_constraintTop_toBottomOf="@id/set_num_text_view"
+        app:layout_constraintStart_toEndOf="@id/multipication_text_view"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/distance_input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            style="@style/DayNightEditTextStyle"
+            android:hint="@string/distance_km"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,15 +7,41 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/framelayout"
+    <com.met.impilo.adapter.NoSwipeableViewPager
+        android:id="@+id/main_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bubbleTabBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
+<!--    <FrameLayout-->
+<!--        android:id="@+id/framelayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/bubbleTabBar"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <TextView
+        android:id="@+id/connection_state_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:alpha="0"
+        android:visibility="gone"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/white"
+        android:text="@string/no_internet_connection"
+        android:background="@drawable/rounded_corners_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <com.fxn.BubbleTabBar
         android:id="@+id/bubbleTabBar"

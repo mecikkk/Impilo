@@ -340,7 +340,7 @@
       android:fillAlpha="1"
       android:strokeLineCap="butt"/>
   <path
-      android:name="thighs1"
+      android:name="tensor_fasciae_latae_left"
       android:pathData="m27.987,88.22c0.886,6.268 -0.394,12.536 -0.803,18.804 -0.735,-5.782 -0.54,-12.015 0.803,-18.804z"
       android:strokeAlpha="1"
       android:strokeLineJoin="miter"
@@ -350,7 +350,7 @@
       android:fillAlpha="1"
       android:strokeLineCap="butt"/>
   <path
-      android:name="thighs2"
+      android:name="biceps_femoris_left"
       android:pathData="m32.618,93.889c-6.879,3.229 -3.581,18.253 -2.268,26.978 3.233,-7.529 1.557,-17.959 2.268,-26.978z"
       android:strokeAlpha="1"
       android:strokeLineJoin="miter"
@@ -360,7 +360,7 @@
       android:fillAlpha="1"
       android:strokeLineCap="butt"/>
   <path
-      android:name="thighs3"
+      android:name="semitendinosus_left"
       android:pathData="m33.751,94.173c6.512,19.137 4.485,24.303 2.929,30.238 -4.619,-5.165 -3.04,-26.537 -2.929,-30.238z"
       android:strokeAlpha="1"
       android:strokeLineJoin="miter"
@@ -370,7 +370,7 @@
       android:fillAlpha="1"
       android:strokeLineCap="butt"/>
   <path
-      android:name="thighs4"
+      android:name="adductor_magnus_left"
       android:pathData="m34.555,93.889c4.264,-0.914 4.225,-1.456 5.67,-2.032 1.428,3.078 -1.165,7.087 -0.52,23.057 -1.162,-7 -2.672,-14.963 -5.15,-21.025z"
       android:strokeAlpha="1"
       android:strokeLineJoin="miter"
@@ -381,7 +381,7 @@
       android:strokeLineCap="butt"/>
 
   <path
-      android:name="thighs5"
+      android:name="tensor_fasciae_latae_right"
       android:pathData="m56.64,88.202c-0.886,6.268 0.394,12.536 0.803,18.804 0.735,-5.782 0.54,-12.015 -0.803,-18.804z"
       android:strokeAlpha="1"
       android:strokeLineJoin="miter"
@@ -391,7 +391,7 @@
       android:fillAlpha="1"
       android:strokeLineCap="butt"/>
   <path
-      android:name="thighs6"
+      android:name="biceps_femoris_right"
       android:pathData="m52.01,93.871c6.879,3.229 3.581,18.253 2.268,26.978 -3.233,-7.529 -1.557,-17.959 -2.268,-26.978z"
       android:strokeAlpha="1"
       android:strokeLineJoin="miter"
@@ -401,7 +401,7 @@
       android:fillAlpha="1"
       android:strokeLineCap="butt"/>
   <path
-      android:name="thighs7"
+      android:name="semitendinosus_right"
       android:pathData="m50.876,94.155c-6.512,19.137 -4.485,24.303 -2.929,30.238 4.619,-5.165 3.04,-26.537 2.929,-30.238z"
       android:strokeAlpha="1"
       android:strokeLineJoin="miter"
@@ -411,7 +411,7 @@
       android:fillAlpha="1"
       android:strokeLineCap="butt"/>
   <path
-      android:name="thighs8"
+      android:name="adductor_magnus_right"
       android:pathData="m50.073,93.871c-4.264,-0.914 -4.225,-1.456 -5.67,-2.032 -1.428,3.078 1.165,7.087 0.52,23.057 1.162,-7 2.672,-14.963 5.15,-21.025z"
       android:strokeAlpha="1"
       android:strokeLineJoin="miter"

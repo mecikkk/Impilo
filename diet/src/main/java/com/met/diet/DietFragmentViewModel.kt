@@ -15,7 +15,7 @@ import com.met.impilo.data.meals.UserMealSet
 import com.met.impilo.repository.DemandRepository
 import com.met.impilo.repository.FoodProductsRepository
 import com.met.impilo.repository.MealsRepository
-import com.met.impilo.utils.Constants
+import com.met.impilo.utils.Const
 import com.met.impilo.utils.toId
 import java.util.*
 
@@ -30,7 +30,6 @@ class DietFragmentViewModel : ViewModel() {
     var userMealSet: MutableLiveData<UserMealSet> = MutableLiveData()
     var allMeals: MutableLiveData<List<Meal>> = MutableLiveData()
 
-    lateinit var demand: Demand
     var fullDemand: MutableLiveData<Demand> = MutableLiveData()
     var percentageDemand: MutableLiveData<Demand> = MutableLiveData()
     var mealsSummary: MutableLiveData<MealsSummary> = MutableLiveData()
@@ -38,7 +37,6 @@ class DietFragmentViewModel : ViewModel() {
     fun getMyDemand() {
         demandRepository.getDemand {
             fullDemand.value = it
-            demand = it
         }
     }
 
@@ -46,6 +44,7 @@ class DietFragmentViewModel : ViewModel() {
         demandRepository.getDemandInPercentages(date) {
             percentageDemand.value = it
         }
+        Log.e(TAG, "Percentage demand : ${percentageDemand.value}")
     }
 
     fun getMyMealsSummary(date: Date) {
@@ -72,12 +71,12 @@ class DietFragmentViewModel : ViewModel() {
         val mealsString = TextUtils.join(";", userMealSet.mealsSet!!.toList())
 
         val editor = sp.edit()
-        editor.putString(Constants.REF_USER_MEAL_SET, mealsString)
+        editor.putString(Const.REF_USER_MEAL_SET, mealsString)
         editor.apply()
     }
 
     fun getMealsSetFromSharedPreferences(sp: SharedPreferences): List<Meal> {
-        val set = sp.getString(Constants.REF_USER_MEAL_SET, "")
+        val set = sp.getString(Const.REF_USER_MEAL_SET, "")
         val mealNamesList = set?.split(";")!!.toMutableList()
         Log.e("DIET", "SharedPref set : $set")
 

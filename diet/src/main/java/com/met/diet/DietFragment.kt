@@ -80,8 +80,9 @@ class DietFragment : Fragment() {
             meals_list_view.expandGroup(it.id)
         }
 
-        viewModel.getAllMealsByDateId(selectedDate.toId())
-        viewModel.getMyMealsSummary(selectedDate)
+//        viewModel.getAllMealsByDateId(selectedDate.toId())
+//        viewModel.getMyMealsSummary(selectedDate)
+//        Log.e("GET_DEMAND_ONCREATE ", "--------------------------------------------")
 
 
         mealsAdapter.setOnMealClickListener(object : OnMealClickListener {
@@ -94,8 +95,8 @@ class DietFragment : Fragment() {
             override fun onAddProductClick(groupPosition: Int, mealName: String) {
                 Log.e("MEAL NEW PRODUCT", "Meal num : $groupPosition")
                 val intent = Intent(context, SearchActivity::class.java)
-                intent.putExtra(Constants.MEAL_ID_REQUEST, groupPosition)
-                intent.putExtra(Constants.MEAL_NAME_REQUEST, mealName)
+                intent.putExtra(Const.MEAL_ID_REQUEST, groupPosition)
+                intent.putExtra(Const.MEAL_NAME_REQUEST, mealName)
                 startActivity(intent)
             }
 
@@ -125,6 +126,7 @@ class DietFragment : Fragment() {
                                     ViewUtils.createSnackbar(diet_content, getString(com.met.impilo.R.string.product_delete_success)).show()
                                     viewModel.getAllMealsByDateId(selectedDate.toId())
                                     viewModel.getMyMealsSummary(selectedDate)
+                                    Log.e("GET_DEMAND_REMOVE", "--------------------------------------------")
                                 } else {
                                     loadingDialog.hide()
                                     ViewUtils.createSnackbar(diet_content, getString(com.met.impilo.R.string.product_delete_error)).show()
@@ -157,7 +159,6 @@ class DietFragment : Fragment() {
                 Log.e(TAG, "Selected Date : $selectedDate")
 
                 viewModel.getAllMealsByDateId(selectedDate.toId())
-                viewModel.getMyMealsSummary(selectedDate)
 
                 mealsAdapter.meals.forEach {
                     meals_list_view.expandGroup(it.id)
@@ -165,6 +166,7 @@ class DietFragment : Fragment() {
 
                 // Update UI
                 viewModel.getMyMealsSummary(selectedDate)
+                Log.e("GET_DEMAND_CALENDAR", "--------------------------------------------")
             }
             dialog.show()
             dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE)
@@ -246,6 +248,7 @@ class DietFragment : Fragment() {
                             ViewUtils.createSnackbar(diet_content, getString(com.met.impilo.R.string.product_update_success)).show()
                             viewModel.getAllMealsByDateId(selectedDate.toId())
                             viewModel.getMyMealsSummary(selectedDate)
+                            Log.e("GET_DEMAND_ADD", "--------------------------------------------")
                         } else ViewUtils.createSnackbar(diet_content, getString(com.met.impilo.R.string.product_update_error)).show()
                     }
                 }
@@ -296,6 +299,7 @@ class DietFragment : Fragment() {
         proteins_progress.progress = 0f
         fats_progress.progress = 0f
 
+
         kcal_progress.labelText = StringBuilder("" + mealsSummary.kcalSum + " / " + fullDemand?.calories + " kcal").toString()
         kcal_progress.progress = percentageDemand!!.calories.toFloat()
 
@@ -312,6 +316,7 @@ class DietFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        selectedDate = Date()
         viewModel.getAllMealsByDateId(selectedDate.toId())
         Log.e(TAG, "Runned onResume. PercentageDemand : $percentageDemand")
         viewModel.getMyMealsSummary(selectedDate)
