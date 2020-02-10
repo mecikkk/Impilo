@@ -1,15 +1,18 @@
 package com.met.impilo.repository
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.food.FoodProduct
 import com.met.impilo.utils.Const
 
-class FoodProductsRepository : FirebaseRepository() {
+class FoodProductsRepository(override val firestore: FirebaseFirestore) : FirebaseRepository(firestore) {
 
     override val TAG = javaClass.simpleName
+    override val uid: String = FirebaseAuth.getInstance().uid!!
 
     companion object {
-        fun newInstance() = FoodProductsRepository()
+        fun newInstance(firestore: FirebaseFirestore) = FoodProductsRepository(firestore)
     }
 
     fun findProductByName(query: String, result: (List<FoodProduct>) -> Unit) {

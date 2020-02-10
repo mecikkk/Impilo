@@ -1,14 +1,17 @@
 package com.met.impilo.repository
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.*
 import com.met.impilo.data.meals.MealsSummary
 import com.met.impilo.utils.Const
 import com.met.impilo.utils.toId
 import java.util.*
 
-class DemandRepository : FirebaseRepository() {
+class DemandRepository(override val firestore: FirebaseFirestore) : FirebaseRepository(firestore) {
     override val TAG = javaClass.simpleName
+    override val uid: String = FirebaseAuth.getInstance().uid!!
 
     private lateinit var personalData: PersonalData
     private lateinit var bodyMeasurements: BodyMeasurements
@@ -16,7 +19,7 @@ class DemandRepository : FirebaseRepository() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = DemandRepository()
+        fun newInstance(firestore: FirebaseFirestore) = DemandRepository(firestore)
     }
 
     fun setOrUpdateDemand(personalData: PersonalData, bodyMeasurements: BodyMeasurements, success: (Boolean) -> Unit) {

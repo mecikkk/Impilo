@@ -6,10 +6,11 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 
-class AuthRepository : FirebaseRepository() {
+class AuthRepository {
 
-    override val TAG = javaClass.simpleName
+    private val TAG = javaClass.simpleName
 
     companion object {
         fun newInstance() = AuthRepository()

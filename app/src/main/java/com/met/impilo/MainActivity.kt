@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.fxn.OnBubbleClickListener
@@ -25,22 +26,27 @@ import com.met.impilo.utils.ViewUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), ViewPagerAdapter.OnChangeTrainingFragmentListener {
+class MainActivity : AppCompatActivity(), ViewPagerAdapter.OnChangeTrainingFragmentListener, HomeFragment.SetUpWorkoutsListener {
 
     private val TAG = javaClass.simpleName
     private val fragmentManager = supportFragmentManager
     private lateinit var connectionInformation: ConnectionInformation
     private lateinit var receiver: BroadcastReceiver
     private lateinit var viewModel: MainActivityViewModel
-    private lateinit var viewPagerAdapter : ViewPagerAdapter
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
+    private lateinit var authListener: FirebaseAuth.AuthStateListener
+    private lateinit var firebaseAuth: FirebaseAuth
+    private var initializinkBubbles = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
-        connectionInformation = ViewModelProviders.of(this)[ConnectionInformation::class.java]
+        firebaseAuth = FirebaseAuth.getInstance()
+        connectionInformation = ViewModelProvider(this)[ConnectionInformation::class.java]
         receiver = connectionInformation.connectionReceiver(this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+
+        //viewModel.testPlan()
 
         val connectionObserver = Observer<Boolean> {
             if (it) {
@@ -61,12 +67,9 @@ class MainActivity : AppCompatActivity(), ViewPagerAdapter.OnChangeTrainingFragm
 
         init()
 
-        initWhenLoggedIn()
-
-        viewModel.isWorkoutConfigCompleted().observe(this, Observer {
-            viewPagerAdapter.isWorkoutConfigurationCompleted = it
-            Log.i(TAG, "WorkoutConfig state changed to : $it")
-        })
+        authListener = FirebaseAuth.AuthStateListener {
+            initWhenLoggedIn()
+        }
 
     }
 
@@ -76,16 +79,28 @@ class MainActivity : AppCompatActivity(), ViewPagerAdapter.OnChangeTrainingFragm
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         } else {
 
+            viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+            bubbleTabBar?.setSelected(0)
             viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+
+            viewModel.isWorkoutConfigCompleted().observe(this, Observer {
+                viewPagerAdapter.isWorkoutConfigurationCompleted = it
+                Log.i(TAG, "WorkoutConfig state changed to : $it")
+                if (!it) viewPagerAdapter.homeFragment.setUpWorkoutsListener = this
+            })
+
+
             main_view_pager.adapter = viewPagerAdapter
             viewPagerAdapter.onChangeTrainingFragmentListener = this
+
+            bubbleTabBar.setupBubbleTabBar(main_view_pager)
 
             viewModel.checkIsWorkoutConfigCompleted()
 
             bubbleTabBar.addBubbleListener(object : OnBubbleClickListener {
                 override fun onBubbleClick(id: Int) {
                     Log.e(TAG, "Clicked : $id")
-                    when (id) {
+                    if (!initializinkBubbles) when (id) {
                         R.id.home -> {
                             main_view_pager.currentItem = 0
                         }
@@ -95,17 +110,15 @@ class MainActivity : AppCompatActivity(), ViewPagerAdapter.OnChangeTrainingFragm
                         R.id.trainings -> {
                             main_view_pager.currentItem = 2
                         }
+                        R.id.profile -> {
+                            main_view_pager.currentItem = 3
+                        }
                     }
                 }
 
             })
 
-//            main_view_pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//                override fun onPageSelected(position: Int) {
-//                    super.onPageSelected(position)
-//                    bubbleTabBar.setSelected(position)
-//                }
-//            })
+
 
             main_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) {
@@ -129,6 +142,7 @@ class MainActivity : AppCompatActivity(), ViewPagerAdapter.OnChangeTrainingFragm
         bubbleTabBar.setSelected(2)
         bubbleTabBar.setSelected(3)
         bubbleTabBar.setSelected(0)
+        initializinkBubbles = false
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -148,16 +162,23 @@ class MainActivity : AppCompatActivity(), ViewPagerAdapter.OnChangeTrainingFragm
     override fun onResume() {
         super.onResume()
         registerReceiver(receiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        firebaseAuth.addAuthStateListener(authListener)
     }
 
     override fun onPause() {
         super.onPause()
         unregisterReceiver(receiver)
+        firebaseAuth.removeAuthStateListener(authListener)
     }
 
     override fun changeWorkoutConfigFragmentToWorkoutFragment() {
         viewModel.checkIsWorkoutConfigCompleted()
         viewPagerAdapter.notifyDataSetChanged()
         main_view_pager.currentItem = 2
+    }
+
+    override fun runConfiguration() {
+        main_view_pager.currentItem = 2
+        bubbleTabBar.setSelected(2)
     }
 }

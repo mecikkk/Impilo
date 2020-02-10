@@ -13,27 +13,18 @@ import com.met.impilo.data.meals.UserMealSet
 import com.met.impilo.utils.Const
 import java.util.*
 
-abstract class FirebaseRepository {
+abstract class FirebaseRepository(var bd: FirebaseFirestore) {
 
     abstract val TAG : String
-    protected val firestore = FirebaseFirestore.getInstance()
-    protected var uid : String = "123"
+    abstract val firestore : FirebaseFirestore
+    abstract val uid : String
 
-    init {
-        FirebaseAuth.getInstance().addAuthStateListener {
-            if(it.currentUser != null)
-                uid = it.uid!!
-        }
-    }
-
-    fun resetUid(){
-        if(FirebaseAuth.getInstance().currentUser != null)
-            if(uid == "123")
-                uid = FirebaseAuth.getInstance().uid!!
+    fun signOut(){
+        FirebaseAuth.getInstance().signOut()
     }
 
     fun getPersonalData(personalData: (PersonalData?) -> Unit) {
-        resetUid()
+//        resetUid()
         firestore.collection(Const.REF_USER_DATA).document(uid).get().addOnSuccessListener {
             if (it != null)
                 personalData(it.toObject(PersonalData::class.java))
@@ -46,7 +37,7 @@ abstract class FirebaseRepository {
     }
 
     fun getRegistrationDate(date: (Date) -> Unit ){
-        resetUid()
+//        resetUid()
         firestore.collection(Const.REF_USER_DATA).document(uid).get()
             .addOnSuccessListener {
                 if(it.exists()){
@@ -59,7 +50,7 @@ abstract class FirebaseRepository {
     }
 
     fun getLastBodyMeasurement(bodyMeasurements: (BodyMeasurements) -> Unit) {
-        resetUid()
+//        resetUid()
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_BODY_MEASUREMENTS).orderBy("measurementDate").get()
             .addOnSuccessListener {
 
@@ -87,7 +78,7 @@ abstract class FirebaseRepository {
     }
 
     fun getDemand(demand : (Demand) -> Unit) {
-        resetUid()
+//        resetUid()
         Log.e(TAG, "uid : $uid")
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_DEMAND_COLLECTION).document(Const.REF_DEMAND).get()
             .addOnSuccessListener {
@@ -99,7 +90,7 @@ abstract class FirebaseRepository {
     }
 
     fun getUserMealSet(userMealSet: (UserMealSet) -> Unit) {
-        resetUid()
+//        resetUid()
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_MEALS).document(Const.REF_USER_MEAL_SET).get()
             .addOnSuccessListener {
                 if (it != null)
@@ -115,7 +106,7 @@ abstract class FirebaseRepository {
             Const.REF_MEALS)
 
     fun getMealsSummary(dateId: String, mealsSummary: (MealsSummary?) -> Unit) {
-        resetUid()
+//        resetUid()
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_MEALS).document(dateId).get().addOnSuccessListener {
             if (it != null) mealsSummary(it.toObject(MealsSummary::class.java))
             else {
@@ -129,7 +120,7 @@ abstract class FirebaseRepository {
     }
 
     fun isWorkoutConfigurationCompleted(completed : (Boolean) -> Unit){
-        resetUid()
+//        resetUid()
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_TRAININGS).document(Const.REF_TRAINING_PLAN_INFO).get()
             .addOnSuccessListener {
                 if(it.exists() && it["configurationCompleted"]!! == true){

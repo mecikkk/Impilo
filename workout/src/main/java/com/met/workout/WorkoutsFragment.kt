@@ -1,7 +1,9 @@
 package com.met.workout
 
 
+import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -16,10 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.met.impilo.data.Gender
-import com.met.impilo.data.workouts.BodySide
-import com.met.impilo.data.workouts.TrainingDay
-import com.met.impilo.data.workouts.TrainingSystem
-import com.met.impilo.data.workouts.Week
+import com.met.impilo.data.workouts.*
 import com.met.impilo.utils.*
 import com.met.workout.adapter.TrainingDayExercisesDetailsAdapter
 import kotlinx.android.synthetic.main.fragment_workouts.*
@@ -30,13 +29,18 @@ class WorkoutsFragment : Fragment() {
 
     private val TAG = javaClass.simpleName
     private lateinit var viewModel: WorkoutsFragmentViewModel
-    private val selectedDate = Date()
+    private var selectedDate = Date()
+    private lateinit var selectedTrainingDay: TrainingDay
+    private lateinit var traininPlanInfo : TrainingPlanInfo
     private lateinit var registrationDate: Date
     private lateinit var currentWeek: Week
+    private var selectedWeek : Week = Week.A
+    private var wasWorkoutDone = false
     private lateinit var trainingSystem: TrainingSystem
     private lateinit var loadingDialog: Dialog
     private lateinit var gender: Gender
     private lateinit var exercisesAdapter : TrainingDayExercisesDetailsAdapter
+    private var shouldShowFab = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -47,10 +51,11 @@ class WorkoutsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadingDialog = ViewUtils.createLoadingDialog(context!!)!!
+        loadingDialog.dismiss()
 
         viewModel = ViewModelProvider(this).get(WorkoutsFragmentViewModel::class.java)
         viewModel.fetchRegistrationDate()
-        viewModel.fetchTrainingPlanInfo()
+        viewModel.fetchTrainingPlanInfo(selectedDate)
         viewModel.fetchGender()
 
         exercisesAdapter = TrainingDayExercisesDetailsAdapter()
@@ -64,31 +69,43 @@ class WorkoutsFragment : Fragment() {
         workout_date_picker.monthView.colorBeforeSelection = ContextCompat.getColor(context!!, com.met.impilo.R.color.actionBarIcon)
         workout_date_picker.monthView.defaultColor = ContextCompat.getColor(context!!, com.met.impilo.R.color.actionBarIcon)
 
-        workout_date_picker.setOnDateSelectedListener { year, month, day, index ->
-            val date: Date = "$year ${month + 1} $day".stringFromIntToDate()!!
-            val dayOfWeek = viewModel.getCurrentWeekDay(date)
+        workout_date_picker.setOnDateSelectedListener { year, month, day, _ ->
+            selectedDate = "$year ${month + 1} $day".stringFromIntToDate()!!
 
             val calendar = Calendar.getInstance()
-            calendar.time = date
+            calendar.time = selectedDate
 
-            val selectedWeek = if (::trainingSystem.isInitialized && trainingSystem == TrainingSystem.AB) {
+            selectedWeek = if (::trainingSystem.isInitialized && trainingSystem == TrainingSystem.AB) {
                 if (calendar.get(Calendar.WEEK_OF_YEAR) % 2 == 1) Week.B
                 else Week.A
             } else Week.A
 
-            action_bar_title.text = if (date.toId() == selectedDate.toId()) getString(com.met.impilo.R.string.today)
-            else date.toStringDate()
+            if (selectedDate.toId() == Date().toId()) {
+                action_bar_title.text = getString(com.met.impilo.R.string.today)
+                shouldShowFab = true
+            } else {
+                action_bar_title.text = selectedDate.toStringDate()
+                shouldShowFab = false
+            }
             loadingDialog.show()
-            viewModel.fetchTrainingDay(date, dayOfWeek, selectedWeek)
+            viewModel.fetchTrainingPlanInfo(selectedDate)
         }
 
-        nested_scroll_view.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        nested_scroll_view.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, scrollX, scrollY, _, _ ->
             Log.i(TAG, "ScrollX : $scrollX | ScrollY : $scrollY")
             if(scrollY > 300)
                 start_workout_fab.shrink()
             else
                 start_workout_fab.extend()
         })
+
+        start_workout_fab.setOnClickListener {
+            val intent = Intent(context, StartWorkoutActivity::class.java)
+            intent.putExtra("trainingDay", selectedTrainingDay)
+            intent.putExtra("trainingPlanInfo", traininPlanInfo)
+            intent.putExtra("trainingDate", selectedDate)
+            startActivityForResult(intent, Const.START_WORKOUT_RESULT)
+        }
 
         viewModel.getRegistrationDate().observe(this, androidx.lifecycle.Observer {
             Log.i(TAG, "Registration date : year ${it.getIntYear()}, month ${it.getIntMonth()} , day ${it.getIntDay()}")
@@ -98,21 +115,24 @@ class WorkoutsFragment : Fragment() {
             val calendar = Calendar.getInstance()
             calendar.time = registrationDate
 
-            setTimeLineData(it)
+            viewModel.fetchCompletedWorkoutsDates()
         })
 
         viewModel.getTrainingPlanInfo().observe(this, androidx.lifecycle.Observer {
             val calendar = Calendar.getInstance()
-            calendar.time = selectedDate
+            calendar.time = Date()
+
+            traininPlanInfo = it
 
             trainingSystem = it.trainingSystem
 
             currentWeek = if (trainingSystem == TrainingSystem.AB) if (calendar.get(Calendar.WEEK_OF_YEAR) % 2 == 1) Week.B else Week.A
             else Week.A
 
-            action_bar_title.text = getString(com.met.impilo.R.string.today)
+            shouldShowFab = (selectedDate.toId() != it.date.toId()) && (selectedDate.toId() == Date().toId())
+            wasWorkoutDone = !((selectedDate.toId() != it.date.toId()) && (selectedDate.toId() == Date().toId()))
 
-            viewModel.fetchTrainingDay(selectedDate, viewModel.getCurrentWeekDay(selectedDate), currentWeek)
+            viewModel.fetchTrainingDay(selectedDate, selectedWeek)
         })
 
         viewModel.getTrainingDay().observe(this, androidx.lifecycle.Observer {
@@ -125,7 +145,11 @@ class WorkoutsFragment : Fragment() {
             } else {
                 rest_day_layout.visibility = View.GONE
                 workout_day_layout.visibility = View.VISIBLE
-                start_workout_fab.visibility = View.VISIBLE
+                // should show fab ?
+                if(shouldShowFab)
+                    start_workout_fab.visibility = View.VISIBLE
+                else
+                    start_workout_fab.visibility = View.GONE
 
                 var title = ""
                 for (x in 0 until it.muscleSetsNames.size) {
@@ -139,12 +163,17 @@ class WorkoutsFragment : Fragment() {
                 exercisesAdapter.exercises = it.exercises
                 exercisesAdapter.notifyDataSetChanged()
 
+                selectedTrainingDay = it
                 loadingDialog.dismiss()
             }
         })
 
         viewModel.getGender().observe(this, androidx.lifecycle.Observer {
             gender = it
+        })
+
+        viewModel.getCompletedWorkoutsDates().observe(this, androidx.lifecycle.Observer {
+            setTimeLineData(it)
         })
 
     }
@@ -194,17 +223,29 @@ class WorkoutsFragment : Fragment() {
         }
     }
 
-    private fun setTimeLineData(registrationDate: Date) {
-        workout_date_picker.setLastVisibleDate(selectedDate.getIntYear(), selectedDate.getIntMonth() + 2, selectedDate.getIntDay())
+    private fun setTimeLineData(completedWorkouts: List<String>) {
+        workout_date_picker.setLastVisibleDate(Date().getIntYear(), Date().getIntMonth() + 2, Date().getIntDay())
 
-        workout_date_picker.setSelectedDate(selectedDate.getIntYear(), selectedDate.getIntMonth() - 1, selectedDate.getIntDay())
+        workout_date_picker.setSelectedDate(Date().getIntYear(), Date().getIntMonth() - 1, Date().getIntDay())
         workout_date_picker.centerOnSelection()
 
-        workout_date_picker.setDateLabelAdapter { calendar, index ->
+        workout_date_picker.setDateLabelAdapter { calendar, _ ->
+            val date = calendar.time
+            Log.d(TAG, "completedWorkouts : $completedWorkouts | dateId ${date.toId()}")
+            Log.d(TAG, "!completedWokrouts.contains(date.toId())  : ${completedWorkouts.contains(date.toId())}")
             if (calendar.get(Calendar.MONTH) == registrationDate.getIntMonth() - 1 && calendar.get(Calendar.DAY_OF_MONTH) == registrationDate.getIntDay()) "Registered"
-            else if (::trainingSystem.isInitialized && trainingSystem == TrainingSystem.AB) if (calendar.get(Calendar.WEEK_OF_YEAR) % 2 == 1) setLabel("B", com.met.impilo.R.color.secondAccent)
-            else setLabel("A", com.met.impilo.R.color.colorAccent)
+            else if (::trainingSystem.isInitialized && trainingSystem == TrainingSystem.AB) {
+                if(!completedWorkouts.contains(date.toId())) {
+                    if (calendar.get(Calendar.WEEK_OF_YEAR) % 2 == 1) setLabel("B", com.met.impilo.R.color.actionBarIcon)
+                    else setLabel("A", android.R.color.white)
+                } else {
+                    setLabel("\u2713", com.met.impilo.R.color.colorAccent)
+                }
+            }
+            else if(completedWorkouts.contains(date.toId())) setLabel("\u2713", com.met.impilo.R.color.colorAccent)
             else ""
+
+
         }
 
     }
@@ -214,6 +255,20 @@ class WorkoutsFragment : Fragment() {
         val span = SpannableString(text)
         span.setSpan(ForegroundColorSpan(ContextCompat.getColor(context!!, colorRef)), 0, span.length, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
         return span
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(requestCode){
+                Const.START_WORKOUT_RESULT -> {
+                    if(resultCode == Activity.RESULT_OK){
+                        //REFRESH
+                        viewModel.fetchTrainingPlanInfo(selectedDate)
+                    }
+                }
+        }
+
     }
 
 }

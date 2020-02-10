@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="32dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/workout_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
+        android:fontFamily="@font/montserrat"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/workout_summary"
+        android:layout_margin="16dp"/>
+
+    <TextView
+        android:id="@+id/workout_duration_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/montserrat"
+        android:textSize="16sp"
+        android:textColor="@color/textColor"
+        app:layout_constraintTop_toBottomOf="@id/workout_summary"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/workout_duration"/>
+
+    <TextView
+        android:id="@+id/workout_duration_data_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textColor="@color/secondAccent"
+        android:fontFamily="@font/montserrat"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/workout_summary"
+        app:layout_constraintStart_toEndOf="@id/workout_duration_text_view"
+        tools:text="123 min"/>
+
+    <TextView
+        android:id="@+id/workout_kcal_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat"
+        android:textSize="16sp"
+        android:textColor="@color/textColor"
+        app:layout_constraintTop_toBottomOf="@id/workout_duration_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/burning_calories"/>
+
+    <TextView
+        android:id="@+id/workout_kcal_data_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat"
+        android:textSize="16sp"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/workout_duration_text_view"
+        app:layout_constraintStart_toEndOf="@id/workout_kcal_text_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="1234 kcal"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

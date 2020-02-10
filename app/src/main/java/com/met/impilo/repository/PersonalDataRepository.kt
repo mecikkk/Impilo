@@ -2,18 +2,20 @@ package com.met.impilo.repository
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.Gender
 import com.met.impilo.data.Goal
 import com.met.impilo.data.PersonalData
 import com.met.impilo.utils.Const
 import java.util.*
 
-class PersonalDataRepository : FirebaseRepository() {
+class PersonalDataRepository(override val firestore: FirebaseFirestore) : FirebaseRepository(firestore) {
 
     override val TAG = javaClass.simpleName
+    override val uid: String = FirebaseAuth.getInstance().uid!!
 
     companion object {
-        fun newInstance() = PersonalDataRepository()
+        fun newInstance(firestore: FirebaseFirestore) = PersonalDataRepository(firestore)
     }
 
     fun setOrUpdatePersonalData(personalData: PersonalData, success: (Boolean) -> Unit) {

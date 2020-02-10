@@ -3,6 +3,7 @@ package com.met.workout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.Gender
 import com.met.impilo.data.workouts.TrainingDay
 import com.met.impilo.data.workouts.TrainingPlanInfo
@@ -13,11 +14,17 @@ import java.util.*
 
 class WorkoutsFragmentViewModel : ViewModel() {
 
-    private val workoutsRepository = WorkoutsRepository.newInstance()
+    private val workoutsRepository = WorkoutsRepository.newInstance(FirebaseFirestore.getInstance())
     private var registrationDate = MutableLiveData<Date>()
     private var trainingDay = MutableLiveData<TrainingDay>()
     private var trainingPlanInfo = MutableLiveData<TrainingPlanInfo>()
     private var gender = MutableLiveData<Gender>()
+    private var completedWorkoutsDates = MutableLiveData<List<String>>()
+
+
+    fun signOut(){
+        workoutsRepository.signOut()
+    }
 
     fun fetchRegistrationDate(){
         workoutsRepository.getRegistrationDate {
@@ -25,14 +32,14 @@ class WorkoutsFragmentViewModel : ViewModel() {
         }
     }
 
-    fun fetchTrainingDay(date: Date, dayOfWeek : Int, currentWeek : Week){
-        workoutsRepository.getTrainingDayByDateId(date.toId(), dayOfWeek, currentWeek){
+    fun fetchTrainingDay(date: Date, currentWeek : Week){
+        workoutsRepository.getTrainingDayByDateId(date.toId(), currentWeek){
             trainingDay.value = it
         }
     }
 
-    fun fetchTrainingPlanInfo(){
-        workoutsRepository.getTrainingPlanInfo {
+    fun fetchTrainingPlanInfo(date: Date){
+        workoutsRepository.getTrainingPlanInfoByDateOrScheme(date.toId()) {
             trainingPlanInfo.value = it
         }
     }
@@ -43,31 +50,9 @@ class WorkoutsFragmentViewModel : ViewModel() {
         }
     }
 
-    fun getCurrentWeekDay(calendar: Calendar) : Int {
-        return when (calendar.get(Calendar.DAY_OF_WEEK)) {
-            2 -> 0
-            3 -> 1
-            4 -> 2
-            5 -> 3
-            6 -> 4
-            7 -> 5
-            1 -> 6
-            else -> 0
-        }
-    }
-
-    fun getCurrentWeekDay(date: Date) : Int {
-        val calendar = Calendar.getInstance()
-        calendar.time = date
-        return when (calendar.get(Calendar.DAY_OF_WEEK)) {
-            2 -> 0
-            3 -> 1
-            4 -> 2
-            5 -> 3
-            6 -> 4
-            7 -> 5
-            1 -> 6
-            else -> 0
+    fun fetchCompletedWorkoutsDates(){
+        workoutsRepository.getDatesIdsOfAllCompletedWorkouts {
+            completedWorkoutsDates.value = it
         }
     }
 
@@ -75,4 +60,5 @@ class WorkoutsFragmentViewModel : ViewModel() {
     fun getTrainingDay() : LiveData<TrainingDay> = trainingDay
     fun getTrainingPlanInfo() : LiveData<TrainingPlanInfo> = trainingPlanInfo
     fun getGender() : LiveData<Gender> = gender
+    fun getCompletedWorkoutsDates() : LiveData<List<String>> = completedWorkoutsDates
 }

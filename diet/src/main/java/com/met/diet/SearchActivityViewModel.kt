@@ -1,6 +1,7 @@
 package com.met.diet
 
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.food.FoodProduct
 import com.met.impilo.data.food.ServingType
 import com.met.impilo.repository.FoodProductsRepository
@@ -12,8 +13,9 @@ class SearchActivityViewModel : ViewModel() {
 
     val TAG = javaClass.simpleName
 
-    private val foodProductsRepository = FoodProductsRepository.newInstance()
-    private val mealsRepository = MealsRepository.newInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+    private val foodProductsRepository = FoodProductsRepository.newInstance(firestore)
+    private val mealsRepository = MealsRepository.newInstance(firestore)
 
     fun searchProduct(query: String, result: (List<FoodProduct>) -> Unit) {
         foodProductsRepository.findProductByName(query) {

@@ -1,4 +1,4 @@
-package com.met.workout.own_plan
+package com.met.workout.ownPlan
 
 import android.app.Dialog
 import android.content.res.Resources

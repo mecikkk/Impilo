@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.met.workout">
 
     <dist:module
@@ -13,10 +14,16 @@
         <dist:fusing dist:include="true" />
     </dist:module>
 
-    <application>
-        <activity android:name=".own_plan.SearchExerciseActivity"></activity>
+    <application tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".own_plan.MyOwnPlanActivity"
+            android:name=".PlanGeneratorActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StartWorkoutActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ownPlan.SearchExerciseActivity" />
+        <activity
+            android:name=".ownPlan.PlanCreatorActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

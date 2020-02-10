@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/roundedCornersBgColor">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/progress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.hadiidbouk.charts.ChartProgressBar
+        android:id="@+id/chart_measurement_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:hdBarCanBeClick="true"
+        app:hdBarHeight="150dp"
+        app:hdBarRadius="10dp"
+        app:hdBarTitleColor="@color/textColor"
+        app:hdBarTitleMarginTop="9dp"
+        app:hdBarTitleSelectedColor="@color/colorAccent"
+        app:hdBarTitleTxtSize="12sp"
+        app:hdBarWidth="12dp"
+        app:hdEmptyColor="@color/emptyBarColor"
+        app:hdPinDrawable="@drawable/ic_pin"
+        app:hdPinMarginBottom="55dp"
+        app:hdPinMarginEnd="15.5dp"
+        app:hdPinMarginTop="10dp"
+        app:hdPinPaddingBottom="5dp"
+        app:hdPinTextColor="@color/textColor"
+        app:hdPinTxtSize="14sp"
+        app:hdProgressClickColor="@color/colorAccent"
+        app:hdProgressColor="@color/textColor"
+        app:hdProgressDisableColor="@color/progress_disable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

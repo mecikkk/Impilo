@@ -12,7 +12,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.met.auth.R
 import com.met.auth.registration.configuration.*
@@ -44,7 +44,7 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
 
         showOnlyConfiguration = intent.getBooleanExtra(Const.ONLY_CONFIGURATION, false)
 
-        viewModel = ViewModelProviders.of(this).get(RegistrationViewModel::class.java)
+
 
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         supportActionBar?.hide()
@@ -59,7 +59,7 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
 
         initOnClickListeners()
 
-        initObservers()
+        //initObservers()
     }
 
     /**
@@ -218,6 +218,8 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
     override fun accountCreated() {
         Log.i(TAG, "Account created !")
         registration_view_pager.setCurrentItem(1, true)
+        viewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
+        initObservers()
     }
 
     override fun basicInformation(height: Int, weight: Float, waist: Float, gender: Gender, birthDate : Date?) {

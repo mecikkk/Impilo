@@ -6,16 +6,17 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import com.met.impilo.HomeFragment
+import com.met.impilo.ProfileFragment
 
 class ViewPagerAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT), OnEndOfConfigurationListener {
 
     var isWorkoutConfigurationCompleted = false
     lateinit var onChangeTrainingFragmentListener : OnChangeTrainingFragmentListener
-
+    val homeFragment = HomeFragment.newInstance()
 
     override fun getItem(position: Int): Fragment {
         return when(position){
-            0 -> HomeFragment.newInstance()
+            0 -> homeFragment
             1 -> Class.forName("com.met.diet.DietFragment").newInstance() as Fragment
             2 -> {
                 Log.d("ViewPagerAdapter", "Create fragment POSITION 2")
@@ -28,6 +29,10 @@ class ViewPagerAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(fm, BEH
                     Log.d("ViewPagerAdapter", "Creating workout without configuration")
                     Class.forName("com.met.workout.WorkoutsFragment").newInstance() as Fragment
                 }
+            }
+            3 -> {
+                Log.d("ViewPagerAdapter", "Create fragment 3 - ProfileFragment")
+                ProfileFragment.newInstance()
             }
             else -> Fragment()
         }

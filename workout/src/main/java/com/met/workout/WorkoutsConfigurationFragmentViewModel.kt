@@ -3,6 +3,7 @@ package com.met.workout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.BodyRating
 import com.met.impilo.data.Goal
 import com.met.impilo.data.workouts.TrainingPlanInfo
@@ -15,9 +16,10 @@ class WorkoutsConfigurationFragmentViewModel : ViewModel() {
 
     private val TAG = javaClass.simpleName
 
-    private val bodyMeasurementsRepository = BodyMeasurementsRepository.newInstance()
-    private val personalDataRepository = PersonalDataRepository.newInstance()
-    private val workoutRepository = WorkoutsRepository.newInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+    private val bodyMeasurementsRepository = BodyMeasurementsRepository.newInstance(firestore)
+    private val personalDataRepository = PersonalDataRepository.newInstance(firestore)
+    private val workoutRepository = WorkoutsRepository.newInstance(firestore)
 
     var bf = MutableLiveData<Float>()
     var thumbPosition = MutableLiveData<Float>()

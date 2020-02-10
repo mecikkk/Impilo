@@ -39,177 +39,494 @@
 
     </com.google.android.material.appbar.MaterialToolbar>
 
-        <TextView
-            android:id="@+id/summary_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/summary"
-            android:layout_margin="16dp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"/>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.github.guilhe.views.CircularProgressView
-            android:id="@+id/calories_progress"
-            android:layout_width="165dp"
-            android:layout_height="165dp"
-            android:layout_margin="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/summary_text_view"
-            app:progressBarColorArray="@array/circularProgressBarGradient"
-            app:backgroundColor="@color/listGroupItemBg"
-            app:shadow="false"
-            app:progress="0"
-            app:duplicateFirstColorInArray="true"
-            app:progressBarRounded="true"
-            app:progressBarThickness="8dp" />
-
-        <TextView
-            android:id="@+id/calories_percent_progress_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0%"
-            android:layout_marginBottom="15dp"
-            android:textColor="@color/textColor"
-            android:textSize="24sp"
-            app:layout_constraintTop_toTopOf="@id/calories_progress"
-            app:layout_constraintBottom_toBottomOf="@id/calories_progress"
-            app:layout_constraintStart_toStartOf="@id/calories_progress"
-            app:layout_constraintEnd_toEndOf="@id/calories_progress"/>
-
-        <TextView
-            android:id="@+id/calories_progress_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0 / 0 kcal"
-            android:layout_marginTop="32dp"
-            android:textSize="12sp"
-            app:layout_constraintTop_toTopOf="@id/calories_progress"
-            app:layout_constraintBottom_toBottomOf="@id/calories_progress"
-            app:layout_constraintStart_toStartOf="@id/calories_progress"
-            app:layout_constraintEnd_toEndOf="@id/calories_progress"/>
-
-
-        <com.skydoves.progressview.ProgressView
-            android:id="@+id/carbohydrates_progress"
-            android:layout_width="0dp"
-            android:layout_height="8dp"
-            android:layout_margin="32dp"
-            app:progressView_autoAnimate="true"
-            app:progressView_colorBackground="@color/listGroupItemBg"
-            app:progressView_colorProgress="@color/colorAccent"
-            app:progressView_labelColorInner="@color/white"
-            app:progressView_labelColorOuter="@color/black"
-            app:progressView_labelSize="13sp"
-            app:progressView_labelSpace="10dp"
-            app:progressView_labelTypeface="bold"
-            app:progressView_max="100"
-            app:progressView_min="0"
-            app:progressView_progress="0"
-            app:progressView_radius="12dp"
-            app:layout_constraintEnd_toStartOf="@id/proteins_progress"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calories_progress"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/carbohydrates"
-            android:textSize="12sp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@id/carbohydrates_progress"
-            app:layout_constraintStart_toStartOf="@id/carbohydrates_progress"
-            app:layout_constraintEnd_toEndOf="@id/carbohydrates_progress"/>
-
-        <com.skydoves.progressview.ProgressView
-            android:id="@+id/proteins_progress"
-            android:layout_width="0dp"
-            android:layout_height="8dp"
-            android:layout_margin="32dp"
-            app:progressView_autoAnimate="true"
-            app:progressView_colorBackground="@color/listGroupItemBg"
-            app:progressView_colorProgress="@color/proteinsColor"
-            app:progressView_labelColorInner="@color/white"
-            app:progressView_labelColorOuter="@color/black"
-            app:progressView_labelSize="13sp"
-            app:progressView_labelSpace="10dp"
-            app:progressView_labelTypeface="bold"
-            app:progressView_max="100"
-            app:progressView_min="0"
-            app:progressView_progress="0"
-            app:progressView_radius="12dp"
-            app:layout_constraintEnd_toStartOf="@id/fats_progress"
-            app:layout_constraintStart_toEndOf="@id/carbohydrates_progress"
-            app:layout_constraintTop_toBottomOf="@id/calories_progress"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/proteins"
-            android:textSize="12sp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@id/proteins_progress"
-            app:layout_constraintStart_toStartOf="@id/proteins_progress"
-            app:layout_constraintEnd_toEndOf="@id/proteins_progress"/>
-
-        <com.skydoves.progressview.ProgressView
-            android:id="@+id/fats_progress"
-            android:layout_width="0dp"
-            android:layout_height="8dp"
-            android:layout_margin="32dp"
-            app:progressView_autoAnimate="true"
-            app:progressView_colorBackground="@color/listGroupItemBg"
-            app:progressView_colorProgress="@color/fatsColor"
-            app:progressView_labelColorInner="@color/white"
-            app:progressView_labelColorOuter="@color/black"
-            app:progressView_labelSize="13sp"
-            app:progressView_labelSpace="10dp"
-            app:progressView_labelTypeface="bold"
-            app:progressView_max="100"
-            app:progressView_min="0"
-            app:progressView_progress="0"
-            app:progressView_radius="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/proteins_progress"
-            app:layout_constraintTop_toBottomOf="@id/calories_progress"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fats"
-            android:textSize="12sp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@id/fats_progress"
-            app:layout_constraintStart_toStartOf="@id/fats_progress"
-            app:layout_constraintEnd_toEndOf="@id/fats_progress"/>
-
-        <com.google.android.material.card.MaterialCardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:cardCornerRadius="10dp"
-            app:layout_constraintTop_toBottomOf="@id/proteins_progress"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/summary_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/summary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.github.guilhe.views.CircularProgressView
+                android:id="@+id/calories_progress"
+                android:layout_width="165dp"
+                android:layout_height="165dp"
+                android:layout_margin="16dp"
+                app:backgroundColor="@color/listGroupItemBg"
+                app:duplicateFirstColorInArray="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/summary_text_view"
+                app:progress="0"
+                app:progressBarColorArray="@array/circularProgressBarGradient"
+                app:progressBarRounded="true"
+                app:progressBarThickness="8dp"
+                app:shadow="false" />
+
+            <TextView
+                android:id="@+id/calories_percent_progress_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="0%"
+                android:textColor="@color/textColor"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@id/calories_progress"
+                app:layout_constraintEnd_toEndOf="@id/calories_progress"
+                app:layout_constraintStart_toStartOf="@id/calories_progress"
+                app:layout_constraintTop_toTopOf="@id/calories_progress" />
+
+            <TextView
+                android:id="@+id/calories_progress_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="0 / 0 kcal"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/calories_progress"
+                app:layout_constraintEnd_toEndOf="@id/calories_progress"
+                app:layout_constraintStart_toStartOf="@id/calories_progress"
+                app:layout_constraintTop_toTopOf="@id/calories_progress" />
+
+
+            <com.skydoves.progressview.ProgressView
+                android:id="@+id/carbohydrates_progress"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:layout_margin="32dp"
+                app:layout_constraintEnd_toStartOf="@id/proteins_progress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/calories_progress"
+                app:progressView_autoAnimate="true"
+                app:progressView_colorBackground="@color/listGroupItemBg"
+                app:progressView_colorProgress="@color/colorAccent"
+                app:progressView_labelColorInner="@color/white"
+                app:progressView_labelColorOuter="@color/black"
+                app:progressView_labelSize="13sp"
+                app:progressView_labelSpace="10dp"
+                app:progressView_labelTypeface="bold"
+                app:progressView_max="100"
+                app:progressView_min="0"
+                app:progressView_progress="0"
+                app:progressView_radius="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Training"
-                android:layout_margin="16dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:layout_marginBottom="8dp"
+                android:text="@string/carbohydrates"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/carbohydrates_progress"
+                app:layout_constraintEnd_toEndOf="@id/carbohydrates_progress"
+                app:layout_constraintStart_toStartOf="@id/carbohydrates_progress" />
 
-            <ImageView
-                android:id="@+id/muscle_map"
-                android:layout_width="150dp"
-                android:layout_height="300dp"
+            <com.skydoves.progressview.ProgressView
+                android:id="@+id/proteins_progress"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:layout_margin="32dp"
+                app:layout_constraintEnd_toStartOf="@id/fats_progress"
+                app:layout_constraintStart_toEndOf="@id/carbohydrates_progress"
+                app:layout_constraintTop_toBottomOf="@id/calories_progress"
+                app:progressView_autoAnimate="true"
+                app:progressView_colorBackground="@color/listGroupItemBg"
+                app:progressView_colorProgress="@color/proteinsColor"
+                app:progressView_labelColorInner="@color/white"
+                app:progressView_labelColorOuter="@color/black"
+                app:progressView_labelSize="13sp"
+                app:progressView_labelSpace="10dp"
+                app:progressView_labelTypeface="bold"
+                app:progressView_max="100"
+                app:progressView_min="0"
+                app:progressView_progress="0"
+                app:progressView_radius="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/proteins"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/proteins_progress"
+                app:layout_constraintEnd_toEndOf="@id/proteins_progress"
+                app:layout_constraintStart_toStartOf="@id/proteins_progress" />
+
+            <com.skydoves.progressview.ProgressView
+                android:id="@+id/fats_progress"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:layout_margin="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/proteins_progress"
+                app:layout_constraintTop_toBottomOf="@id/calories_progress"
+                app:progressView_autoAnimate="true"
+                app:progressView_colorBackground="@color/listGroupItemBg"
+                app:progressView_colorProgress="@color/fatsColor"
+                app:progressView_labelColorInner="@color/white"
+                app:progressView_labelColorOuter="@color/black"
+                app:progressView_labelSize="13sp"
+                app:progressView_labelSpace="10dp"
+                app:progressView_labelTypeface="bold"
+                app:progressView_max="100"
+                app:progressView_min="0"
+                app:progressView_progress="0"
+                app:progressView_radius="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/fats"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/fats_progress"
+                app:layout_constraintEnd_toEndOf="@id/fats_progress"
+                app:layout_constraintStart_toStartOf="@id/fats_progress" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/workout_info_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginStart="150dp"
-                android:src="@drawable/muscles_man_front"/>
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/roundedCornersBgColor"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/proteins_progress">
 
-        </com.google.android.material.card.MaterialCardView>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/training_day_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/training_card_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="@string/trainings"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/muscle_map"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/muscle_map_right_image_view"
+                            android:layout_width="75dp"
+                            android:layout_height="300dp"
+                            android:layout_marginEnd="16dp"
+                            android:paddingEnd="75dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/muscles_man_front"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/muscle_map_left_image_view"
+                            android:layout_width="75dp"
+                            android:layout_height="300dp"
+                            android:paddingStart="75dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/muscles_man_back"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/muscle_map_right_image_view"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/muscle_map_divider"
+                            android:layout_width="1dp"
+                            android:layout_height="310dp"
+                            android:background="@color/colorAccent"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toStartOf="@id/muscle_map_right_image_view"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/todays_training_plan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/in_todays_training_plan"
+                        android:textColor="@color/textColor"
+                        app:layout_constraintEnd_toStartOf="@id/muscle_map"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/training_card_title" />
+
+                    <TextView
+                        android:id="@+id/training_muscles_set_data_text_view"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/montserrat_semi_bold_italic"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintEnd_toStartOf="@id/muscle_map"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/todays_training_plan"
+                        tools:text="- Klatka Piersiowa\n- Biceps" />
+
+                    <TextView
+                        android:id="@+id/worm_up"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/remember_to_warm_up"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/muscle_map"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/training_muscles_set_data_text_view" />
+
+                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                        android:id="@+id/start_workout_fab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:backgroundTint="@color/colorAccent"
+                        android:text="@string/start"
+                        android:textColor="@android:color/white"
+                        app:icon="@drawable/ic_play"
+                        app:iconTint="@android:color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/rest_day_layout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/rest_day_info"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:fontFamily="@font/montserrat_semi_bold_italic"
+                        android:gravity="start"
+                        android:text="@string/rest_day"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toStartOf="@id/icon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/rest_day_description1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:gravity="center"
+                        android:text="@string/rest_day_description1"
+                        android:textColor="@color/textColor"
+                        app:layout_constraintEnd_toStartOf="@id/icon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rest_day_info" />
+
+                    <TextView
+                        android:id="@+id/rest_day_description2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:gravity="center"
+                        android:text="@string/relaxation_and_sleep_descript"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rest_day_description1" />
+
+                    <ImageView
+                        android:id="@+id/icon"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="16dp"
+                        android:src="@drawable/ic_rest_day"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/rest_day_info"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/configure_trainings_layout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/configure_trainings_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:fontFamily="@font/montserrat_semi_bold_italic"
+                        android:gravity="center"
+                        android:text="@string/no_training_set_up"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toStartOf="@id/icon2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/icon2"
+                        app:layout_constraintBottom_toBottomOf="@id/icon2"/>
+
+
+                    <ImageView
+                        android:id="@+id/icon2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:src="@drawable/ic_not_configured"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/configure_trainings_title"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                        android:id="@+id/start_workout_configuration_fab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:backgroundTint="@color/colorAccent"
+                        android:text="@string/set_up"
+                        android:textColor="@android:color/white"
+                        app:icon="@drawable/ic_settings"
+                        app:iconTint="@android:color/white"
+                        app:layout_constraintTop_toBottomOf="@id/icon2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/weight_summary_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/roundedCornersBgColor"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/workout_info_card_view">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/weight_summary_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="@string/weight_progress"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/actual_weight_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="85 kg"
+                        android:textSize="24sp"
+                        android:textColor="@color/textColor"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/weight_summary_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/ic_arrow_weight_diff"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/ic_arrow_drop_up"
+                        android:tint="@color/colorAccent"
+                        app:layout_constraintStart_toEndOf="@id/actual_weight_text_view"
+                        app:layout_constraintTop_toTopOf="@id/actual_weight_text_view"/>
+
+                    <TextView
+                        android:id="@+id/weight_diff_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:text="12kg"
+                        app:layout_constraintStart_toEndOf="@id/ic_arrow_weight_diff"
+                        app:layout_constraintTop_toTopOf="@id/ic_arrow_weight_diff"
+                        app:layout_constraintBottom_toBottomOf="@id/ic_arrow_weight_diff"/>
+
+                    <com.hadiidbouk.charts.ChartProgressBar
+                        android:id="@+id/chart_weight_progress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:hdBarCanBeClick="true"
+                        app:hdBarHeight="150dp"
+                        app:hdBarRadius="10dp"
+                        app:hdBarTitleColor="@color/textColor"
+                        app:hdBarTitleMarginTop="9dp"
+                        app:hdBarTitleSelectedColor="@color/colorAccent"
+                        app:hdBarTitleTxtSize="12sp"
+                        app:hdBarWidth="12dp"
+                        app:hdEmptyColor="@color/emptyBarColor"
+                        app:hdPinDrawable="@drawable/ic_pin"
+                        app:hdPinMarginBottom="55dp"
+                        app:hdPinMarginEnd="15.5dp"
+                        app:hdPinMarginTop="10dp"
+                        app:hdPinPaddingBottom="5dp"
+                        app:hdPinTextColor="@color/textColor"
+                        app:hdPinTxtSize="14sp"
+                        app:hdProgressClickColor="@color/colorAccent"
+                        app:hdProgressColor="@color/textColor"
+                        app:hdProgressDisableColor="@color/progress_disable"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/actual_weight_text_view"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

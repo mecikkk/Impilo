@@ -19,7 +19,6 @@ object MarkMuscles {
     fun set(context : Context, vectorRes : Int, imageView : ImageView, exercise : Exercise){
 
         val vector = VectorChildFinder(context, vectorRes, imageView)
-//        val color = context.resources.getColor(colorId)
 
         exercise.mainMuscle.forEach { musclesSet ->
             musclesSet.muscles.forEach {
@@ -47,7 +46,6 @@ object MarkMuscles {
     fun setByTrainingDay(context : Context, vectorRes : Int, imageView : ImageView, trainingDay: TrainingDay){
 
         val vector = VectorChildFinder(context, vectorRes, imageView)
-//        val color = context.resources.getColor(colorId)
 
         trainingDay.exercises.forEach { exercise ->
 
@@ -80,7 +78,28 @@ object MarkMuscles {
 
     }
 
-    fun changePathColor(vector: VectorChildFinder, pathName: String, color: Int) {
+    fun setOnlyMainMusclesByTrainingDay(context : Context, vectorRes : Int, imageView : ImageView, trainingDay: TrainingDay){
+
+        val vector = VectorChildFinder(context, vectorRes, imageView)
+
+        trainingDay.exercises.forEach { exercise ->
+
+            exercise.mainMuscle.forEach { musclesSet ->
+                musclesSet.muscles.forEach {
+                    Log.d("MarkMuscles", "Marking main: $it")
+                    try {
+                        changePathColor(vector, it, context.resources.getColor(R.color.colorAccent))
+                    }catch (e : IllegalStateException){
+                        Log.e("MarkMuscles", "Muscle nod found")
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    private fun changePathColor(vector: VectorChildFinder, pathName: String, color: Int) {
         val path1: VectorDrawableCompat.VFullPath = vector.findPathByName(pathName)
         path1.fillColor = color
     }

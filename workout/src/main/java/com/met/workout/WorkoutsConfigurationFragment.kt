@@ -11,17 +11,15 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.met.impilo.adapter.WorkoutBaseFragment
 import com.met.impilo.data.BodyRating
 import com.met.impilo.data.Goal
 import com.met.impilo.data.workouts.TrainingPlanInfo
 import com.met.impilo.utils.Const
-import com.met.impilo.utils.ViewUtils
-import com.met.workout.own_plan.MyOwnPlanActivity
+import com.met.workout.ownPlan.PlanCreatorActivity
 import com.xw.repo.BubbleSeekBar
 import kotlinx.android.synthetic.main.fragment_workouts_configuration.*
-import java.lang.Exception
 
 
 class WorkoutsConfigurationFragment : WorkoutBaseFragment() {
@@ -47,12 +45,16 @@ class WorkoutsConfigurationFragment : WorkoutBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(WorkoutsConfigurationFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(WorkoutsConfigurationFragmentViewModel::class.java)
 
         initBfSeekbar()
 
         have_plan_card.setOnClickListener {
-            startActivityForResult(Intent(context, MyOwnPlanActivity::class.java), Const.MY_OWN_PLAN_CREATOR_REQUEST)
+            startActivityForResult(Intent(context, PlanCreatorActivity::class.java), Const.MY_OWN_PLAN_CREATOR_REQUEST)
+        }
+
+        create_plan_card.setOnClickListener {
+            startActivityForResult(Intent(context, PlanGeneratorActivity::class.java), Const.PLAN_GENERATOR_REQUEST)
         }
 
         change_goal.setOnClickListener {
@@ -63,10 +65,10 @@ class WorkoutsConfigurationFragment : WorkoutBaseFragment() {
                     Log.i(TAG, "Changing goal to $changeGoalName")
                     viewModel.changeGoal(changeGoalProposition){
                         if(it){
-                            ViewUtils.createSnackbar(content_layout, getString(com.met.impilo.R.string.change_goal_succes)).show()
+ //                           ViewUtils.createSnackbar(content_layout, getString(com.met.impilo.R.string.change_goal_succes)).show()
                             viewModel.fetchBF()
                         }
-                        else ViewUtils.createSnackbar(content_layout, getString(com.met.impilo.R.string.change_goal_error)).show()
+
                     }
                 }
                 setNegativeButton(getString(com.met.impilo.R.string.no)) { _, _ ->
@@ -131,6 +133,7 @@ class WorkoutsConfigurationFragment : WorkoutBaseFragment() {
                     changeGoalName = getString(com.met.impilo.R.string.maintain_title)
                 }
                 BodyRating.LOW_BODY_FAT -> body_rating_text_view.text = getString(com.met.impilo.R.string.low_body_fat)
+                else -> {}
             }
         })
 
@@ -150,7 +153,6 @@ class WorkoutsConfigurationFragment : WorkoutBaseFragment() {
 
             array
         }
-
         bf_seekbar.onProgressChangedListener = object : BubbleSeekBar.OnProgressChangedListener {
             override fun onProgressChanged(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
                 Log.i(TAG, "Slide : $progressFloat")
@@ -205,6 +207,19 @@ class WorkoutsConfigurationFragment : WorkoutBaseFragment() {
                                         Log.e(TAG, "Interface OnEndOfConfigurationListener must be initialized !")
                                     }
                                 }
+                        }
+                    }
+                }
+            }
+            Const.PLAN_GENERATOR_REQUEST -> {
+                when(resultCode){
+                    Activity.RESULT_OK -> {
+                        try {
+                            onEndOfConfigurationListener.onEndOfConfiguration()
+                            Log.e(TAG, "Ending config - start listener")
+
+                        } catch (e : Exception){
+                            Log.e(TAG, "Interface OnEndOfConfigurationListener must be initialized !")
                         }
                     }
                 }

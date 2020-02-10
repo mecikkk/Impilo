@@ -60,9 +60,9 @@
     <string name="basic_info_description">This information will allow us to calculate your daily calories and macronutrients needs. More measurements of individual body parts can be added in the profile settings.</string>
     <string name="somatotype_subtitle1">Somatotype is a human body shape and physique type. Choose your somatotype. Types can be combined</string>
     <string name="somatotype">SOMATOTYPE</string>
-    <string name="height">Height (cm)</string>
-    <string name="weight">Weight (kg)</string>
-    <string name="waist">Waist (cm)</string>
+    <string name="height_cm">Height (cm)</string>
+    <string name="weight_cm">Weight (kg)</string>
+    <string name="waist_cm">Waist (cm)</string>
     <string name="style">Style</string>
     <string name="workouts_per_week">Number of workouts per week :</string>
     <string name="workout_time">Workout time (min)</string>
@@ -184,7 +184,7 @@
     <string name="low_body_fat">Low</string>
     <string name="normal_body_fat">Normal</string>
     <string name="increased_body_fat">Increased</string>
-    <string name="high_body_fat">Obesity</string>
+    <string name="high_body_fat">Overweight</string>
     <string name="have_own_plan">I have my own workout plan</string>
     <string name="generate_plan">Generate a workout plan</string>
     <string name="body_rating">Body rating</string>
@@ -293,7 +293,25 @@
     <string name="rest_day_description2">Taking regular breaks allows your body to recover and repair. It\'s a critical part of progress, regardless of your fitness level or sport. Otherwise, skipping rest days can lead to overtraining or burnout</string>
     <string name="previous_exercise_results">Previous exercise results</string>
     <string name="repetition_range">Repetition range : </string>
-    <string name="start">start</string>
+    <string name="start" translatable="false">start</string>
+    <string name="workout_duration">Workout duration</string>
+    <string name="progress">Progress</string>
+    <string name="end_of_training">End of training</string>
+    <string name="cancel">Cancel</string>
+    <string name="reject_training">Reject</string>
+    <string name="workout_summary">Workout summary :</string>
+    <string name="finishing_wokrout_error">Server connection error</string>
+    <string name="in_todays_training_plan">In today\'s training plan :</string>
+    <string name="remember_to_warm_up">Remember to warm up properly before exercising to avoid injury and increase training effectiveness.</string>
+    <string name="workout_completed">Completed</string>
+    <string name="relaxation_and_sleep_descript">It is always known that relaxation and good sleep is much needed to maintain a healthy lifestyle. Relaxation and good sleep is much needed to maintain a healthy lifestyle, says researchers. Rest is necessary for muscle repair, preventing fatigue, and overall performance.</string>
+    <string name="weight_progress">Weight progress</string>
+    <string name="height">Height</string>
+    <string name="hips">Hips</string>
+    <string name="neck">Neck</string>
+    <string name="thigh">Thigh</string>
+    <string name="waist">Waist</string>
+    <string name="weight">Weight</string>
 
     <string-array name="muscleSets">
         <item>@string/abs</item>
@@ -332,6 +350,75 @@
         <item>@string/friday</item>
         <item>@string/saturday</item>
         <item>@string/sunday</item>
+    </string-array>
+
+    <string name="current_weight">Current weight</string>
+    <string name="basic_information_lower_case">Basic information</string>
+    <string name="body_measurements">Body measurements</string>
+    <string name="daily_calorie_and_macronutrients_needs">Daily calorie and macronutrients needs</string>
+    <string name="calories">Calories</string>
+    <string name="current_measurements">Current measurements</string>
+    <string name="value">Value in</string>
+    <string name="new_measurement">New measurement</string>
+    <string name="update">Update</string>
+    <string name="specify_how_many_days_a_week_you_can_devote_to_training">Specify how many days a week you can devote to training</string>
+    <string name="beginner">Beginner</string>
+    <string name="middle">Middle</string>
+    <string name="long_internship">Long</string>
+    <string name="what_is_your_training_internship">What is your training internship ?</string>
+    <string name="training_plan_generator">Plan generator</string>
+    <string name="what_equipment">What equipment do you have at your disposal ?</string>
+    <string name="gym">Gym</string>
+    <string name="basic_equipment">Basic equipment, i.e dumbbells, barbells, bench, etc.</string>
+    <string name="no_equipment">No equipment. Exercises at home or outside.</string>
+    <string name="max_exercise_load">To select the appropriate exercise load, you must enter the max load that you can do <b>5 reps</b> of the exercise.</string>
+    <string name="bench_press">Barbell bench press (kg)</string>
+    <string name="squat">Squat with barbell (kg)</string>
+    <string name="dumbbell_curl">Dumbbell curl (kg)</string>
+    <string name="dumbbell_front_raise">Dumbbell front raise (kg)</string>
+    <string name="dumbbell_triceps_extension">Dumbbell triceps extension</string>
+    <string name="workout_load">Workout load</string>
+    <string name="general_development">General body development</string>
+    <string name="proportion_improving">Proportion improving</string>
+    <string name="choose_your_workout_goal">Choose your workout goal</string>
+    <string name="adjusting_plan_to_improving_proportion">Adjusting your training plan to improve body proportions requires entering all body measurements</string>
+    <string name="add_measurements">Add measurements</string>
+    <string name="up_training_day">Top</string>
+    <string name="down_training_day">Bottom</string>
+    <string name="a_training_day">Day A</string>
+    <string name="b_training_day">Day B</string>
+    <string name="push_training_day" translatable="false">Push</string>
+    <string name="pull_training_day" translatable="false">Pull</string>
+    <string name="burning_training_day" translatable="false">Cardio</string>
+    <string name="three_days_fat_loss">Three-day split training + cardio exercises</string>
+    <string name="three_days_split">Three-day split training</string>
+    <string name="fbw">Three-day FBW training</string>
+    <string name="four_day_push_pull">Four-day PUSH PULL training</string>
+    <string name="four_day_up_down">Four-day SPLIT training</string>
+    <string name="five_day_up_down">Five-day SPLIT training</string>
+    <string name="our_proposed_plan">Our proposed training plan is :</string>
+    <string name="fbw_explanation">FBW (Full Body Workout) training is a training method, the aim of which is to involve all muscle groups on individual training session.</string>
+    <string name="split_explanation">SPLIT training is a training method in which training sessions are divided into muscle groups.</string>
+    <string name="push_pull_explanation">In push-pull training, training days are divided into muscle groups, which are classified as pushing or pulling.</string>
+    <string name="and_cardio">Additionally, cardio exercises</string>
+    <string name="your_plan">Your training plan</string>
+    <string name="go_ahead">Go ahead and review the plan. If necessary, the plan can be edited.</string>
+    <string name="no_training_set_up">No training set up</string>
+    <string name="set_up">Set up</string>
+    <string name="sign_out">Sign out</string>
+    <string name="want_to_sign_out">Do you want to log out ?</string>
+
+    <string-array name="measurements">
+        <item>@string/weight</item>
+        <item>@string/waist</item>
+        <item>@string/biceps</item>
+        <item>@string/forearms</item>
+        <item>@string/chest</item>
+        <item>@string/shoulders</item>
+        <item>@string/neck</item>
+        <item>@string/hips</item>
+        <item>@string/thighs</item>
+        <item>@string/calves</item>
     </string-array>
 
 </resources>

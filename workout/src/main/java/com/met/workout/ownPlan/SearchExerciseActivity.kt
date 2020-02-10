@@ -1,8 +1,7 @@
-package com.met.workout.own_plan
+package com.met.workout.ownPlan
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,8 +11,9 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.met.impilo.data.Gender
 import com.met.impilo.data.WorkoutStyle
 import com.met.impilo.data.workouts.Exercise
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_search_exercise.*
 
 class SearchExerciseActivity : AppCompatActivity() , SearchExerciseAdapter.OnExerciseClickListener , ExerciseBottomSheet.OnAddExerciseListener{
 
-    private lateinit var viewModel : SearchActivityViewModel
+    private lateinit var viewModel : SearchExerciseActivityViewModel
     private val TAG = javaClass.simpleName
     private lateinit var gender : Gender
     private var weight : Float = 0f
@@ -43,7 +43,7 @@ class SearchExerciseActivity : AppCompatActivity() , SearchExerciseAdapter.OnExe
         Log.i(TAG, "Received lastMuscleSetIndex : $lastMuscleSetIndex")
 
 
-        viewModel = ViewModelProviders.of(this).get(SearchActivityViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(SearchExerciseActivityViewModel::class.java)
 
         supportActionBar?.hide()
 

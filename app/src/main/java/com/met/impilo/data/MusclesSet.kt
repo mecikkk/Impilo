@@ -4,8 +4,10 @@ import com.met.impilo.data.workouts.BodySide
 import com.met.impilo.utils.Const
 
 enum class MusclesSet(val muscles: List<String>, val nameRef: Int, val bodySide: BodySide) {
-    PECTORALIS_MAJOR(listOf(Const.PECTORALIS_MAJOR_LEFT, Const.PECTORALIS_MAJOR_RIGHT), com.met.impilo.R.string.pec_major, BodySide.FRONT), PECTORALIS_MINOR(listOf(),
-        com.met.impilo.R.string.pec_minor, BodySide.FRONT),
+    PECTORALIS_MAJOR(listOf(Const.PECTORALIS_MAJOR_LEFT, Const.PECTORALIS_MAJOR_RIGHT), com.met.impilo.R.string.pec_major, BodySide.FRONT),
+    PECTORALIS_MINOR(listOf(), com.met.impilo.R.string.pec_minor, BodySide.FRONT),
+
+    CHEST(listOf(Const.PECTORALIS_MAJOR_LEFT, Const.PECTORALIS_MAJOR_RIGHT), com.met.impilo.R.string.chest, BodySide.FRONT),
 
     BICEPS(listOf(Const.BICEPS_LONG_LEFT, Const.BICEPS_LONG_RIGHT, Const.BICEPS_SHORT_LEFT, Const.BICEPS_SHORT_RIGHT), com.met.impilo.R.string.biceps,
         BodySide.FRONT),
@@ -46,6 +48,11 @@ enum class MusclesSet(val muscles: List<String>, val nameRef: Int, val bodySide:
     TRAPEZIUS(listOf(Const.TRAPEZIUS_LEFT, Const.TRAPEZIUS_RIGHT), com.met.impilo.R.string.trapezius, BodySide.BACK),
 
     // --- UDA
+    LEGS(listOf("adductor_longus_left", "quadriceps1", "quadriceps2", "quadriceps3", "adductor_longus_right", "quadriceps4", "quadriceps5", "quadriceps6",
+        "adductor_magnus_left", "adductor_magnus_right", "semitendinosus_left", "semitendinosus_right", "tensor_fasciae_latae_left", "tensor_fasciae_latae_right",
+        "biceps_femoris_left", "biceps_femoris_right","calves1", "calves2", "calves3", "calves4", "calves5", "calves6", "calves7", "calves8"),
+        com.met.impilo.R.string.legs, BodySide.FRONT),
+
     THIGHS(listOf("adductor_longus_left", "quadriceps1", "quadriceps2", "quadriceps3", "adductor_longus_right", "quadriceps4", "quadriceps5", "quadriceps6"),
         com.met.impilo.R.string.thighs, BodySide.FRONT),
     THIGHS_BACK(listOf("adductor_magnus_left", "adductor_magnus_right", "semitendinosus_left", "semitendinosus_right", "tensor_fasciae_latae_left", "tensor_fasciae_latae_right",
@@ -89,7 +96,7 @@ enum class MusclesSet(val muscles: List<String>, val nameRef: Int, val bodySide:
         com.met.impilo.R.string.serratus_anterior, BodySide.FRONT),
 
     BACK(listOf(Const.TERES_MAJOR_LEFT, Const.TERES_MAJOR_RIGHT, Const.TERES_MINOR_LEFT, Const.TERES_MINOR_RIGHT, Const.ERACTOR_SPINAE_LEFT,
-        Const.ERACTOR_SPINAE_RIGHT, Const.LATISSIMUS_DORSI_LEFT, Const.LATISSIMUS_DORSI_RIGHT), com.met.impilo.R.string.back, BodySide.BACK),
+        Const.ERACTOR_SPINAE_RIGHT, Const.LATISSIMUS_DORSI_LEFT, Const.LATISSIMUS_DORSI_RIGHT), com.met.impilo.R.string.back_muscles, BodySide.BACK),
 
     ALL_BODY(listOf(Const.PECTORALIS_MAJOR_LEFT, Const.PECTORALIS_MAJOR_RIGHT, Const.BICEPS_LONG_LEFT, Const.BICEPS_LONG_RIGHT, Const.BICEPS_SHORT_LEFT,
         Const.BICEPS_SHORT_RIGHT, Const.FOREARM_EXTERNAL_LEFT, Const.FOREARM_EXTERNAL_RIGHT, Const.FOREARM_INTERNAL_LEFT, Const.FOREARM_INTERNAL_RIGHT, "abs1",
@@ -98,5 +105,39 @@ enum class MusclesSet(val muscles: List<String>, val nameRef: Int, val bodySide:
         Const.EXTERNAL_OBLIQUE_RIGHT4, Const.SHOULDER_ANTERIOR_LEFT, Const.SHOULDER_ANTERIOR_RIGHT, Const.SHOULDER_MIDDLE_LEFT, Const.SHOULDER_MIDDLE_RIGHT,
         "adductor_longus_left", "quadriceps1", "quadriceps2", "quadriceps3", "adductor_longus_right", "quadriceps4", "quadriceps5", "quadriceps6", "calves1", "calves2", "calves3",
         "calves4", "calves5", "calves6", Const.LATISSIMUS_DORSI_LEFT, Const.LATISSIMUS_DORSI_RIGHT, "serratus_anterior_left1", "serratus_anterior_left2",
-        "serratus_anterior_left3", "serratus_anterior_right1", "serratus_anterior_right2", "serratus_anterior_right3"), com.met.impilo.R.string.all_body, BodySide.FRONT)
+        "serratus_anterior_left3", "serratus_anterior_right1", "serratus_anterior_right2", "serratus_anterior_right3"), com.met.impilo.R.string.all_body, BodySide.FRONT),
+
+    UP(listOf(Const.PECTORALIS_MAJOR_LEFT, Const.PECTORALIS_MAJOR_RIGHT, Const.TERES_MAJOR_LEFT, Const.TERES_MAJOR_RIGHT, Const.TERES_MINOR_LEFT, Const.TERES_MINOR_RIGHT, Const.ERACTOR_SPINAE_LEFT,
+        Const.ERACTOR_SPINAE_RIGHT, Const.LATISSIMUS_DORSI_LEFT, Const.LATISSIMUS_DORSI_RIGHT, Const.SHOULDER_ANTERIOR_LEFT, Const.SHOULDER_ANTERIOR_RIGHT, Const.SHOULDER_MIDDLE_LEFT, Const.SHOULDER_MIDDLE_RIGHT,
+        Const.BICEPS_LONG_LEFT, Const.BICEPS_LONG_RIGHT, Const.BICEPS_SHORT_LEFT, Const.BICEPS_SHORT_RIGHT, Const.TRICEPS_LATERAL_LEFT, Const.TRICEPS_LATERAL_RIGHT, Const.TRICEPS_LONG_LEFT, Const.TRICEPS_LONG_RIGHT, Const.TRICEPS_MEDIAL_LEFT,
+        Const.TRICEPS_MEDIAL_RIGHT), com.met.impilo.R.string.up_training_day, BodySide.FRONT),
+    DOWN(listOf("adductor_longus_left", "quadriceps1", "quadriceps2", "quadriceps3", "adductor_longus_right", "quadriceps4", "quadriceps5", "quadriceps6",
+        "adductor_magnus_left", "adductor_magnus_right", "semitendinosus_left", "semitendinosus_right", "tensor_fasciae_latae_left", "tensor_fasciae_latae_right",
+        "biceps_femoris_left", "biceps_femoris_right","calves1", "calves2", "calves3", "calves4", "calves5", "calves6", "calves7", "calves8",Const.GLUTE_LEFT, Const.GLUTE_RIGHT), com.met.impilo.R.string.down_training_day, BodySide.FRONT),
+
+    A(listOf("adductor_longus_left", "quadriceps1", "quadriceps2", "quadriceps3", "adductor_longus_right", "quadriceps4", "quadriceps5", "quadriceps6",
+        Const.LATISSIMUS_DORSI_LEFT, Const.LATISSIMUS_DORSI_RIGHT,
+        Const.PECTORALIS_MAJOR_LEFT, Const.PECTORALIS_MAJOR_RIGHT,
+        Const.SHOULDER_ANTERIOR_LEFT, Const.SHOULDER_ANTERIOR_RIGHT, Const.SHOULDER_MIDDLE_LEFT, Const.SHOULDER_MIDDLE_RIGHT,
+        Const.TRICEPS_LATERAL_LEFT, Const.TRICEPS_LATERAL_RIGHT, Const.TRICEPS_LONG_LEFT, Const.TRICEPS_LONG_RIGHT, Const.TRICEPS_MEDIAL_LEFT,
+        Const.TRICEPS_MEDIAL_RIGHT, Const.BICEPS_LONG_LEFT, Const.BICEPS_LONG_RIGHT, Const.BICEPS_SHORT_LEFT, Const.BICEPS_SHORT_RIGHT,
+        "abs1", "abs2", "abs3", "abs4", "abs5", "abs6", "abs7", "abs8", Const.EXTERNAL_OBLIQUE_LEFT1, Const.EXTERNAL_OBLIQUE_LEFT2, Const.EXTERNAL_OBLIQUE_LEFT3,
+        Const.EXTERNAL_OBLIQUE_LEFT4, Const.EXTERNAL_OBLIQUE_RIGHT1, Const.EXTERNAL_OBLIQUE_RIGHT2, Const.EXTERNAL_OBLIQUE_RIGHT3,
+        Const.EXTERNAL_OBLIQUE_RIGHT4), com.met.impilo.R.string.a_training_day, BodySide.FRONT),
+
+    B(listOf("biceps_femoris_left", "biceps_femoris_right", "semitendinosus_left", "semitendinosus_right",Const.ERACTOR_SPINAE_LEFT, Const.ERACTOR_SPINAE_RIGHT,
+        Const.PECTORALIS_MAJOR_LEFT, Const.PECTORALIS_MAJOR_RIGHT,Const.SHOULDER_POSTERIOR_LEFT, Const.SHOULDER_POSTERIOR_RIGHT,
+        Const.SHOULDER_ANTERIOR_LEFT, Const.SHOULDER_ANTERIOR_RIGHT, Const.TRICEPS_LATERAL_LEFT, Const.TRICEPS_LATERAL_RIGHT, Const.TRICEPS_LONG_LEFT, Const.TRICEPS_LONG_RIGHT, Const.TRICEPS_MEDIAL_LEFT,
+        Const.TRICEPS_MEDIAL_RIGHT, Const.BICEPS_LONG_LEFT, Const.BICEPS_LONG_RIGHT, Const.BICEPS_SHORT_LEFT, Const.BICEPS_SHORT_RIGHT,
+        "abs1", "abs2", "abs3", "abs4", "abs5", "abs6", "abs7", "abs8", Const.EXTERNAL_OBLIQUE_LEFT1, Const.EXTERNAL_OBLIQUE_LEFT2, Const.EXTERNAL_OBLIQUE_LEFT3,
+        Const.EXTERNAL_OBLIQUE_LEFT4, Const.EXTERNAL_OBLIQUE_RIGHT1, Const.EXTERNAL_OBLIQUE_RIGHT2, Const.EXTERNAL_OBLIQUE_RIGHT3,
+        Const.EXTERNAL_OBLIQUE_RIGHT4), com.met.impilo.R.string.b_training_day, BodySide.FRONT),
+
+    PUSH(listOf("adductor_longus_left", "quadriceps1", "quadriceps2", "quadriceps3", "adductor_longus_right", "quadriceps4", "quadriceps5", "quadriceps6",
+        Const.PECTORALIS_MAJOR_LEFT, Const.PECTORALIS_MAJOR_RIGHT), com.met.impilo.R.string.push_training_day, BodySide.FRONT),
+    PULL(listOf(), com.met.impilo.R.string.pull_training_day, BodySide.FRONT),
+    BURN(listOf(), com.met.impilo.R.string.burning_training_day, BodySide.FRONT),
+
+
+
 }

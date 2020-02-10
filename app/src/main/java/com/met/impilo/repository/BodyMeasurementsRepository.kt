@@ -1,18 +1,22 @@
 package com.met.impilo.repository
 
 import android.util.Log
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.*
 import com.met.impilo.utils.Const
 import com.met.impilo.utils.toId
 import java.math.RoundingMode
 import java.util.*
 
-class BodyMeasurementsRepository : FirebaseRepository() {
+class BodyMeasurementsRepository(override val firestore: FirebaseFirestore) : FirebaseRepository(firestore){
 
     override val TAG = javaClass.simpleName
+    override val uid: String = FirebaseAuth.getInstance().uid!!
 
     companion object {
-        fun newInstance() = BodyMeasurementsRepository()
+        fun newInstance(firestore: FirebaseFirestore) = BodyMeasurementsRepository(firestore)
     }
 
     fun setOrUpdateBodyMeasurement(date: Date, bodyMeasurements: BodyMeasurements, success: (Boolean) -> Unit) {
@@ -23,6 +27,55 @@ class BodyMeasurementsRepository : FirebaseRepository() {
             }.addOnFailureListener {
                 success(false)
                 Log.e(TAG, "BodyMeasurement adding error : " + it.cause + " | " + it.message)
+            }
+    }
+
+    fun getAllWeights(weights : (List<Pair<Date, Float>>) -> Unit){
+        firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_BODY_MEASUREMENTS).get()
+            .addOnSuccessListener { collection ->
+                if(!collection.documents.isNullOrEmpty()){
+                    Log.i(TAG, "Weights found")
+                    val list = mutableListOf<Pair<Date, Float>>()
+                    collection.documents.forEach {
+                        val measurement : BodyMeasurements = it.toObject(BodyMeasurements::class.java)!!
+                        list.add(Pair(measurement.measurementDate, measurement.weight))
+                    }
+                    weights(list.sortedBy { it.first })
+                } else
+                    Log.i(TAG, "Weights not found")
+            }.addOnFailureListener {
+                Log.i(TAG, "Getting weights error : ${it.message}")
+            }
+    }
+
+    fun getSeparatedMeasurements(separatedMeasurements : (List<Pair<Date, List<Float>>>) -> Unit) {
+        firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_BODY_MEASUREMENTS).get()
+            .addOnSuccessListener { collection ->
+                if(!collection.documents.isNullOrEmpty()){
+                    Log.i(TAG, "Weights found")
+                    val allMeasurements = mutableListOf<Pair<Date, List<Float>>>()
+                    var list = mutableListOf<Float>()
+                    collection.documents.forEach { doc ->
+                        val measurement : BodyMeasurements = doc.toObject(BodyMeasurements::class.java)!!
+                        list.add(measurement.weight)
+                        list.add(measurement.waist)
+                        list.add(measurement.bicep)
+                        list.add(measurement.forearm)
+                        list.add(measurement.chest)
+                        list.add(measurement.shoulders)
+                        list.add(measurement.neck)
+                        list.add(measurement.hips)
+                        list.add(measurement.thigh)
+                        list.add(measurement.calves)
+                        Log.i(TAG, "list od measurements : $list")
+                        allMeasurements.add(Pair(measurement.measurementDate, list))
+                        list = mutableListOf()
+                    }
+                    separatedMeasurements(allMeasurements)
+                } else
+                    Log.i(TAG, "Weights not found")
+            }.addOnFailureListener {
+                Log.i(TAG, "Getting weights error : ${it.message}")
             }
     }
 
@@ -182,7 +235,7 @@ class BodyMeasurementsRepository : FirebaseRepository() {
         }
     }
 
-    private fun calculateThumbPosition(fatLevel: FatLevel) : Float {
+    fun calculateThumbPosition(fatLevel: FatLevel) : Float {
         var start = 0f
         var end = 0f
 
@@ -212,10 +265,10 @@ class BodyMeasurementsRepository : FirebaseRepository() {
         val offset = ((percent*difference)/100)
 
         val seekValue = start + offset
-
-        Log.i(TAG, "start : $start | end : $end")
-        Log.i(TAG, "difference : $difference | percent : $percent")
-        Log.i(TAG, "offset : $offset | result : $seekValue")
+//
+//        Log.i(TAG, "start : $start | end : $end")
+//        Log.i(TAG, "difference : $difference | percent : $percent")
+//        Log.i(TAG, "offset : $offset | result : $seekValue")
 
         return seekValue
     }

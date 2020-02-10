@@ -15,7 +15,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -56,8 +56,8 @@ class Login : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         supportActionBar?.hide()
 
-        vModel = ViewModelProviders.of(this)[LoginViewModel::class.java]
-        connectionInformation = ViewModelProviders.of(this)[ConnectionInformation::class.java]
+        vModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        connectionInformation = ViewModelProvider(this)[ConnectionInformation::class.java]
 
         initGoogleSignIn()
 
@@ -69,6 +69,8 @@ class Login : AppCompatActivity() {
 
         authListener = FirebaseAuth.AuthStateListener {
             if (firebaseAuth.currentUser != null) {
+
+
                 vModel.isAccountConfigured {
                     if (!it) {
                         Log.e(TAG, "Start only configuration...")

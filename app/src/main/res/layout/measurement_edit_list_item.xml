@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/measurement_edit_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintHorizontal_weight="4"
+            app:layout_constraintBottom_toTopOf="@id/measurement_edit_current_value"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/measured_value_input_text_layout"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Body Part Name" />
+
+        <TextView
+            android:id="@+id/measurement_edit_current_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/measurement_edit_name"
+            tools:text="85 kg" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/measured_value_input_text_layout"
+            style="@style/DayNightTextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:hintTextColor="@color/textColor"
+            app:layout_constraintHorizontal_weight="5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/chart_button"
+            app:layout_constraintStart_toEndOf="@id/measurement_edit_name"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/measured_value_input_edit_text"
+                style="@style/DayNightEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/exercise_weight_kg"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/chart_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="center"
+            android:tint="@color/textColor"
+            android:src="@drawable/ic_arrow_drop_down"
+            app:layout_constraintStart_toEndOf="@id/measured_value_input_text_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:id="@+id/expandable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@color/roundedCornersBgColor"
+        app:el_duration="200"
+        app:el_expanded="false">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/progress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.hadiidbouk.charts.ChartProgressBar
+                android:id="@+id/chart_measurement_progress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:hdBarCanBeClick="true"
+                app:hdBarHeight="150dp"
+                app:hdBarRadius="10dp"
+                app:hdBarTitleColor="@color/textColor"
+                app:hdBarTitleMarginTop="9dp"
+                app:hdBarTitleSelectedColor="@color/colorAccent"
+                app:hdBarTitleTxtSize="12sp"
+                app:hdBarWidth="12dp"
+                app:hdEmptyColor="@color/emptyBarColor"
+                app:hdPinDrawable="@drawable/ic_pin"
+                app:hdPinMarginBottom="55dp"
+                app:hdPinMarginEnd="15.5dp"
+                app:hdPinMarginTop="10dp"
+                app:hdPinPaddingBottom="5dp"
+                app:hdPinTextColor="@color/textColor"
+                app:hdPinTxtSize="14sp"
+                app:hdProgressClickColor="@color/colorAccent"
+                app:hdProgressColor="@color/textColor"
+                app:hdProgressDisableColor="@color/progress_disable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </net.cachapa.expandablelayout.ExpandableLayout>
+
+</LinearLayout>

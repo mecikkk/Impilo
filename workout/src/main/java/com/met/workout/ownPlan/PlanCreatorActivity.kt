@@ -1,4 +1,4 @@
-package com.met.workout.own_plan
+package com.met.workout.ownPlan
 
 import android.app.Activity
 import android.content.Intent
@@ -28,27 +28,35 @@ import com.met.workout.adapter.OnTrainingWeekClick
 import com.met.workout.adapter.TrainingWeekExpandableListAdapter
 import kotlinx.android.synthetic.main.activity_my_own_plan.*
 
-class MyOwnPlanActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBottomSheet.OnAddExerciseListener {
+class PlanCreatorActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBottomSheet.OnAddExerciseListener {
 
     private val TAG = javaClass.simpleName
     private var currentWeek: Int = 0
     private var clickedDay: Int = 0
     private lateinit var trainingWeekAdapter: TrainingWeekExpandableListAdapter
     private lateinit var exerciseBottomSheet: ExerciseBottomSheet
-    private lateinit var searchViewModel: SearchActivityViewModel
-    private lateinit var viewModel : MyOwnPlanActivityViewModel
+    private lateinit var searchViewModel: SearchExerciseActivityViewModel
+    private lateinit var viewModel : PlanCreatorActivityViewModel
     private lateinit var gender: Gender
     private var userWeight: Float = 0f
     private lateinit var workoutStyle: WorkoutStyle
-
+    private var generatedPlanInfo : TrainingPlanInfo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_own_plan)
 
-        viewModel = ViewModelProvider(this).get(MyOwnPlanActivityViewModel::class.java)
-        searchViewModel = ViewModelProvider(this).get(SearchActivityViewModel::class.java)
+
+        viewModel = ViewModelProvider(this).get(PlanCreatorActivityViewModel::class.java)
+        searchViewModel = ViewModelProvider(this).get(SearchExerciseActivityViewModel::class.java)
         searchViewModel.fetchGenderAndWorkoutStyle()
+
+        if(intent.getSerializableExtra("generatedTrainingPlan") != null) {
+            generatedPlanInfo = intent.getSerializableExtra("generatedTrainingPlan") as TrainingPlanInfo
+            viewModel.weekA = generatedPlanInfo!!.weekA
+            viewModel.weekB = generatedPlanInfo!!.weekB
+
+        }
 
         training_system_spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, resources.getStringArray(com.met.impilo.R.array.weeks))
 
@@ -71,6 +79,9 @@ class MyOwnPlanActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBott
                     trainingWeekAdapter.isBiweeklySystem = true
                 }
             }
+        }
+        if(generatedPlanInfo != null) {
+            if (generatedPlanInfo!!.trainingSystem == TrainingSystem.AB) training_system_radio_group.check(R.id.biweekly_radio_button)
         }
 
         training_system_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -166,9 +177,12 @@ class MyOwnPlanActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBott
             Log.i(TAG,
                 "Finishing | Week A - Monday exercises : \nallMusclesSetNames : ${trainingWeekAdapter.weekA[0].muscleSetsNames} \n" + "distinctMusclesSetNames : ${trainingWeekAdapter.weekA[0].muscleSetsNames.distinct()}")
             val trainingPlanInfo = TrainingPlanInfo().apply {
-                this.actualWeek = Week.A
-                if (trainingWeekAdapter.isBiweeklySystem) this.trainingSystem = TrainingSystem.AB
-                else this.trainingSystem = TrainingSystem.A
+                this.actualWeek = generatedPlanInfo?.actualWeek ?: Week.A
+                if(generatedPlanInfo == null) {
+                    if (trainingWeekAdapter.isBiweeklySystem) this.trainingSystem = TrainingSystem.AB
+                    else this.trainingSystem = TrainingSystem.A
+                } else
+                    this.trainingSystem = generatedPlanInfo!!.trainingSystem
                 this.isConfigurationCompleted = true
                 this.weekA = trainingWeekAdapter.weekA.toMutableList()
                 this.weekB = trainingWeekAdapter.weekB.toMutableList()
@@ -213,20 +227,20 @@ class MyOwnPlanActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBott
         override fun createGroup(menu: SwipeMenu) {}
         override fun createChild(menu: SwipeMenu) {
 
-            val editItem = SwipeMenuItem(this@MyOwnPlanActivity).apply {
-                background = ContextCompat.getDrawable(this@MyOwnPlanActivity, com.met.impilo.R.drawable.menu_item_background)
+            val editItem = SwipeMenuItem(this@PlanCreatorActivity).apply {
+                background = ContextCompat.getDrawable(this@PlanCreatorActivity, com.met.impilo.R.drawable.menu_item_background)
                 width = 200
                 setIcon(com.met.impilo.R.drawable.ic_edit)
-                icon.setTint(ContextCompat.getColor(this@MyOwnPlanActivity, com.met.impilo.R.color.secondAccent))
+                icon.setTint(ContextCompat.getColor(this@PlanCreatorActivity, com.met.impilo.R.color.secondAccent))
             }
 
             menu.addMenuItem(editItem)
 
-            val deleteItem = SwipeMenuItem(this@MyOwnPlanActivity).apply {
-                background = ColorDrawable(ContextCompat.getColor(this@MyOwnPlanActivity, com.met.impilo.R.color.menuIconGradientEnd))
+            val deleteItem = SwipeMenuItem(this@PlanCreatorActivity).apply {
+                background = ColorDrawable(ContextCompat.getColor(this@PlanCreatorActivity, com.met.impilo.R.color.menuIconGradientEnd))
                 width = 200
                 setIcon(com.met.impilo.R.drawable.ic_delete)
-                icon.setTint(ContextCompat.getColor(this@MyOwnPlanActivity, com.met.impilo.R.color.colorAccent))
+                icon.setTint(ContextCompat.getColor(this@PlanCreatorActivity, com.met.impilo.R.color.colorAccent))
             }
 
             menu.addMenuItem(deleteItem)
@@ -236,7 +250,7 @@ class MyOwnPlanActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBott
     private fun showBottomSheet(exercise: Exercise) {
         exerciseBottomSheet.exercise = exercise
         exerciseBottomSheet.show(supportFragmentManager, exerciseBottomSheet.tag)
-        exerciseBottomSheet.callback = this@MyOwnPlanActivity
+        exerciseBottomSheet.callback = this@PlanCreatorActivity
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

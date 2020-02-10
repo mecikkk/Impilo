@@ -1,16 +1,17 @@
-package com.met.workout.own_plan
+package com.met.workout.ownPlan
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.Gender
 import com.met.impilo.data.WorkoutStyle
 import com.met.impilo.data.workouts.Exercise
 import com.met.impilo.repository.WorkoutsRepository
 
-class SearchActivityViewModel : ViewModel() {
+class SearchExerciseActivityViewModel : ViewModel() {
 
-    private val workoutsRepository = WorkoutsRepository.newInstance()
+    private val workoutsRepository = WorkoutsRepository.newInstance(FirebaseFirestore.getInstance())
     private var exercises = MutableLiveData<List<Exercise>>()
     private var gender = MutableLiveData<Gender>()
     private var weight = MutableLiveData<Float>()

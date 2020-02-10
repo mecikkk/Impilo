@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.met.auth.R
 import com.met.auth.registration.Registration
+import com.met.impilo.adapter.CircularDaysAdapter
+import com.met.impilo.adapter.DayItemClickListener
 import com.met.impilo.data.WorkoutStyle
 import com.met.impilo.utils.Utils
 import kotlinx.android.synthetic.main.fragment_workout_style.*
@@ -34,7 +36,7 @@ class WorkoutStyleFragment : BaseFragment(), Registration.OnPageChangeListener {
         workoutDescriptions = resources.getStringArray(com.met.impilo.R.array.workoutDescriptions)
 
         days_recyclerview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val adapter = CircularDaysAdapter()
+        val adapter = CircularDaysAdapter(context!!)
         days_recyclerview.adapter = adapter
 
         adapter.setOnDayItemClickListener(object : DayItemClickListener {

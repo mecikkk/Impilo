@@ -2,6 +2,10 @@ package com.met.impilo.utils
 
 object Const {
 
+    const val EDIT_GENERATED_PLAN_REQUEST = 654
+    const val PLAN_GENERATOR_REQUEST = 555
+    const val BODY_MEASUREMENTS_REQUEST = 444
+    const val START_WORKOUT_RESULT = 333
     const val REF_TRAINING_DAY = "trainingDay"
     const val MY_OWN_PLAN_CREATOR_REQUEST = 222
     const val REF_TRAINING_PLAN_INFO = "trainingPlanInfo"
@@ -18,6 +22,12 @@ object Const {
     const val ADD_EXERCISE_RESULT = 320
     const val REF_GYM_EXERCISES = "gym_exercises"
     const val REF_EXERCISES = "exercises"
+
+    const val REF_3_DAYS_SPLIT = "3_days_split"
+    const val REF_4_DAYS_UP_DOWN = "4_days_up_down"
+    const val REF_4_DAYS_PUSH_PULL = "4_days_push_pull"
+    const val REF_5_DAYS_SPLIT = "5_days_split"
+
 
     const val REF_PRODUCTS = "products"
     const val REF_PERSONAL_DATA = "personalData"

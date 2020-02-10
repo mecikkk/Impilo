@@ -4,12 +4,16 @@
     <color name="colorPrimary">#212121</color>
     <color name="colorPrimaryDark">#090909</color>
     <color name="colorAccent">#cb4257</color>
+    <color name="secondAccent">#8b62c4</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">#ccc</color>
     <color name="textColor">#fff</color>
     <color name="listGroupItemBg">#414141</color>
     <color name="menuIconGradientStart">#191919</color>
     <color name="menuIconGradientEnd">#1f1f1f</color>
     <color name="roundedCornersBgColor">#212121</color>
+    <color name="emptyBarColor">#20ffffff</color>
+    <color name="roundedCornersBgColorDark">#1a1a1a</color>
+    <color name="toggleDayNightButton">#fff</color>
 
     <color name="defaultBgColor">#191919</color>
 </resources>

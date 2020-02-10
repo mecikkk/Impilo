@@ -23,6 +23,9 @@
     <color name="moderateLevel">#b0d42f</color>
     <color name="defaultBgColor">@android:color/background_light</color>
     <color name="supportMusclesColor">#bfb008</color>
+    <color name="emptyBarColor">#20000000</color>
+    <color name="roundedCornersBgColorDark">#d4d4d4</color>
+    <color name="toggleDayNightButton">#2e2e2e</color>
 
     <color name="roundedCornersBgColor">#eee</color>
 

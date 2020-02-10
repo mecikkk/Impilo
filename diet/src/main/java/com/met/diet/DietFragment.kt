@@ -67,6 +67,7 @@ class DietFragment : Fragment() {
 
         mealsAdapter = MealsExpandableListAdapter(view.context, getMealsFromSharedPreferences())
 
+
         meals_list_view.apply {
             setmMenuStickTo(SwipeMenuListView.STICK_TO_SCREEN)
             setAdapter(mealsAdapter)

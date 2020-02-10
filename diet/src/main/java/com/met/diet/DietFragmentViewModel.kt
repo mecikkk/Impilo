@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.Demand
 import com.met.impilo.data.food.FoodProduct
 import com.met.impilo.data.food.ServingType
@@ -23,9 +24,10 @@ class DietFragmentViewModel : ViewModel() {
 
     private val TAG = this.javaClass.simpleName
 
-    private val demandRepository = DemandRepository.newInstance()
-    private val mealsRepository = MealsRepository.newInstance()
-    private val foodProductRepository = FoodProductsRepository.newInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+    private val demandRepository = DemandRepository.newInstance(firestore)
+    private val mealsRepository = MealsRepository.newInstance(firestore)
+    private val foodProductRepository = FoodProductsRepository.newInstance(firestore)
 
     var userMealSet: MutableLiveData<UserMealSet> = MutableLiveData()
     var allMeals: MutableLiveData<List<Meal>> = MutableLiveData()
@@ -33,6 +35,10 @@ class DietFragmentViewModel : ViewModel() {
     var fullDemand: MutableLiveData<Demand> = MutableLiveData()
     var percentageDemand: MutableLiveData<Demand> = MutableLiveData()
     var mealsSummary: MutableLiveData<MealsSummary> = MutableLiveData()
+
+    fun signOut(){
+        demandRepository.signOut()
+    }
 
     fun getMyDemand() {
         demandRepository.getDemand {

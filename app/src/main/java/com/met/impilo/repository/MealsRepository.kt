@@ -2,6 +2,7 @@ package com.met.impilo.repository
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.food.FoodProduct
 import com.met.impilo.data.food.ServingType
 import com.met.impilo.data.meals.Meal
@@ -12,20 +13,21 @@ import com.met.impilo.utils.Const
 import com.met.impilo.utils.Operation
 import java.util.*
 
-class MealsRepository : FirebaseRepository() {
+class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepository(firestore) {
 
     override val TAG = javaClass.simpleName
+    override val uid: String = FirebaseAuth.getInstance().uid!!
     private lateinit var allMeals: MutableList<Meal>
 
     companion object {
         @JvmStatic
-        fun newInstance() = MealsRepository()
+        fun newInstance(firestore: FirebaseFirestore) = MealsRepository(firestore)
 
     }
-
-    init {
-        resetUid()
-    }
+//
+//    init {
+//        resetUid()
+//    }
 
     fun getMealsByDateId(dateId: String, allMeals: (List<Meal>?) -> Unit) {
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_MEALS).document(dateId).collection(Const.REF_MEALS).get()
