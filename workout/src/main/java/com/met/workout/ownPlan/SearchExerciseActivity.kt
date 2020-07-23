@@ -40,8 +40,6 @@ class SearchExerciseActivity : AppCompatActivity() , SearchExerciseAdapter.OnExe
         setContentView(R.layout.activity_search_exercise)
 
         val lastMuscleSetIndex = intent.getIntExtra("lastMuscleSetIndex", 0)
-        Log.i(TAG, "Received lastMuscleSetIndex : $lastMuscleSetIndex")
-
 
         viewModel = ViewModelProvider(this).get(SearchExerciseActivityViewModel::class.java)
 
@@ -77,8 +75,6 @@ class SearchExerciseActivity : AppCompatActivity() , SearchExerciseAdapter.OnExe
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                Log.e(TAG, "Item Selected : $position , ${muscleSetMap[position]!!}")
-                Log.d(TAG, "Item Selected : ${musclesNamesArray[position]}")
                 selectedExerciseMuscleSetName = musclesNamesArray[position]
 
                 viewModel.fetchExercises(muscleSetMap[position]!!)
@@ -149,7 +145,6 @@ class SearchExerciseActivity : AppCompatActivity() , SearchExerciseAdapter.OnExe
         intent.putExtra("exerciseMuscleSetName", selectedExerciseMuscleSetName)
         intent.putExtra("exerciseToAdd", exercise)
         intent.putExtra("lastMuscleSetIndex", muscles_spinner.selectedItemPosition)
-        Log.i(TAG, "lastSelectedMuscleSetIndex : ${muscles_spinner.selectedItemPosition}")
         setResult(Activity.RESULT_OK, intent)
         finish()
     }

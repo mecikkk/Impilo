@@ -96,16 +96,9 @@ class PlanGeneratorActivity : AppCompatActivity() {
         })
 
         viewModel.getGeneratedTrainingPlanInfo().observe(this, Observer { trainingPlanInfo ->
-            Log.w(TAG, "GENERATED TRAINING PLAN INFO")
-            Log.w(TAG,
-                "ActualWeek : ${trainingPlanInfo.actualWeek}\nTrainingSystem : ${trainingPlanInfo.trainingSystem}\nConfigFinished : ${trainingPlanInfo.isConfigurationCompleted}")
             trainingPlanInfo.weekA.forEach { trainingDay ->
                 for (x in 0 until trainingDay.muscleSetsNames.size) {
                     trainingDay.muscleSetsNames[x] = getString(MusclesSet.valueOf(trainingDay.muscleSetsNames[x]).nameRef)
-                }
-                Log.d(TAG, "DAY ${trainingDay.id} | MusclesSetName : ${trainingDay.muscleSetsNames}")
-                trainingDay.exercises.forEach {
-                    Log.i(TAG, "Exercise : $it")
                 }
             }
 
@@ -137,12 +130,8 @@ class PlanGeneratorActivity : AppCompatActivity() {
                 val intent = Intent(context, PlanCreatorActivity::class.java)
                 intent.putExtra("generatedTrainingPlan", trainingPlanInfo)
                 startActivityForResult(intent, Const.EDIT_GENERATED_PLAN_REQUEST)
-
-                Log.e(TAG, "Finishing generator")
-
             }
             setNegativeButton(getString(com.met.impilo.R.string.reject_training)) { _, _ ->
-
                 Log.e(TAG, "Finishing canceled")
             }
         }
@@ -238,8 +227,6 @@ class PlanGeneratorActivity : AppCompatActivity() {
             Const.EDIT_GENERATED_PLAN_REQUEST -> {
                 if (resultCode == Activity.RESULT_OK) {
                     val trainingPlanInfo = data?.getSerializableExtra("trainingPlanInfo") as TrainingPlanInfo
-
-                    Log.d(TAG, "Received planInfo : $trainingPlanInfo")
 
                     viewModel.addAllTrainingDays(trainingPlanInfo) {
                         if (it == 6) viewModel.addTrainingPlanInfo(trainingPlanInfo) {

@@ -38,10 +38,6 @@ class StartWorkoutActivity : AppCompatActivity() {
     private var isClockVisible = true
     private var paused = false
 
-    // TODO : Dialog przy kliknieciu na zakonczenie z informacja o czasie treningu i pytaniem o to czy na pewno zakonczyc (nadpisac tez onBackPress)
-    // TODO : Po zatwierdzeniu jakis loading i w tym czasie wysylanie danych na serwer
-    // TODO : Po wyslaniu back do WorkoutsFragment i tam walnac jakis update
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start_workout)
@@ -66,7 +62,6 @@ class StartWorkoutActivity : AppCompatActivity() {
         clockHandler.postDelayed(clockRunnable, 0)
 
         play_pause_button.setOnClickListener {
-            Log.i(TAG, "${viewModel.trainingDay.exercises[0].details.weight}")
             if(!paused){
                 viewModel.timeBuff += viewModel.milliSecTime
                 clockHandler.removeCallbacks(clockRunnable)
@@ -104,18 +99,14 @@ class StartWorkoutActivity : AppCompatActivity() {
         val allKcal = mutableListOf<Int>()
         viewModel.trainingDay.exercises.forEach {
             allKcal.add(it.kcalPerHour)
-            Log.i(TAG, "allKcal : ${it.kcalPerHour}")
         }
 
         allKcal.distinct().forEach {
             avg += it
-            Log.i(TAG, "kcal distinct : $it")
         }
-        Log.i(TAG, "kcal distinct size : ${allKcal.distinct().size}")
         var kcal = (avg/allKcal.distinct().size)
 
         val timeFormat = String.format("%d.%02d", minutes, seconds).toFloat()
-        Log.i(TAG, "Formated time : $timeFormat")
 
         kcal = ((kcal * timeFormat) / 60).toInt()
 
@@ -140,17 +131,10 @@ class StartWorkoutActivity : AppCompatActivity() {
                         ViewUtils.createSnackbar(start_workout_container, getString(com.met.impilo.R.string.finishing_wokrout_error))
                     }
                 }
-
-                // TODO : zablokowac przycisk + jakies info ze dany trening byl zrobiony i tam gdzie jest historia dac wykres (jak bedzie szybki do zrobienia).
-                // TODO : Ogarnac UI  z treningiem na ekranie glownym + ekran profilu/dodawanie poiarow ciala
-
-                Log.e(TAG, "Finishing workout")
-
             }
             setNegativeButton(getString(com.met.impilo.R.string.cancel)) { _, _ ->
                 viewModel.startTime = SystemClock.uptimeMillis()
                 clockHandler.postDelayed(clockRunnable, 0)
-                Log.e(TAG, "Workout finishing canceled")
             }
             setNeutralButton(getString(com.met.impilo.R.string.reject_training)) { _, _ ->
                 setResult(Activity.RESULT_CANCELED)

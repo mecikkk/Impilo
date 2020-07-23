@@ -22,7 +22,6 @@ class PlanGenerator(var trainingsPerWeek: Int, var trainingInternship: Int, var 
     init{
         setNumberOfSetsAndReps()
         setWorkoutType()
-        Log.d(TAG, "NumberOfSets : $numberOfSets \nNumberOfReps : $numberOfReps \nworkoutType : $workoutType")
     }
 
     private fun calculateAllExercises() {

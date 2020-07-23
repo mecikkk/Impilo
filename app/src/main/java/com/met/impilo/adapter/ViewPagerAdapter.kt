@@ -19,19 +19,15 @@ class ViewPagerAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(fm, BEH
             0 -> homeFragment
             1 -> Class.forName("com.met.diet.DietFragment").newInstance() as Fragment
             2 -> {
-                Log.d("ViewPagerAdapter", "Create fragment POSITION 2")
                 if(!isWorkoutConfigurationCompleted) {
-                    Log.d("ViewPagerAdapter", "Creating configuration workout")
                     val fragment = Class.forName("com.met.workout.WorkoutsConfigurationFragment").newInstance() as Fragment
                     (fragment as WorkoutBaseFragment).onEndOfConfigurationListener = this
                     fragment
                 } else {
-                    Log.d("ViewPagerAdapter", "Creating workout without configuration")
                     Class.forName("com.met.workout.WorkoutsFragment").newInstance() as Fragment
                 }
             }
             3 -> {
-                Log.d("ViewPagerAdapter", "Create fragment 3 - ProfileFragment")
                 ProfileFragment.newInstance()
             }
             else -> Fragment()
@@ -45,9 +41,7 @@ class ViewPagerAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(fm, BEH
     }
 
     override fun onEndOfConfiguration() {
-        Log.e("ViewPagerAdapter", "Running listener")
         isWorkoutConfigurationCompleted = true
-        Log.e("ViewPagerAdapter", "IsWokroutCOnficompleted : $isWorkoutConfigurationCompleted")
         onChangeTrainingFragmentListener.changeWorkoutConfigFragmentToWorkoutFragment()
     }
 

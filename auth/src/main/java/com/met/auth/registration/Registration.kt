@@ -74,7 +74,6 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
             }
 
             override fun onPageSelected(position: Int) {
-                Log.e(TAG, "Position : $position")
                 when (position) {
                     0 -> {
                         next_step.visibility = View.GONE
@@ -140,7 +139,6 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
     private fun initObservers() {
         val registrationSuccessObserver = Observer<Boolean> {
             if (it) {
-                Log.e(TAG, "Registration success. Finishing activity...")
                 loadingDialog.hide()
                 closeApp()
 
@@ -216,7 +214,6 @@ class Registration : AppCompatActivity() , BaseFragment.OnDataSendListener {
     }
 
     override fun accountCreated() {
-        Log.i(TAG, "Account created !")
         registration_view_pager.setCurrentItem(1, true)
         viewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
         initObservers()

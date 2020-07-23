@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity(), ViewPagerAdapter.OnChangeTrainingFragm
         connectionInformation = ViewModelProvider(this)[ConnectionInformation::class.java]
         receiver = connectionInformation.connectionReceiver(this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
 
-        //viewModel.testPlan()
 
         val connectionObserver = Observer<Boolean> {
             if (it) {
@@ -85,7 +84,6 @@ class MainActivity : AppCompatActivity(), ViewPagerAdapter.OnChangeTrainingFragm
 
             viewModel.isWorkoutConfigCompleted().observe(this, Observer {
                 viewPagerAdapter.isWorkoutConfigurationCompleted = it
-                Log.i(TAG, "WorkoutConfig state changed to : $it")
                 if (!it) viewPagerAdapter.homeFragment.setUpWorkoutsListener = this
             })
 
@@ -99,7 +97,6 @@ class MainActivity : AppCompatActivity(), ViewPagerAdapter.OnChangeTrainingFragm
 
             bubbleTabBar.addBubbleListener(object : OnBubbleClickListener {
                 override fun onBubbleClick(id: Int) {
-                    Log.e(TAG, "Clicked : $id")
                     if (!initializinkBubbles) when (id) {
                         R.id.home -> {
                             main_view_pager.currentItem = 0
@@ -150,7 +147,6 @@ class MainActivity : AppCompatActivity(), ViewPagerAdapter.OnChangeTrainingFragm
 
         if (requestCode == Const.LOGIN_REQUEST) {
             if (resultCode == Activity.RESULT_CANCELED) {
-                Log.e(TAG, "Closing app. Login canceled")
                 finish()
             } else if (resultCode == Activity.RESULT_OK) {
                 initWhenLoggedIn()

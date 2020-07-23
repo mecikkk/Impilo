@@ -51,7 +51,6 @@ class BodyMeasurementActivity : AppCompatActivity() {
 
         update_measurements_fab.setOnClickListener {
             loadingDialog.show()
-            Log.d(TAG, "NewMEasurements : ${measurementsEditAdapter.newMeasurements}")
             viewModel.addNewMeasurements(measurementsEditAdapter.newMeasurements){
                 loadingDialog.dismiss()
                 setResult(Activity.RESULT_OK)
@@ -60,7 +59,6 @@ class BodyMeasurementActivity : AppCompatActivity() {
         }
 
         nested_scroll_view.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            Log.i(TAG, "$scrollY")
             if(scrollY in 201..499){
                 update_measurements_fab.show()
                 update_measurements_fab.shrink()

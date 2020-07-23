@@ -89,7 +89,6 @@ class PlanCreatorActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBo
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                Log.i(TAG, "Spinner position $position")
                 when (position) {
                     0 -> {
                         trainingWeekAdapter.showWeekA()
@@ -125,20 +124,16 @@ class PlanCreatorActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBo
                     true
                 }
                 1 -> {
-                    Log.w(TAG, "Exercise to delete : $group | $child")
                     val builder = AlertDialog.Builder(this).apply {
                         setMessage(getString(com.met.impilo.R.string.want_delete_exercise) + "${trainingWeekAdapter.trainingWeek[group].exercises[child].name} ?")
                         setTitle(getString(com.met.impilo.R.string.delete_exercise))
                         setPositiveButton(getString(com.met.impilo.R.string.yes)) { _, _ ->
-                            Log.i(TAG, "Deleting exercise. ListOfMusclesSetNames BEFORE DELETE: ${trainingWeekAdapter.trainingWeek[group].muscleSetsNames}")
 
                             ViewUtils.createSnackbar(my_own_plan_container, getString(com.met.impilo.R.string.exercise_delete_success)).show()
 
                             trainingWeekAdapter.trainingWeek[group].exercises.removeAt(child)
                             trainingWeekAdapter.trainingWeek[group].muscleSetsNames.removeAt(child)
                             trainingWeekAdapter.notifyDataSetChanged()
-
-                            Log.i(TAG, "Deleting exercise. ListOfMusclesSetNames AFTER DELETE: ${trainingWeekAdapter.trainingWeek[group].muscleSetsNames}")
 
                         }
                         setNegativeButton(getString(com.met.impilo.R.string.no)) { _, _ ->
@@ -174,8 +169,6 @@ class PlanCreatorActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBo
 
 
         finish_extended_fab.setOnClickListener {
-            Log.i(TAG,
-                "Finishing | Week A - Monday exercises : \nallMusclesSetNames : ${trainingWeekAdapter.weekA[0].muscleSetsNames} \n" + "distinctMusclesSetNames : ${trainingWeekAdapter.weekA[0].muscleSetsNames.distinct()}")
             val trainingPlanInfo = TrainingPlanInfo().apply {
                 this.actualWeek = generatedPlanInfo?.actualWeek ?: Week.A
                 if(generatedPlanInfo == null) {
@@ -193,7 +186,6 @@ class PlanCreatorActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBo
             trainingPlanInfo.weekB.forEach {
                 it.muscleSetsNames = it.muscleSetsNames.distinct().toMutableList()
             }
-            intent.putExtra("trainingPlanInfo", trainingPlanInfo)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
@@ -257,18 +249,14 @@ class PlanCreatorActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBo
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Const.ADD_EXERCISE_RESULT) {
             if (resultCode == Activity.RESULT_OK) {
-                Log.i(TAG, "Add exercise result OK")
 
                 val exercise: Exercise = data?.getSerializableExtra("exerciseToAdd") as Exercise
                 val muscleSetName = data.getSerializableExtra("exerciseMuscleSetName") as String
                 val index = data.getIntExtra("lastMuscleSetIndex", 0)
                 viewModel.lastUsedMuscleSetIndex = index
-                Log.i(TAG, "Received from searchActivity lastSelectedMuscleSetIndex : $index")
 
                 when (currentWeek) {
                     0 -> {
-                        Log.i(TAG, "Adding to weekA | clicked day : $clickedDay | data : $exercise")
-
                         trainingWeekAdapter.weekA[clickedDay].apply {
                             exercises.add(exercise)
                             isRestDay = viewModel.weekA[clickedDay].exercises.isNullOrEmpty()
@@ -277,8 +265,6 @@ class PlanCreatorActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBo
                         trainingWeekAdapter.showWeekA()
                     }
                     1 -> {
-                        Log.i(TAG, "Adding to weekB | clicked day : $clickedDay | data : $exercise")
-
                         trainingWeekAdapter.weekB[clickedDay].apply {
                             exercises.add(exercise)
                             isRestDay = viewModel.weekB[clickedDay].exercises.isNullOrEmpty()
@@ -303,7 +289,6 @@ class PlanCreatorActivity : AppCompatActivity(), OnTrainingWeekClick, ExerciseBo
         clickedDay = groupPosition
         val intent = Intent(this, SearchExerciseActivity::class.java)
         intent.putExtra("lastMuscleSetIndex", viewModel.lastUsedMuscleSetIndex)
-        Log.i(TAG, "Sending from viewModel lastSelectedMuscleSetIndex : ${viewModel.lastUsedMuscleSetIndex}")
         startActivityForResult(intent, Const.ADD_EXERCISE_RESULT)
     }
 

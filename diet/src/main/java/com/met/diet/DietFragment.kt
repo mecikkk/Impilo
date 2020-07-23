@@ -51,7 +51,6 @@ class DietFragment : Fragment() {
     private var fullDemand : Demand? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_diet, container, false)
     }
 
@@ -81,20 +80,13 @@ class DietFragment : Fragment() {
             meals_list_view.expandGroup(it.id)
         }
 
-//        viewModel.getAllMealsByDateId(selectedDate.toId())
-//        viewModel.getMyMealsSummary(selectedDate)
-//        Log.e("GET_DEMAND_ONCREATE ", "--------------------------------------------")
-
-
         mealsAdapter.setOnMealClickListener(object : OnMealClickListener {
             override fun onMealClick(groupPosition: Int) {
-                Log.e("MEAL CLICKED", "Meal num : $groupPosition")
                 if (!meals_list_view.isGroupExpanded(groupPosition)) meals_list_view.expandGroup(groupPosition)
                 else meals_list_view.collapseGroup(groupPosition)
             }
 
             override fun onAddProductClick(groupPosition: Int, mealName: String) {
-                Log.e("MEAL NEW PRODUCT", "Meal num : $groupPosition")
                 val intent = Intent(context, SearchActivity::class.java)
                 intent.putExtra(Const.MEAL_ID_REQUEST, groupPosition)
                 intent.putExtra(Const.MEAL_NAME_REQUEST, mealName)
@@ -114,20 +106,17 @@ class DietFragment : Fragment() {
                     true
                 }
                 1 -> {
-                    Log.e(TAG, "Product to delete : $group | $child")
                     val builder = AlertDialog.Builder(context!!).apply {
                         setMessage(getString(com.met.impilo.R.string.want_delete_product))
                         setTitle(getString(com.met.impilo.R.string.delete_product))
                         setPositiveButton(getString(com.met.impilo.R.string.yes)) { _, _ ->
                             loadingDialog.show()
-                            Log.e(TAG, "Deleting product")
                             viewModel.removeMealProduct(selectedDate.toId(), group, child) {
                                 if (it) {
                                     loadingDialog.hide()
                                     ViewUtils.createSnackbar(diet_content, getString(com.met.impilo.R.string.product_delete_success)).show()
                                     viewModel.getAllMealsByDateId(selectedDate.toId())
                                     viewModel.getMyMealsSummary(selectedDate)
-                                    Log.e("GET_DEMAND_REMOVE", "--------------------------------------------")
                                 } else {
                                     loadingDialog.hide()
                                     ViewUtils.createSnackbar(diet_content, getString(com.met.impilo.R.string.product_delete_error)).show()
@@ -157,8 +146,6 @@ class DietFragment : Fragment() {
                 else
                     action_bar_title.text = selectedDate.toStringDate()
 
-                Log.e(TAG, "Selected Date : $selectedDate")
-
                 viewModel.getAllMealsByDateId(selectedDate.toId())
 
                 mealsAdapter.meals.forEach {
@@ -167,7 +154,6 @@ class DietFragment : Fragment() {
 
                 // Update UI
                 viewModel.getMyMealsSummary(selectedDate)
-                Log.e("GET_DEMAND_CALENDAR", "--------------------------------------------")
             }
             dialog.show()
             dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE)
@@ -177,7 +163,6 @@ class DietFragment : Fragment() {
 
 
         val allMealsObserver = Observer<List<Meal>> {
-            Log.e(TAG, "Getting allMeals")
             if (!it.isNullOrEmpty()) {
                 mealsAdapter.meals = it
                 mealsAdapter.notifyDataSetChanged()
@@ -243,13 +228,11 @@ class DietFragment : Fragment() {
                 override fun onAddProduct(foodProduct: FoodProduct, servingSize: Float, servingType: ServingType) {
 
                     viewModel.updateMealProduct(selectedDate.toId(), mealPosition, productPosition, foodProduct, servingType, servingSize) {
-                        Log.e(TAG, "Editing product result : $it")
                         if (it) {
                             productBottomSheet.dismiss()
                             ViewUtils.createSnackbar(diet_content, getString(com.met.impilo.R.string.product_update_success)).show()
                             viewModel.getAllMealsByDateId(selectedDate.toId())
                             viewModel.getMyMealsSummary(selectedDate)
-                            Log.e("GET_DEMAND_ADD", "--------------------------------------------")
                         } else ViewUtils.createSnackbar(diet_content, getString(com.met.impilo.R.string.product_update_error)).show()
                     }
                 }
@@ -293,7 +276,6 @@ class DietFragment : Fragment() {
 
 
     private fun updateProgress() {
-        Log.e(TAG, "Updating progress")
 
         kcal_progress.progress = 0f
         carbohydrates_progress.progress = 0f
@@ -311,15 +293,12 @@ class DietFragment : Fragment() {
         fats_progress.progress = percentageDemand!!.fats.toFloat()
         fats_progress.labelText = StringBuilder("" + mealsSummary.fatsSum.toInt() + " / " + fullDemand?.fats + " g").toString()
 
-        Log.e(TAG, "Calories from viewmodel ${mealsSummary.kcalSum}")
-
     }
 
     override fun onResume() {
         super.onResume()
         selectedDate = Date()
         viewModel.getAllMealsByDateId(selectedDate.toId())
-        Log.e(TAG, "Runned onResume. PercentageDemand : $percentageDemand")
         viewModel.getMyMealsSummary(selectedDate)
         loadingDialog.show()
     }

@@ -1,6 +1,5 @@
 package com.met.impilo.repository
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.*
@@ -23,7 +22,6 @@ class DemandRepository(override val firestore: FirebaseFirestore) : FirebaseRepo
     }
 
     fun setOrUpdateDemand(personalData: PersonalData, bodyMeasurements: BodyMeasurements, success: (Boolean) -> Unit) {
-        Log.i(TAG, "BodyMeasurement : $bodyMeasurements")
         this.bodyMeasurements = bodyMeasurements
 
         getDemand {
@@ -36,10 +34,8 @@ class DemandRepository(override val firestore: FirebaseFirestore) : FirebaseRepo
 
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_DEMAND_COLLECTION).document(Const.REF_DEMAND).set(demand).addOnSuccessListener {
             success(true)
-            Log.i(TAG, "Demand added correctly")
         }.addOnFailureListener {
             success(false)
-            Log.e(TAG, "Demand adding error : " + it.cause + " | " + it.message)
         }
     }
 
@@ -57,15 +53,10 @@ class DemandRepository(override val firestore: FirebaseFirestore) : FirebaseRepo
 
     private fun calculateDemandToPercentages(mealsSummary: MealsSummary): Demand {
 
-        Log.i(TAG, "MyDemand : $demand")
-        Log.i(TAG, "MealSummary : $mealsSummary")
-
         val caloriesPercent = ((mealsSummary.kcalSum.toFloat() / demand.calories.toFloat()) * 100).toInt()
         val carboPercent = (mealsSummary.carbohydratesSum / demand.carbohydares) * 100
         val proteinsPercent = (mealsSummary.proteinsSum / demand.proteins) * 100
         val fatsPercent = (mealsSummary.fatsSum / demand.fats) * 100
-
-        Log.i(TAG, "Calculated demand in percent : $caloriesPercent | $carboPercent | $proteinsPercent | $fatsPercent")
 
         return Demand(caloriesPercent, carboPercent.toInt(), proteinsPercent.toInt(), fatsPercent.toInt())
     }
@@ -96,11 +87,9 @@ class DemandRepository(override val firestore: FirebaseFirestore) : FirebaseRepo
 
         return when (personalData.gender) {
             Gender.MALE -> {
-                //Log.e(TAG, "BMR = (9.99 * ${bodyMeasurements.weight}) + (6.25 * ${bodyMeasurements.height}) - (4.92 * ($actualYear - $birthYear)) + 5)")
                 ((9.99f * bodyMeasurements.weight) + (6.25f * bodyMeasurements.height) - (4.92f * (actualYear - birthYear)) + 5)
             }
             Gender.FEMALE -> {
-                //Log.e(TAG, "BMR = (9.99 * ${bodyMeasurements.weight}) + (6.25 * ${bodyMeasurements.height}) - (4.92 * ($actualYear - $birthYear)) - 161)")
                 ((9.99f * bodyMeasurements.weight) + (6.25f * bodyMeasurements.height) - (4.92f * (actualYear - birthYear)) - 161)
             }
             else -> 0f

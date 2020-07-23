@@ -43,7 +43,6 @@ class WorkoutsFragment : Fragment() {
     private var shouldShowFab = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_workouts, container, false)
     }
 
@@ -92,7 +91,6 @@ class WorkoutsFragment : Fragment() {
         }
 
         nested_scroll_view.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, scrollX, scrollY, _, _ ->
-            Log.i(TAG, "ScrollX : $scrollX | ScrollY : $scrollY")
             if(scrollY > 300)
                 start_workout_fab.shrink()
             else
@@ -108,7 +106,6 @@ class WorkoutsFragment : Fragment() {
         }
 
         viewModel.getRegistrationDate().observe(this, androidx.lifecycle.Observer {
-            Log.i(TAG, "Registration date : year ${it.getIntYear()}, month ${it.getIntMonth()} , day ${it.getIntDay()}")
             workout_date_picker.setFirstVisibleDate(it.getIntYear(), it.getIntMonth() - 1, it.getIntDay())
             registrationDate = it
 
@@ -136,7 +133,6 @@ class WorkoutsFragment : Fragment() {
         })
 
         viewModel.getTrainingDay().observe(this, androidx.lifecycle.Observer {
-            Log.i(TAG, "Clicked trainingDay : $it")
             if (it.isRestDay) {
                 rest_day_layout.visibility = View.VISIBLE
                 workout_day_layout.visibility = View.GONE
@@ -231,8 +227,6 @@ class WorkoutsFragment : Fragment() {
 
         workout_date_picker.setDateLabelAdapter { calendar, _ ->
             val date = calendar.time
-            Log.d(TAG, "completedWorkouts : $completedWorkouts | dateId ${date.toId()}")
-            Log.d(TAG, "!completedWokrouts.contains(date.toId())  : ${completedWorkouts.contains(date.toId())}")
             if (calendar.get(Calendar.MONTH) == registrationDate.getIntMonth() - 1 && calendar.get(Calendar.DAY_OF_MONTH) == registrationDate.getIntDay()) "Registered"
             else if (::trainingSystem.isInitialized && trainingSystem == TrainingSystem.AB) {
                 if(!completedWorkouts.contains(date.toId())) {

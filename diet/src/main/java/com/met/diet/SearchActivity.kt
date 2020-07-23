@@ -72,10 +72,7 @@ class SearchActivity : AppCompatActivity(), SearchActivityAdapter.OnProductClick
                         .withBackfacingCamera()
                         .withCenterTracker(R.drawable.barcode_tracker, R.drawable.barcode_tracker_detected)
                         .withText(getString(com.met.impilo.R.string.scanning)).withResultListener { barcode ->
-                            Log.e(TAG, "Scanned ${barcode.rawValue}")
                             viewModel.getProductByBarcode(barcode.rawValue) {
-                                Log.e(TAG, "Response from firebase ")
-
                                 if(it != null) {
                                     productSheet?.product = it
                                     productSheet?.show(supportFragmentManager, productSheet?.tag)
@@ -101,7 +98,6 @@ class SearchActivity : AppCompatActivity(), SearchActivityAdapter.OnProductClick
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            Log.e("WAtcher", "size : $count")
             progress.visibility = View.VISIBLE
 
             if (s.isNullOrEmpty()) progress.visibility = View.GONE
@@ -131,8 +127,6 @@ class SearchActivity : AppCompatActivity(), SearchActivityAdapter.OnProductClick
     }
 
     override fun onProductClick(foodProduct: FoodProduct) {
-//        productSheet?.dismiss()
-//        productSheet = ProductBottomSheet(isLightMode)
         productSheet?.product = foodProduct
         productSheet?.show(supportFragmentManager, productSheet?.tag)
         productSheet?.product = foodProduct

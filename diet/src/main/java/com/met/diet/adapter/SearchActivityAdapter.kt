@@ -27,7 +27,6 @@ class SearchActivityAdapter(val history  : List<FoodProduct>, private val contex
         historyIc.visibility = View.INVISIBLE
 
         v.setOnClickListener {
-            Log.e("SearchActivityAdapter", "Clicked product : ${productName.text} , ${producerName.text}}")
             callback.onProductClick(productsNamesFiltered[position])
         }
 

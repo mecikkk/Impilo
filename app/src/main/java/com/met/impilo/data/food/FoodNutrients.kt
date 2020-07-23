@@ -11,9 +11,6 @@ data class FoodNutrients(var energyKcal: Int = 0, var energyKJ: Int = 0, var pro
     fun calculatePortion(servingSize: Float, portionSize: Float, servingType: ServingType): FoodNutrients {
         val calculated = FoodNutrients()
 
-        Log.d("MyProductNutrients", "$servingSize $portionSize $servingType")
-
-        Log.d("MyProductNutrients", "Calculating...")
         val size: Double = if (servingType === ServingType.GRAM) servingSize.toDouble() else (servingSize * portionSize).toDouble()
 
         calculated.energyKcal = ((size * energyKcal / 100).toInt())

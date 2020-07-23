@@ -73,7 +73,6 @@ class Login : AppCompatActivity() {
 
                 vModel.isAccountConfigured {
                     if (!it) {
-                        Log.e(TAG, "Start only configuration...")
                         startRegistrationActivity(true)
                     } else {
                         setResult(Activity.RESULT_OK)
@@ -92,7 +91,6 @@ class Login : AppCompatActivity() {
      * false - Uruchamia pełną rejestrację wraz z konfiguracją
      */
     private fun startRegistrationActivity(showOnlyConfiguration: Boolean) {
-        Log.e(TAG, "Starting registrationnn")
         val intent = Intent(applicationContext, Registration::class.java)
         intent.putExtra(Const.ONLY_CONFIGURATION, showOnlyConfiguration)
         startActivity(intent)
@@ -125,7 +123,6 @@ class Login : AppCompatActivity() {
         }
 
         val isGoogleAccountConfiguredObserver = Observer<Boolean> {
-            Log.e(TAG, "isGoogleAccountConfigured : $it")
             loadingDialog.hide()
             if(it) {
                 setResult(Activity.RESULT_OK)
@@ -134,9 +131,7 @@ class Login : AppCompatActivity() {
                 Log.e(TAG, "Google account not configured.")
 
             }
-//            if (!it) {
-//                startRegistrationActivity(true)
-//            } else ViewUtils.createSnackbar(bg, bg.resources.getString(com.met.impilo.R.string.success_login)).show()
+
         }
 
         connectionInformation.isConnected.observe(this, connectionObserver)
@@ -306,14 +301,10 @@ class Login : AppCompatActivity() {
         if (requestCode == Const.RC_GOOGLE_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
                 vModel.signInWithGoogle(account!!)
-                Log.e(TAG, "Google sign was successful!")
             } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
                 Log.e(TAG, "Google sign in failed : ", e)
-                // ...
             }
         }
     }

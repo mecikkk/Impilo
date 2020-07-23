@@ -46,10 +46,6 @@ class ExerciseDetailsAdapter(var exerciseDetails: ExerciseDetails, private val e
 
         when (exerciseType) {
             ExerciseType.WITH_WEIGHT -> {
-                Log.w(TAG, "Weight list : ${exerciseDetails.weight} | isNullOrEmpty : ${exerciseDetails.weight.isNullOrEmpty()}")
-                Log.w(TAG, "ExistDataChecked : $existDataChecked | SetsNumber : ${exerciseDetails.sets}")
-                Log.w(TAG, "Binding position : $position")
-
 
                 if (!existDataChecked) {
                     if (isOneWeightMode) {
@@ -99,7 +95,6 @@ class ExerciseDetailsAdapter(var exerciseDetails: ExerciseDetails, private val e
 
                                     for (x in 1 until exerciseDetails.sets) notifyItemChanged(x)
                                 }
-                                Log.i(TAG, "Entered weight : $firstWeight | text from watcher : ${s.toString()}")
                             }
 
                             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

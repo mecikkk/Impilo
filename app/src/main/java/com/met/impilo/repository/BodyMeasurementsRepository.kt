@@ -1,7 +1,6 @@
 package com.met.impilo.repository
 
 import android.util.Log
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.met.impilo.data.*
@@ -23,10 +22,8 @@ class BodyMeasurementsRepository(override val firestore: FirebaseFirestore) : Fi
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_BODY_MEASUREMENTS)
             .document(date.toId()).set(bodyMeasurements).addOnSuccessListener {
                 success(true)
-                Log.i(TAG, "BodyMeasurement added correctly")
             }.addOnFailureListener {
                 success(false)
-                Log.e(TAG, "BodyMeasurement adding error : " + it.cause + " | " + it.message)
             }
     }
 
@@ -34,15 +31,13 @@ class BodyMeasurementsRepository(override val firestore: FirebaseFirestore) : Fi
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_BODY_MEASUREMENTS).get()
             .addOnSuccessListener { collection ->
                 if(!collection.documents.isNullOrEmpty()){
-                    Log.i(TAG, "Weights found")
                     val list = mutableListOf<Pair<Date, Float>>()
                     collection.documents.forEach {
                         val measurement : BodyMeasurements = it.toObject(BodyMeasurements::class.java)!!
                         list.add(Pair(measurement.measurementDate, measurement.weight))
                     }
                     weights(list.sortedBy { it.first })
-                } else
-                    Log.i(TAG, "Weights not found")
+                }
             }.addOnFailureListener {
                 Log.i(TAG, "Getting weights error : ${it.message}")
             }
@@ -52,7 +47,6 @@ class BodyMeasurementsRepository(override val firestore: FirebaseFirestore) : Fi
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_BODY_MEASUREMENTS).get()
             .addOnSuccessListener { collection ->
                 if(!collection.documents.isNullOrEmpty()){
-                    Log.i(TAG, "Weights found")
                     val allMeasurements = mutableListOf<Pair<Date, List<Float>>>()
                     var list = mutableListOf<Float>()
                     collection.documents.forEach { doc ->
@@ -67,13 +61,11 @@ class BodyMeasurementsRepository(override val firestore: FirebaseFirestore) : Fi
                         list.add(measurement.hips)
                         list.add(measurement.thigh)
                         list.add(measurement.calves)
-                        Log.i(TAG, "list od measurements : $list")
                         allMeasurements.add(Pair(measurement.measurementDate, list))
                         list = mutableListOf()
                     }
                     separatedMeasurements(allMeasurements)
-                } else
-                    Log.i(TAG, "Weights not found")
+                }
             }.addOnFailureListener {
                 Log.i(TAG, "Getting weights error : ${it.message}")
             }
@@ -83,7 +75,6 @@ class BodyMeasurementsRepository(override val firestore: FirebaseFirestore) : Fi
         getLastBodyMeasurement{
             val denominator = (it.height * it.height)/100f
             val result = ((it.weight/denominator)*100f).toBigDecimal().setScale(1, RoundingMode.HALF_EVEN).toFloat()
-            Log.i(TAG, "BMI : ${it.weight} / $denominator")
             bmi(result)
         }
     }
@@ -104,7 +95,6 @@ class BodyMeasurementsRepository(override val firestore: FirebaseFirestore) : Fi
                 val d = (b-c-x)
                 val e = (it.weight * 2.2f)
                 val result = ((d/e) * 100f).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toFloat()
-                Log.i(TAG, "BF : $result")
                 bf(result)
             }
         }
@@ -170,10 +160,8 @@ class BodyMeasurementsRepository(override val firestore: FirebaseFirestore) : Fi
             var mapPosition = -1
 
             for (index in 0..9) {
-                Log.i(TAG, "Check age range <$start ; $end> |  age : $age | index : $index")
                 if (age in start..end) {
                     mapPosition = index
-                    Log.i(TAG, "Age matches !")
                     break
                 } else mapPosition = -1
 
@@ -182,7 +170,6 @@ class BodyMeasurementsRepository(override val firestore: FirebaseFirestore) : Fi
                 else end = 100
             }
 
-            Log.i(TAG, "MapPosition $mapPosition")
             map(values[mapPosition])
         }
     }
@@ -190,9 +177,7 @@ class BodyMeasurementsRepository(override val firestore: FirebaseFirestore) : Fi
     fun getFatLevel(bf : Float, fatLevel: (FatLevel) -> Unit) {
         getBfInformationMap {map ->
                 map.keys.forEach {
-                    Log.i(TAG, "Searching map | bf $bf in ${it.first} .. ${it.second} ")
                     if (bf > it.first && bf <= it.second) {
-                        Log.i(TAG, "Map found ! FatLevel - ${map.getValue(it)}")
                         fatLevel(map.getValue(it))
                     }
                 }
@@ -265,10 +250,6 @@ class BodyMeasurementsRepository(override val firestore: FirebaseFirestore) : Fi
         val offset = ((percent*difference)/100)
 
         val seekValue = start + offset
-//
-//        Log.i(TAG, "start : $start | end : $end")
-//        Log.i(TAG, "difference : $difference | percent : $percent")
-//        Log.i(TAG, "offset : $offset | result : $seekValue")
 
         return seekValue
     }

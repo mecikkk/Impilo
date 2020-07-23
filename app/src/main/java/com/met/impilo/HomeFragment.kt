@@ -54,13 +54,11 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "ON CREATE")
 
         chart = view.findViewById(R.id.chart_weight_progress)
 
@@ -125,7 +123,6 @@ class HomeFragment : Fragment() {
         })
 
         viewModel.getTrainingDay().observe(this, Observer { trainingDay ->
-            Log.d(TAG, "REST DAY : ${trainingDay.isRestDay}")
             if (trainingDay.isRestDay) {
                 training_day_layout.visibility = View.GONE
                 rest_day_layout.visibility = View.VISIBLE
@@ -219,10 +216,8 @@ class HomeFragment : Fragment() {
         val min = viewModel.getMinWeight(weights)
 
         chart.setMaxValue(max - min + 0.2f)
-        Log.i(TAG, "MAX : $max | MIN : $min | BAR_MAX : ${(max - min + 0.2f)}")
         weights.forEach {
             val chartValue = it.second - min + 0.1f
-            Log.i(TAG, "ACTUAL : ${it.second} | BAR_VALUE : $chartValue")
             data.add(BarData("${it.first.getIntDay()} ${months[it.first.getIntMonth() - 1].toUpperCase()}", chartValue, "${it.second} kg"))
         }
 
@@ -261,7 +256,6 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "ON RESUME")
         viewModel.fetchDemand()
     }
 
@@ -289,8 +283,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateProgress() {
-        Log.e(TAG, "Demand : $demand")
-        Log.e(TAG, "MealSummary : $mealsSummary")
         val caloriesPercent: Int = ((mealsSummary.kcalSum.toFloat() / demand.calories.toFloat()) * 100).toInt()
         val carboPercent = (mealsSummary.carbohydratesSum / demand.carbohydares) * 100
         val proteinsPercent = (mealsSummary.proteinsSum / demand.proteins) * 100

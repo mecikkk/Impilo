@@ -210,9 +210,7 @@ class ProductBottomSheet(val isLightMode: Boolean) : BottomSheetDialogFragment()
             if (s.toString().isNotEmpty()) {
                 servingSize = s.toString().toFloat()
                 updateNutrientsInfo(view)
-                Log.e(TAG, "Typed : $s")
             }
-            Log.e(TAG, "After changed $s")
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

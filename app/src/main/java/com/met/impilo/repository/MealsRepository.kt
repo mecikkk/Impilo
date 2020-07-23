@@ -24,10 +24,6 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
         fun newInstance(firestore: FirebaseFirestore) = MealsRepository(firestore)
 
     }
-//
-//    init {
-//        resetUid()
-//    }
 
     fun getMealsByDateId(dateId: String, allMeals: (List<Meal>?) -> Unit) {
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_MEALS).document(dateId).collection(Const.REF_MEALS).get()
@@ -39,7 +35,6 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
                 allMeals(meals)
             }.addOnFailureListener {
                 Log.e(TAG, "Getting meals by date error : ${it.cause} | ${it.message}")
-                Log.e(TAG, "${it.printStackTrace()}")
                 allMeals(null)
             }
     }
@@ -48,7 +43,6 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
         firestore.collection(Const.REF_USER_DATA).document(FirebaseAuth.getInstance().uid!!).collection(Const.REF_ALL_MEALS).document(Const.REF_USER_MEAL_SET)
             .set(mealSet).addOnSuccessListener {
                 success(true)
-                Log.i(TAG, "MealSet added/updated correctly")
             }.addOnFailureListener {
                 success(false)
                 Log.e(TAG, "MealSet adding error : " + it.cause + " | " + it.message)
@@ -59,7 +53,6 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
         firestore.collection(Const.REF_USER_DATA).document(FirebaseAuth.getInstance().uid!!).collection(Const.REF_ALL_MEALS).document(dateId)
             .collection(Const.REF_MEALS).document(mealId).set(meal).addOnSuccessListener {
                 success(true)
-                Log.i(TAG, "Meal info added/updated correctly")
             }.addOnFailureListener {
                 success(false)
                 Log.e(TAG, "Adding meal info error : " + it.cause + " | " + it.message)
@@ -70,7 +63,6 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
         firestore.collection(Const.REF_USER_DATA).document(FirebaseAuth.getInstance().uid!!).collection(Const.REF_ALL_MEALS).document(dateId).set(mealsSummary)
             .addOnSuccessListener {
                 success(true)
-                Log.i(TAG, "Meals summary added/updated correctly")
             }.addOnFailureListener {
                 success(false)
                 Log.e(TAG, "Adding meals summary info error : " + it.cause + " | " + it.message)
@@ -83,7 +75,6 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
                 if (it != null) meal(it.toObject(Meal::class.java))
                 else {
                     meal(null)
-                    Log.e(TAG, "Meal with id : $mealId in day : $dateId not found")
                 }
             }.addOnFailureListener {
                 meal(null)
@@ -101,8 +92,6 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
 
         getMealByIdAndDateId(mealId.toString(), dateId) { mealResult ->
             if (mealResult != null) {
-                Log.i(TAG, "Meal exist")
-                Log.i(TAG, "SingleMealSummary before add product : $mealResult")
                 mealResult.apply {
                     kcalSum += mealProduct.kcalSum
                     carbohydratesSum += mealProduct.carbohydratesSum
@@ -110,7 +99,6 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
                     fatsSum += mealProduct.fatsSum
                     mealProducts.add(mealProduct)
                 }
-                Log.i(TAG, "SingleMealSummary after add product : $mealResult")
                 setOrUpdateMeal(mealId.toString(), dateId, mealResult) { mealUpdateSuccess ->
                     if (mealUpdateSuccess) {
                         updateMealsSummary(dateId, mealProduct, Operation.ADD) {
@@ -119,7 +107,6 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
                     }
                 }
             } else {
-                Log.i(TAG, "Creating new meal")
                 getUserMealSet { mealSet ->
 
                     Log.e(TAG, mealSet.toString())
@@ -136,7 +123,6 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
                             updateMealsSummary(dateId, mealProduct, Operation.ADD) {}
                         } else meal = Meal(id = i, name = names!![i])
 
-                        Log.i(TAG, "Adding meal $i : ${names!![i]}")
                         batch.set(getMealsCollectionReference(dateId).document(i.toString()), meal)
 
                     }
@@ -156,9 +142,7 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
         val meal: Meal = allMeals[mealId]
         val mealProducts: MutableList<MealProduct> = allMeals[mealId].mealProducts
         val deletingProduct = mealProducts[productPosition]
-        Log.i(TAG, "Actual products : $mealProducts")
         mealProducts.removeAt(productPosition)
-        Log.i(TAG, "After delete : $mealProducts")
 
         meal.apply {
             kcalSum -= deletingProduct.kcalSum
@@ -218,13 +202,11 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
         mealProducts[productPosition] = editingProduct
 
         updateAllMealProducts(dateId, mealId.toString(), mealProducts) { productsUpdateSuccess ->
-            Log.i(TAG, "Updating meal product result : $productsUpdateSuccess")
 
             if (productsUpdateSuccess) {
 
                 allMeals[mealId].mealProducts = mealProducts
                 setOrUpdateMeal(mealId.toString(), dateId, meal) { mealUpdateSuccess ->
-                    Log.i(TAG, "Updating meal result : $mealUpdateSuccess")
 
                     if (mealUpdateSuccess) {
                         editingProduct.apply {
@@ -255,7 +237,6 @@ class MealsRepository(override val firestore: FirebaseFirestore) : FirebaseRepos
         firestore.collection(Const.REF_USER_DATA).document(FirebaseAuth.getInstance().uid!!).collection(Const.REF_ALL_MEALS).document(dateId)
             .collection(Const.REF_MEALS).document(mealId).update("mealProducts", mealProducts).addOnSuccessListener {
                 success(true)
-                Log.i(TAG, "Meal products updated updated correctly")
             }.addOnFailureListener {
                 success(false)
                 Log.e(TAG, "Meal products update error : " + it.cause + " | " + it.message)

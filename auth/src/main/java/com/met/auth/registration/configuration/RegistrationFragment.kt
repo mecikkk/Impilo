@@ -89,8 +89,6 @@ class RegistrationFragment : BaseFragment() {
         val invalidPassword = (Utils.isEditTextEmpty(password_textfield, password_input_layout, resources.getString(com.met.impilo.R.string.field_required)) ||
                 !Utils.isPasswordLengthValid(password_textfield.length(), password_input_layout, resources.getString(com.met.impilo.R.string.password_length_error)))
 
-        Log.e(TAG, "birth/name/email/pass : $invalidBirthDate/$invalidEmail/$invalidPassword")
-
         return !invalidBirthDate && !invalidEmail && !invalidPassword
     }
 

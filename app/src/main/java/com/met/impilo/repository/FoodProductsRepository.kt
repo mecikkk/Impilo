@@ -23,8 +23,6 @@ class FoodProductsRepository(override val firestore: FirebaseFirestore) : Fireba
                     val p = it.toObject(FoodProduct::class.java)
                     p.id = it.id
                     products.add(p)
-                    //list.add(ProductSearchItem(it.id, it.getString("name")!!, it.getString("producer")!!))
-                    Log.i(TAG, "Substring : $query | FOUND : ${it.getString("name")}")
                 }
                 result(products)
             }.addOnFailureListener {

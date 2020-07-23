@@ -55,10 +55,8 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
     fun getExercises(exerciseReference: String, exercises: (List<Exercise>) -> Unit) {
         val result = mutableListOf<Exercise>()
         firestore.collection(Const.REF_EXERCISES).document(Const.REF_GYM_EXERCISES).collection(exerciseReference).get().addOnSuccessListener { collection ->
-            Log.i(TAG, "Getting exercises for : $exerciseReference")
             collection.documents.forEach {
                 result.add(it.toObject(Exercise::class.java)!!)
-                Log.i(TAG, "Found : ${it["name"]}")
             }
             exercises(result)
         }.addOnFailureListener {
@@ -70,7 +68,6 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
         for (x in 0..6) {
             firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_TRAININGS).document(Const.REF_TRAINING_PLAN_INFO).collection(Const.REF_WEEK_A)
                 .document(weekDaysMap[x]!!).set(trainingPlanInfo.weekA[x]).addOnSuccessListener {
-                    Log.i(TAG, "Week A TrainingDay $x added successful")
                     success(x)
                 }.addOnFailureListener {
                     Log.i(TAG, "Week A TrainingDay $x adding error : ${it.message}")
@@ -83,7 +80,6 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
         for (x in 0..6) {
             firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_TRAININGS).document(Const.REF_TRAINING_PLAN_INFO).collection(Const.REF_WEEK_B)
                 .document(weekDaysMap[x]!!).set(trainingPlanInfo.weekB[x]).addOnSuccessListener {
-                    Log.i(TAG, "Week B TrainingDay $x added successful")
                     success(x)
                 }.addOnFailureListener {
                     Log.i(TAG, "Week B TrainingDay $x adding error : ${it.message}")
@@ -97,7 +93,6 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
         trainingPlanInfo.weekB.clear()
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_TRAININGS).document(Const.REF_TRAINING_PLAN_INFO).set(trainingPlanInfo)
             .addOnSuccessListener {
-                Log.i(TAG, "Training Info added successful")
                 success(true)
             }.addOnFailureListener {
                 Log.i(TAG, "Training Info adding error : ${it.message}")
@@ -126,10 +121,8 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
             .document(weekDaysMap[weekDay]!!).get().addOnSuccessListener {
                 if (it.exists()) {
                     val day = it.toObject(TrainingDay::class.java)
-                    Log.i(TAG, "TrainingDay by date founded : $day")
                     trainingDay(day!!)
                 } else {
-                    Log.i(TAG, "TrainingDay by date not found")
                     trainingDay(null)
                 }
             }.addOnFailureListener {
@@ -142,16 +135,13 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
         val currentWeekReference = if (currentWeek == Week.A) Const.REF_WEEK_A
         else Const.REF_WEEK_B
 
-        Log.d(TAG, "getTrainingDayScheme week : $currentWeekReference")
 
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_TRAININGS).document(Const.REF_TRAINING_PLAN_INFO).collection(currentWeekReference)
             .document(weekDaysMap[dayOfWeek]!!).get().addOnSuccessListener {
                 if (it.exists()) {
                     val day = it.toObject(TrainingDay::class.java)
-                    Log.i(TAG, "TrainingDay from scheme founded : $day")
                     trainingDay(day!!)
                 } else {
-                    Log.i(TAG, "TrainingDay from scheme not found")
                     trainingDay(null)
                 }
             }.addOnFailureListener {
@@ -163,9 +153,8 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
     fun getTrainingPlanSystem(trainingSystem: (TrainingSystem) -> Unit) {
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_TRAININGS).document(Const.REF_TRAINING_PLAN_INFO).get().addOnSuccessListener {
             if (it.exists()) {
-                Log.i(TAG, "Current Training System : ${it["trainingSystem"]}")
                 trainingSystem(it["trainingSystem"]!! as TrainingSystem)
-            } else Log.i(TAG, "Current Training System not found")
+            }
         }.addOnFailureListener {
             Log.e(TAG, "Getting current training system error : ${it.message}")
         }
@@ -174,7 +163,6 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
     fun getTrainingPlanInfoByDateOrScheme(dateId: String, trainingPlanInfo: (TrainingPlanInfo) -> Unit) {
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_TRAININGS).document(dateId).get().addOnSuccessListener { doc ->
             if (doc.exists()) {
-                Log.i(TAG, "Received TrainingPlanInfo by date : $doc")
                 trainingPlanInfo(doc.toObject(TrainingPlanInfo::class.java)!!)
             } else {
                 getTrainingPlanInfo {
@@ -189,9 +177,8 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
     fun getTrainingPlanInfo(trainingPlanInfo: (TrainingPlanInfo) -> Unit) {
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_TRAININGS).document(Const.REF_TRAINING_PLAN_INFO).get().addOnSuccessListener {
             if (it.exists()) {
-                Log.i(TAG, "Received TrainingPlanInfo from scheme : $it")
                 trainingPlanInfo(it.toObject(TrainingPlanInfo::class.java)!!)
-            } else Log.i(TAG, "TrainingPlanInfo in scheme not found")
+            }
         }.addOnFailureListener {
             Log.e(TAG, "Getting trainingPlanInfo scheme error : ${it.message}")
         }
@@ -199,7 +186,6 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
 
     fun addTrainingDone(dateId: String, trainingPlanInfo: TrainingPlanInfo, trainingDay: TrainingDay, success: (Boolean) -> Unit) {
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_TRAININGS).document(dateId).set(trainingPlanInfo).addOnSuccessListener {
-            Log.i(TAG, "Training info added successfully")
             addTrainingDay(dateId, trainingDay) {
                 success(it)
             }
@@ -213,7 +199,6 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
 
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_TRAININGS).document(dateId).collection(Const.REF_TRAINING_DAY)
             .document(weekDaysMap[trainingDay.id]!!).set(trainingDay).addOnSuccessListener {
-                Log.i(TAG, "Training day added successfully")
                 success(true)
             }.addOnFailureListener {
                 Log.i(TAG, "Adding training day error : ${it.message}")
@@ -226,15 +211,12 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
 //        resetUid()
         firestore.collection(Const.REF_USER_DATA).document(uid).collection(Const.REF_ALL_TRAININGS).get().addOnSuccessListener { collection ->
             if (!collection.documents.isNullOrEmpty()) {
-                Log.i(TAG, "Founded completed workouts")
                 val list = mutableListOf<String>()
                 collection.documents.forEach {
                     Log.i(TAG, "Training date : ${it.id}")
                     list.add(it.id)
                 }
                 datesIds(list)
-            } else {
-                Log.i(TAG, "No completed workouts found")
             }
         }.addOnFailureListener {
             Log.i(TAG, "Getting dates of all completed workouts error : ${it.message}")
@@ -442,25 +424,16 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
         var x = 1
         lastDayNumber = daysQuantity - 1
 
-        Log.i(TAG, "PRZED PETLA OGOLNA")
 
         for (i in 0 until daysQuantity) {
             successDays.add(false)
-            Log.i(TAG, "START PETLI OGOLNEJ")
             firestore.collection(Const.REF_EXERCISES).document(planRef).collection("${i + 1}").get().addOnSuccessListener { allExercises ->
-                Log.i(TAG, "firebase START POBIERANIA DNIA $i Z PLANU $planRef")
 
                 if (!allExercises.documents.isNullOrEmpty()) {
-                    Log.i(TAG, "DOOOOOCCCUUUMMEEENNNTT")
                     getAllDayMusclesSetExercises(i, allExercises, homeEqOrGym) { s ->
                         if (s) {
-                            Log.d(TAG, "x == daysQuantity | $x == $daysQuantity")
-
-                            Log.i(TAG, "SUCCES DAY $i")
                             successDays[x - 1] = true
-
                             if (!successDays.contains(false)) success(s)
-
                             x++
                         }
                     }
@@ -475,7 +448,6 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
         val allExercisesSuccess = mutableListOf<Boolean>()
 
         for (x in 0 until allExercises.documents.size) {
-            Log.i(TAG, "GETTING EXERCISES FROM $day DAY")
             allExercisesSuccess.add(false)
             // Firebase have problem with cast NUMBER to type Int, Long, Decimal, Float... Solved by cast field -> Any -> String -> Int
             val collectionNumbers: Any? = allExercises.documents[x]["collectionSize"]
@@ -498,13 +470,11 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
         var x = 1
         var allCollumnsSuccess = mutableListOf<Boolean>()
         for (j in 1..allColl) {
-            Log.i(TAG, "GETTING DAY $day MUSCLES SET EXERCISES : $j")
             allCollumnsSuccess.add(false)
             exerciseSet.collection("$j").get().addOnSuccessListener { allVariants ->
 
                 getAllExercisesVariant(day, allVariants, variant) {
                     if (it) {
-                        Log.d(TAG, "day $day lastday : $lastDayNumber x == allColl | $x == $allColl")
                         allCollumnsSuccess[x - 1] = true
                         if (!allCollumnsSuccess.contains(false)) success(true)
                         x++
@@ -516,8 +486,6 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
     }
 
     private fun getAllExercisesVariant(day: Int, collectionReference: QuerySnapshot, variant: Int, success: (Boolean) -> Unit) {
-
-        Log.d(TAG, "VARIANT $variant  searching ")
 
         var parent: Int
         var ratio: Float
@@ -547,7 +515,6 @@ class WorkoutsRepository(override val firestore: FirebaseFirestore) : FirebaseRe
         ref.get().addOnSuccessListener {
             if (it.exists()) {
                 val exercise = it.toObject(Exercise::class.java) as Exercise
-                Log.w(TAG, "Day $day Exercise (variant $variant) : ${exercise.name}")
                 exercise.parent = parent
                 exercise.ratio = ratio
                 planGeneratorTrainingDays[day].exercises.add(exercise)

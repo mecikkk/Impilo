@@ -50,7 +50,6 @@ class DietFragmentViewModel : ViewModel() {
         demandRepository.getDemandInPercentages(date) {
             percentageDemand.value = it
         }
-        Log.e(TAG, "Percentage demand : ${percentageDemand.value}")
     }
 
     fun getMyMealsSummary(date: Date) {
@@ -66,10 +65,8 @@ class DietFragmentViewModel : ViewModel() {
 
 
     fun getAllMealsByDateId(dateId: String) {
-        Log.e(TAG, "Getting meals started")
         mealsRepository.getMealsByDateId(dateId) {
             allMeals.value = it
-            Log.e(TAG, "Founded meals data : $it")
         }
     }
 
@@ -84,7 +81,6 @@ class DietFragmentViewModel : ViewModel() {
     fun getMealsSetFromSharedPreferences(sp: SharedPreferences): List<Meal> {
         val set = sp.getString(Const.REF_USER_MEAL_SET, "")
         val mealNamesList = set?.split(";")!!.toMutableList()
-        Log.e("DIET", "SharedPref set : $set")
 
         val mealList = mutableListOf<Meal>()
         var i = 0
@@ -112,7 +108,6 @@ class DietFragmentViewModel : ViewModel() {
     fun getUserMealSet() {
         mealsRepository.getUserMealSet {
             userMealSet.value = it
-            Log.e(TAG, "Founded user meal set : $it")
         }
     }
 

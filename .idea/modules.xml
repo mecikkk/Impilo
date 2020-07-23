@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IMPILO_TMP-Impilo.iml" filepath="$PROJECT_DIR$/.idea/modules/IMPILO_TMP-Impilo.iml" group="Impilo" />
       <module fileurl="file://$PROJECT_DIR$/Impilo.iml" filepath="$PROJECT_DIR$/Impilo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Impilo-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Impilo-app.iml" group="Impilo/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth/Impilo-auth.iml" filepath="$PROJECT_DIR$/.idea/modules/auth/Impilo-auth.iml" group="Impilo/auth" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/diet/Impilo-diet.iml" filepath="$PROJECT_DIR$/.idea/modules/diet/Impilo-diet.iml" group="Impilo/diet" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/workout/Impilo-workout.iml" filepath="$PROJECT_DIR$/.idea/modules/workout/Impilo-workout.iml" group="Impilo/workout" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/auth/auth.iml" filepath="$PROJECT_DIR$/auth/auth.iml" />
       <module fileurl="file://$PROJECT_DIR$/diet/diet.iml" filepath="$PROJECT_DIR$/diet/diet.iml" />

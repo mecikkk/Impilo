@@ -56,7 +56,6 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profil, container, false)
     }
 
@@ -78,7 +77,6 @@ class ProfileFragment : Fragment() {
                     viewModel.signOut()
                 }
                 setNegativeButton(getString(R.string.cancel)) { _, _ ->
-                    Log.e(TAG, "SingOut canceled")
                 }
             }
             val dialog = builder.create()
@@ -199,7 +197,6 @@ class ProfileFragment : Fragment() {
 
         bf_seekbar.onProgressChangedListener = object : BubbleSeekBar.OnProgressChangedListener {
             override fun onProgressChanged(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
-                Log.i(TAG, "Slide : $progressFloat")
                 val color: Int = when {
                     progressFloat <= 2f -> {
                         ContextCompat.getColor(context!!, R.color.proteinsColor)
@@ -232,7 +229,6 @@ class ProfileFragment : Fragment() {
             setMessage(StringBuilder(getString(R.string.change_goal_message) + "$changeGoalName ?"))
             setTitle(getString(R.string.change_goal))
             setPositiveButton(getString(R.string.yes)) { _, _ ->
-                Log.i(TAG, "Changing goal to $changeGoalName")
                 viewModel.changeGoal(changeGoalProposition) {
                     if (it) {
                         ViewUtils.createSnackbar(content, getString(R.string.change_goal_succes)).show()
@@ -270,10 +266,8 @@ class ProfileFragment : Fragment() {
         val min = viewModel.getMinWeight(weights)
 
         chart_weight_progress.setMaxValue(max - min + 0.2f)
-        Log.i(TAG, "MAX : $max | MIN : $min | BAR_MAX : ${(max - min + 0.2f)}")
         weights.forEach {
             val chartValue = it.second - min + 0.1f
-            Log.i(TAG, "ACTUAL : ${it.second} | BAR_VALUE : $chartValue")
             data.add(BarData("${it.first.getIntDay()} ${months[it.first.getIntMonth() - 1].toUpperCase()}", chartValue, "${it.second} kg"))
         }
 

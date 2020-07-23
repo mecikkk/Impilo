@@ -39,7 +39,6 @@ class SearchExerciseAdapter(private val context: Context) : BaseAdapter(), Filte
         musclesName.text = mainMuscles
 
         v.setOnClickListener {
-            Log.e("SearchActivityAdapter", "Clicked product : ${exerciseName.text} | ${musclesName.text}}")
             callback.onExerciseClick(exercisesFiltered[position])
         }
 
@@ -85,21 +84,16 @@ class SearchExerciseAdapter(private val context: Context) : BaseAdapter(), Filte
                 val results = FilterResults() // Holds the results of a filtering operation in values
                 val filteredArrList: MutableList<Exercise> = mutableListOf()
 
-                Log.d("SearchAdapterFilter", "CharSequence : $constraint")
 
                 if (constraint == null || constraint.isEmpty()) { // set the Original result to return
                     results.count = exercisesOrigin.size
                     results.values = exercisesOrigin
-                    Log.d("SearchAdapterFilter", "CharSequence is empty, showing original data")
                 } else {
                     constraint = constraint.toString().toLowerCase()
-                    Log.d("SearchAdapterFilter", "CharSequenceLowerCase $constraint")
 
                     for (i in exercisesOrigin.indices) {
-                        Log.d("SearchAdapterFilter", "Index $i : of : ${exercisesOrigin.indices}")
                         val data: String = exercisesOrigin[i].name
                         if (data.toLowerCase().contains(constraint.toString())) {
-                            Log.d("SearchAdapterFilter", "Data in lowercase : ${data.toLowerCase()}  | constraint : ${constraint}")
                             filteredArrList.add(exercisesOrigin[i])
                         }
                     }

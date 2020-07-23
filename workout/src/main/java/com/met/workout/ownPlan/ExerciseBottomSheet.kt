@@ -36,8 +36,6 @@ class ExerciseBottomSheet(private val gender: Gender, private val weight: Float,
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheet: BottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
 
-        Log.d(TAG, "ExerciseBottomSheet : ${exercise.hashCode()}")
-
         bottomSheetView = View.inflate(context, R.layout.exercise_bottom_sheet, null)
 
         bottomSheet.setContentView(bottomSheetView)
@@ -64,20 +62,15 @@ class ExerciseBottomSheet(private val gender: Gender, private val weight: Float,
 
         bottomSheet.add_exercise_toolbar_button.setOnClickListener {
 
-            Log.i(TAG, "Exercise details to edit: ${exercise.details}")
-
             if (exercise.exerciseType == ExerciseType.WITH_WEIGHT) {
                 for (x in (exercise.details.reps.size - 1) downTo exercise.details.sets) {
-                    Log.i(TAG, "Removing reps at : $x")
                     if ((exercise.details.reps.size - 1) <= x) exercise.details.reps.removeAt(x)
                 }
 
                 for (x in (exercise.details.weight.size - 1) downTo exercise.details.sets) {
-                    Log.i(TAG, "Removing weight at : $x")
                     if ((exercise.details.weight.size - 1) <= x) exercise.details.weight.removeAt(x)
                 }
             }
-            Log.i(TAG, "Exercise details after ${exercise.details}")
             try {
                 callback.onExerciseAdd(exercise)
                 dismiss()

@@ -21,7 +21,6 @@ class PersonalDataRepository(override val firestore: FirebaseFirestore) : Fireba
     fun setOrUpdatePersonalData(personalData: PersonalData, success: (Boolean) -> Unit) {
         firestore.collection(Const.REF_USER_DATA).document(personalData.uid).set(personalData).addOnSuccessListener {
             success(true)
-            Log.i(TAG, "PersonalData added correctly")
         }.addOnFailureListener {
             success(false)
             Log.e(TAG, "PersonalData adding error : " + it.cause + " | " + it.message)
@@ -31,7 +30,6 @@ class PersonalDataRepository(override val firestore: FirebaseFirestore) : Fireba
     fun updateGoal(goal: Goal, success: (Boolean) -> Unit){
         firestore.collection(Const.REF_USER_DATA).document(uid).update("goal", goal).addOnSuccessListener {
             success(true)
-            Log.i(TAG, "Goal updated correctly")
         }.addOnFailureListener {
             success(false)
             Log.e(TAG, "Goal update error : " + it.cause + " | " + it.message)
@@ -66,7 +64,6 @@ class PersonalDataRepository(override val firestore: FirebaseFirestore) : Fireba
     fun setConfigurationCompleted(success: (Boolean) -> Unit) {
 
         firestore.collection(Const.REF_USER_DATA).document(FirebaseAuth.getInstance().uid!!).update("baseConfigurationCompleted", true).addOnSuccessListener {
-            Log.i(TAG, "ConfigurationFinished  = true")
             success(true)
         }.addOnFailureListener {
             Log.e(TAG, "ConfigurationFinished update error : " + it.cause + " | " + it.message)

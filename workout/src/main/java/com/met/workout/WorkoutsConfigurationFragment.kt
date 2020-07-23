@@ -37,7 +37,6 @@ class WorkoutsConfigurationFragment : WorkoutBaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_workouts_configuration, container, false)
     }
 
@@ -62,10 +61,8 @@ class WorkoutsConfigurationFragment : WorkoutBaseFragment() {
                 setMessage(StringBuilder(getString(com.met.impilo.R.string.change_goal_message) + "$changeGoalName ?"))
                 setTitle(getString(com.met.impilo.R.string.change_goal))
                 setPositiveButton(getString(com.met.impilo.R.string.yes)) { _, _ ->
-                    Log.i(TAG, "Changing goal to $changeGoalName")
                     viewModel.changeGoal(changeGoalProposition){
                         if(it){
- //                           ViewUtils.createSnackbar(content_layout, getString(com.met.impilo.R.string.change_goal_succes)).show()
                             viewModel.fetchBF()
                         }
 
@@ -194,15 +191,11 @@ class WorkoutsConfigurationFragment : WorkoutBaseFragment() {
                     Activity.RESULT_OK -> {
                         val trainingPlanInfo = data?.getSerializableExtra("trainingPlanInfo") as TrainingPlanInfo
 
-                        Log.d(TAG, "Received planInfo : $trainingPlanInfo")
-
                         viewModel.addAllTrainingDays(trainingPlanInfo){
                             if(it == 6)
                                 viewModel.addTrainingPlanInfo(trainingPlanInfo){
                                     try {
                                         onEndOfConfigurationListener.onEndOfConfiguration()
-                                        Log.e(TAG, "Ending config - start listener")
-
                                     } catch (e : Exception){
                                         Log.e(TAG, "Interface OnEndOfConfigurationListener must be initialized !")
                                     }
@@ -216,8 +209,6 @@ class WorkoutsConfigurationFragment : WorkoutBaseFragment() {
                     Activity.RESULT_OK -> {
                         try {
                             onEndOfConfigurationListener.onEndOfConfiguration()
-                            Log.e(TAG, "Ending config - start listener")
-
                         } catch (e : Exception){
                             Log.e(TAG, "Interface OnEndOfConfigurationListener must be initialized !")
                         }

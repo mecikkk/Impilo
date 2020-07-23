@@ -19,14 +19,12 @@ class ConnectionInformation : ViewModel() {
 
     @Suppress("DEPRECATION")
     fun connectionReceiver(connectivityManager: ConnectivityManager) : BroadcastReceiver {
-        Log.e(TAG,"Checking connection")
 
         return object : BroadcastReceiver() {
             @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
             override fun onReceive(context: Context?, intent: Intent?) {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    Log.e(TAG,"Android version >= M")
                     if(connectivityManager.activeNetwork != null) {
                         val nc = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
                         isConnected.value = nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
@@ -36,7 +34,6 @@ class ConnectionInformation : ViewModel() {
                     } else
                         isConnected.value = false
                 } else {
-                    Log.e(TAG,"Android version < M")
                     val networkInfo = connectivityManager.activeNetworkInfo
                     isConnected.value = networkInfo?.isConnectedOrConnecting ?: false
                 }

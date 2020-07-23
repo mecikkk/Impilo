@@ -22,7 +22,6 @@ object MarkMuscles {
 
         exercise.mainMuscle.forEach { musclesSet ->
             musclesSet.muscles.forEach {
-                Log.i("MarkMuscle", "Marking main muscles : $it")
                 try {
                     changePathColor(vector, it, context.resources.getColor(R.color.colorAccent))
                 }catch (e : IllegalStateException){
@@ -33,7 +32,6 @@ object MarkMuscles {
 
         exercise.supportMuscles?.forEach { musclesSet ->
             musclesSet.muscles.forEach {
-                Log.i("MarkMuscle", "Marking main muscles : $it")
                 try {
                     changePathColor(vector, it, context.resources.getColor(R.color.supportMusclesColor))
                 } catch (e : IllegalStateException){
@@ -51,7 +49,6 @@ object MarkMuscles {
 
             exercise.supportMuscles?.forEach { musclesSet ->
                 musclesSet.muscles.forEach {
-                    Log.d("MarkMuscles", "Marking support: $it")
                     try {
                         changePathColor(vector, it, context.resources.getColor(R.color.supportMusclesColor))
                     } catch (e : IllegalStateException){
@@ -65,7 +62,6 @@ object MarkMuscles {
 
             exercise.mainMuscle.forEach { musclesSet ->
                 musclesSet.muscles.forEach {
-                    Log.d("MarkMuscles", "Marking main: $it")
                     try {
                         changePathColor(vector, it, context.resources.getColor(R.color.colorAccent))
                     }catch (e : IllegalStateException){
@@ -86,7 +82,6 @@ object MarkMuscles {
 
             exercise.mainMuscle.forEach { musclesSet ->
                 musclesSet.muscles.forEach {
-                    Log.d("MarkMuscles", "Marking main: $it")
                     try {
                         changePathColor(vector, it, context.resources.getColor(R.color.colorAccent))
                     }catch (e : IllegalStateException){

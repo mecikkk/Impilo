@@ -31,17 +31,6 @@ class PlanGeneratorViewModel : ViewModel() {
         }
     }
 
-    private fun printPlan(plan: GeneratedPlan) {
-        plan.trainingDays.forEach { trainingDay ->
-            Log.w(TAG, "DAY ${trainingDay.id}")
-
-            trainingDay.exercises.forEach {
-                Log.d(TAG, "Exercises : $it")
-
-            }
-        }
-    }
-
     fun addAllTrainingDays(trainingPlanInfo: TrainingPlanInfo, success: (Int) -> Unit){
         workoutRepository.addWeekATrainingDaysScheme(trainingPlanInfo){ successA ->
             if (trainingPlanInfo.trainingSystem == TrainingSystem.AB)

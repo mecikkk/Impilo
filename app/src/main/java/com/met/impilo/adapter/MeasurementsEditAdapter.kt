@@ -118,10 +118,8 @@ class MeasurementsEditAdapter(val context : Context, var separatedMeasurements :
 
         holder.setChartMaxValue(max - min + 0.2f)
 
-        Log.i(TAG, "MAX : $max | MIN : $min | BAR_MAX : ${(max - min + 0.2f)}")
         separatedMeasurements.forEach {
             val chartValue = it.second[position] - min + 0.1f
-            Log.i(TAG, "ACTUAL : ${it.second} | BAR_VALUE : $chartValue")
             if(holder.adapterPosition == 0)
                 data.add(BarData("${it.first.getIntDay()} ${months[it.first.getIntMonth() - 1].toUpperCase()}", chartValue, "${it.second[position]} kg"))
             else
